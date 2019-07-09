@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+Pierwsze odpalenie:
+-pull project
+-gem install bundler
+-bundle install
+
