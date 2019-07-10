@@ -7,7 +7,7 @@ class NotificationList extends React.Component {
             <>
                 <div className='container'>
                     <div className='row'>
-                        <div className='col-md-6'>
+                        <div className='col-6'>
                             <ul className='list-group'>
                                 <li className='list-group-item'>Awaria 1</li>
                                 <li className='list-group-item'>Awaria 2</li>
@@ -17,7 +17,7 @@ class NotificationList extends React.Component {
                             </ul>
                         </div>
                             
-                        <div className='col-md-6'>
+                        <div className='col-6'>
                             <ul className='list-group'>
                                 <li className='list-group-item'>Zapotrzebowanie 1</li>
                                 <li className='list-group-item'>Zapotrzebowanie 2</li>
