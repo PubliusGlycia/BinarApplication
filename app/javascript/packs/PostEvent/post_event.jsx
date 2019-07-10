@@ -4,23 +4,26 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
+import PostForm from './post_form'
 
-const Hello = props => (
-  <div>Helssslo {props.name}!</div>
-)
+class PostEvent extends React.Component{
+  
+  render(){
+      return (
+      <>
+      <h1>Dodaj wydarzenie</h1>
+      <PostForm />
+      </>
+      )
+  }
 
-Hello.defaultProps = {
-  name: 'David'
-}
-
-Hello.propTypes = {
-  name: PropTypes.string
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Hello name="React" />,
+    <PostEvent />,
     document.body.appendChild(document.createElement('div')),
   )
 })
+
+
