@@ -7,20 +7,6 @@ class PostEventsController < ApplicationController
     @post_events = PostEvent.all
   end
 
-  # GET /post_events/1
-  # GET /post_events/1.json
-  def show
-  end
-
-  # GET /post_events/new
-  def new
-    @post_event = PostEvent.new
-  end
-
-  # GET /post_events/1/edit
-  def edit
-  end
-
   # POST /post_events
   # POST /post_events.json
   def create
@@ -28,36 +14,10 @@ class PostEventsController < ApplicationController
 
     respond_to do |format|
       if @post_event.save
-        format.html { redirect_to @post_event, notice: 'Post event was successfully created.' }
         format.json { render :show, status: :created, location: @post_event }
       else
-        format.html { render :new }
         format.json { render json: @post_event.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PATCH/PUT /post_events/1
-  # PATCH/PUT /post_events/1.json
-  def update
-    respond_to do |format|
-      if @post_event.update(post_event_params)
-        format.html { redirect_to @post_event, notice: 'Post event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post_event }
-      else
-        format.html { render :edit }
-        format.json { render json: @post_event.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /post_events/1
-  # DELETE /post_events/1.json
-  def destroy
-    @post_event.destroy
-    respond_to do |format|
-      format.html { redirect_to post_events_url, notice: 'Post event was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

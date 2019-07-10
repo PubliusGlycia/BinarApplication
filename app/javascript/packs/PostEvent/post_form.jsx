@@ -51,14 +51,14 @@ export default class PostForm extends React.Component{
         return (
             <form onSubmit={this.handleSubmit}>
                 <select value={this.state.category} onChange={this.handleCategoryChange}>
-                    <option value="usterki">usterki</option>
-                    <option value="zaopatrzenie">zaopatrzenie</option>
-                    <option value="inne">inne</option>
+                    <option value="defect">defect</option>
+                    <option value="supply">supply</option>
+                    <option value="others">others</option>
                 </select>
                 <select value={this.state.importance} onChange={this.handleImportanceChange}>
-                    <option value="wazne">wazne</option>
-                    <option value="srednie">srednie</option>
-                    <option value="male">male</option>
+                    <option value="important">important</option>
+                    <option value="medium">medium</option>
+                    <option value="small">small</option>
                 </select>
                 <input
                     type="text"
@@ -77,6 +77,7 @@ export default class PostForm extends React.Component{
                         this.validateDesc())
                 }}
                 />
+                
                 <input type="submit" value="save"/>
             </form>
         )
