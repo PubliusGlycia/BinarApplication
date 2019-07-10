@@ -6,9 +6,9 @@ export default class PostForm extends React.Component{
         category: "",
         importance: "",
         title: "",
-        desc: "",
+        description: "",
         titleError: "",
-        descError: ""
+        descriptionError: ""
     }
 
     handleSubmit = (e) => {
@@ -17,7 +17,7 @@ export default class PostForm extends React.Component{
         axios.post("/post_events.json", 
         {post_event: {
             title: this.state.title, 
-            desc:this.state.desc,
+            description:this.state.description,
             category:this.state.category,
             importance:this.state.importance}}, 
         {headers: {
@@ -40,10 +40,10 @@ export default class PostForm extends React.Component{
         });
     }
 
-    validateDesc = () =>{
+    validateDescription = () =>{
         this.setState(state => {
-            return {descError:
-                state.desc.lenght > 300 ? null : 'Opis nie może być dłuższy niż 300 znaków'}
+            return {descriptionError:
+                state.description.lenght > 300 ? null : 'Opis nie może być dłuższy niż 300 znaków'}
         });
     }
 
@@ -71,10 +71,10 @@ export default class PostForm extends React.Component{
                 <input
                     type="text"
                     placeholder='Enter description'
-                    value={this.state.desc}
+                    value={this.state.description}
                     onChange={e =>{
-                        this.setState({desc: e.target.value},
-                        this.validateDesc())
+                        this.setState({description: e.target.value},
+                        this.validateDescription())
                 }}
                 />
                 

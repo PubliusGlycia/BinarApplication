@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_07_09_164112) do
 
   create_table "post_events", force: :cascade do |t|
     t.string "title"
-    t.string "desc"
+    t.string "description"
     t.string "category"
     t.string "importance"
     t.datetime "created_at", null: false
