@@ -12,6 +12,8 @@ class PostEventsController < ApplicationController
   def create
     @post_event = PostEvent.new(post_event_params)
 
+ #@post_event.images.attach(params[:images])
+         
     respond_to do |format|
       if @post_event.save
         format.json { render :show, status: :created, location: @post_event }
@@ -29,6 +31,7 @@ class PostEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_event_params
-      params.require(:post_event).permit(:title, :description, :category, :importance)
+      params.require(:post_event).permit(:title, :description, :category, :importance #,images: [] 
+      )
     end
 end

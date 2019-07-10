@@ -7,6 +7,7 @@ export default class PostForm extends React.Component{
         importance: "",
         title: "",
         description: "",
+        //images: [],
         titleError: "",
         descriptionError: ""
     }
@@ -19,7 +20,9 @@ export default class PostForm extends React.Component{
             title: this.state.title, 
             description:this.state.description,
             category:this.state.category,
-            importance:this.state.importance}}, 
+            importance:this.state.importance
+            //images:this.state.images
+        }}, 
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }})
@@ -77,7 +80,6 @@ export default class PostForm extends React.Component{
                         this.validateDescription())
                 }}
                 />
-                
                 <input type="submit" value="save"/>
             </form>
         )

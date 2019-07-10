@@ -4,4 +4,5 @@ class PostEvent < ApplicationRecord
     validates :description, length: { maximum: 300 }
     validates :category, inclusion: { in: %w(defect supply others)}
     validates :importance, inclusion: { in: %w(important medium small)}
+    #has_many_attached :images
 end
