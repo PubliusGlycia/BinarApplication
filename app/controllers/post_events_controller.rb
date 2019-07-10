@@ -69,6 +69,6 @@ class PostEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_event_params
-      params.require(:post_event).permit(:title,desc,category,importance)
+      params.require(:post_event).permit(:title, :desc, :category, :importance)
     end
 end

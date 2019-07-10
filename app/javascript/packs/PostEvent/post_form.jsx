@@ -1,8 +1,8 @@
 import React from 'react'
+import axios from 'axios'
 
 export default class PostForm extends React.Component{
     state={
-        id: "",
         category: "",
         importance: "",
         title: "",
@@ -13,37 +13,74 @@ export default class PostForm extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
+
+        axios.post("/post_events.json", 
+        {post_event: {
+            title: this.state.title, 
+            desc:this.state.desc,
+            category:this.state.category,
+            importance:this.state.importance}}, 
+        {headers: {
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        }})
     }
 
-    handleCategoryChange = (e) =>{}
-    handleImportanceChange = (e) =>{}
+    handleCategoryChange = (e) =>{
+        this.setState({category: e.target.value})
+    }
+
+    handleImportanceChange = (e) =>{
+        this.setState({importance: e.target.value})
+    }
 
     validateTitle = () =>{
-        const {title} = this.state.title;
-        this.setState({
-            titleError:
-                title.lenght > 30 ? null : 'Tytuł nie może być dłuższy niż 30 znaków'
+        this.setState(state => {
+            return {titleError:
+                state.title.lenght > 30 ? null : 'Tytuł nie może być dłuższy niż 30 znaków'}
         });
     }
 
-    validateDesc = () =>{}
+    validateDesc = () =>{
+        this.setState(state => {
+            return {descError:
+                state.desc.lenght > 300 ? null : 'Opis nie może być dłuższy niż 300 znaków'}
+        });
+    }
 
     render(){
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
+                <select value={this.state.category} onChange={this.handleCategoryChange}>
+                    <option value="usterki">usterki</option>
+                    <option value="zaopatrzenie">zaopatrzenie</option>
+                    <option value="inne">inne</option>
+                </select>
+                <select value={this.state.importance} onChange={this.handleImportanceChange}>
+                    <option value="wazne">wazne</option>
+                    <option value="srednie">srednie</option>
+                    <option value="male">male</option>
+                </select>
                 <input
+                    type="text"
                     placeholder='Enter title'
                     value={this.state.title}
+                    onChange={e =>{
+                        this.setState({title: e.target.value},
+                        this.validateTitle())
+                }} />
+                <input
+                    type="text"
+                    placeholder='Enter description'
+                    value={this.state.desc}
+                    onChange={e =>{
+                        this.setState({desc: e.target.value},
+                        this.validateDesc())
+                }}
                 />
+                <input type="submit" value="save"/>
             </form>
         )
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(
-      <PostForm />,
-      document.body.appendChild(document.createElement('div')),
-    )
-  })
 
