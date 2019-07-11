@@ -1,2 +1,3 @@
 class Form < ApplicationRecord
+    
 end

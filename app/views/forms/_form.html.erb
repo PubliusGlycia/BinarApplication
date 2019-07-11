@@ -8,41 +8,48 @@
 
 <div class="modal-body">
 <form>
-  <div class = "form-group">
-  <label for="category">Kategoria zgłoszenia</label>
-  <div>
-  <select multiple class="form-control" id="category">
-    <option>Awaria</option>
-    <option>Zakupy</option>
-    <option>Inne</option>
-  </select>
+
+  <label for="Title">Kategoria zgłoszenia</label>
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+  <label class="form-check-label" for="inlineRadio1">Awaria</label>
   </div>
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">Zakupy</label>
+  </div>
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+  <label class="form-check-label" for="inlineRadio2">Inne</label>
   </div>
 
-  <div class = "form-group">
-  <label for="urgency">Wybierz pilność</label>
-  <div>
-  <select multiple class="form-control" id="urgency">
-    <option>High</option>
-    <option>Medium</option>
-    <option>Low</option>
-  </select>
+  <label for="Title">Pilność</label>
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+  <label class="form-check-label" for="inlineRadio1">Low</label>
   </div>
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">Medium</label>
+  </div>
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option3">
+  <label class="form-check-label" for="inlineRadio3">High</label>
   </div>
 
   <div class = "form-group">
   <label for="Title">Tytuł zgłoszenia</label>
-  <input type="title" class="form-control" id="title" placeholder="Podaj tytuł...">
+  <input type="title" class="form-control" id="title" placeholder="Podaj tytuł..." maxlength="30">
   </div>
 
   <div class = "form-group">
   <label for="description">Opis zgłoszenia</label>
-  <textarea class="form-control" id="description" rows="3"></textarea>
+  <textarea style="resize: none" class="form-control" id="description" rows="3" maxlength="300"></textarea>
   </div>
 
   <div class= "form-group">
-    <label for="fileControl">Załącznik (zdjęcie)</label>
-    <input type="file" class="form-control-file" id="fileControl">
+    <label for="fileControl">Załącznik (.jpg/.png)</label>
+    <input type="file" class="form-control-file" id="fileControl" accept=".jpg,.png">
   </div>
   
 </form>
