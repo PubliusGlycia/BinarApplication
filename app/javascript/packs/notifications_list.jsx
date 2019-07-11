@@ -1,56 +1,50 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
-
+import axios from 'axios-on-rails'
 class NotificationList extends React.Component {
     state = {
-        breakdowns: [{
-            title: 'Ekspres do kawy nie działa!',
-            importance: 'high',
-            isConfirmed: true
-        },
-        {
-            title: 'Zapchana męska toaleta',
-            importance: 'high',
-            isConfirmed: false
-        },
-        {
-            title: 'Drzwi skrzypią',
-            importance: 'medium',
-            isConfirmed: true
-        },
-        {
-            title: 'Coś nie działa',
-            importance: 'low',
-            isConfirmed: true
-        },],
-        requests: [{
-            title: 'Zielona herbata',
-            importance: 'high',
-            isConfirmed: true
-        },
-        {
-            title: 'Papier toaletowy!!!',
-            importance: 'high',
-            isConfirmed: true
-        },
-        {
-            title: 'Kawa się kończy',
-            importance: 'medium',
-            isConfirmed: false
-        },
-        {
-            title: 'W sumie to nic',
-            importance: 'low',
-            isConfirmed: false
-        },]
+        defects: [],
+        supplies: [],
+        isLoading: false
+    }
+
+    fetchPostEvents = () => {
+        this.setState({ isLoading: true });
+        fetch("/post_events/event/defect.json")
+          .then(response => response.json())
+          .then(posts_events => {
+            this.setState({ defects: posts_events, isLoading: false });
+            });
+        fetch("/post_events/event/supply.json")
+            .then(response => response.json())
+            .then(posts_events => {
+              this.setState({ supplies: posts_events, isLoading: false });
+              });
+        // axios.get('/post_event', {
+        //     params: {
+        //         category: 'defect'
+        //     }})
+        //     .then(response => response.json())
+        //     .then(post_events => {
+        //         this.setState({ defects: post_events, isLoading: false});
+        //     });
+
+    };
+
+    componentDidMount() {
+        this.fetchPostEvents();
     }
     render() {
-        const breakdowns = this.state.breakdowns.map(breakdown =>
-            <Notification title={breakdown.title} importance={breakdown.importance} isConfirmed={breakdown.isConfirmed}/>)
+        const defects = this.state.defects.map(defect => {
+            console.log(defect)
+            return <Notification key={defect.id} title={defect.title} importance={defect.importance} isConfirmed={defect.isConfirmed}/>})
         
-        const requests = this.state.requests.map(request =>
-            <Notification title={request.title} importance={request.importance} isConfirmed={request.isConfirmed}/>)
+            
+        
+        const supplies = this.state.supplies.map(supply =>
+            <Notification key={supply.id} title={supply.title} importance={supply.importance} isConfirmed={supply.isConfirmed}/>)
+            
         return (
             <>
                 <div className='container-fluid'>
@@ -59,14 +53,14 @@ class NotificationList extends React.Component {
 
                             <div className='list-group'>
                                 <div className='list-group-item list-group-item-secondary'><h1 className='text-center'>Awarie</h1></div> 
-                                {breakdowns}
+                                {defects}
                             </div>
                         </div>
                             
                         <div className='col'>
                             <div className='list-group'>
                                 <div className='list-group-item list-group-item-secondary'><h1 className='text-center'>Zapotrzebowanie</h1></div> 
-                                {requests}
+                                {supplies}
                             </div>
                         </div>
                     </div>

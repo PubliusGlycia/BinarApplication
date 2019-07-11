@@ -23,6 +23,10 @@ class PostEventsController < ApplicationController
     end
   end
 
+  def show_by_category
+    @post_events = PostEvent.where(category: params[:category])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post_event
