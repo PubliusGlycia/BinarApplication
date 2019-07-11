@@ -17,15 +17,13 @@ export default class PostForm extends React.Component{
         const data = new FormData();
 
         data.append('post_event[title]', this.state.title)
-        data.append('image', this.state.images[0])
+        data.append('post_event[description]', this.state.description)
+        data.append('post_event[category]', this.state.category)
+        data.append('post_event[importance]', this.state.importance)
+        data.append('image[]', this.state.images[0])
+        data.append('image[]', this.state.images[1])
+
         axios.post("/post_events.json", data, 
-        // {post_event: {
-        //     title: this.state.title, 
-        //     description:this.state.description,
-        //     category:this.state.category,
-        //     importance:this.state.importance,
-        //     images:this.state.images
-        // }}, 
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }})
@@ -85,9 +83,9 @@ export default class PostForm extends React.Component{
                 />
                 <input 
                     type="file" 
-                    //value={this.state.images}
+                    multiple="multiple"
                     onChange={e =>{
-                        this.setState({images: e.target.value})
+                        this.setState({images: e.target.files})
                     }}/>
                 <input type="submit" value="save"/>
             </form>
