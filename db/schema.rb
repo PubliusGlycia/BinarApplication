@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2019_07_10_111554) do
+ActiveRecord::Schema.define(version: 2019_07_11_133911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +37,13 @@ ActiveRecord::Schema.define(version: 2019_07_10_111554) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.bigint "users_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["users_id"], name: "index_comments_on_users_id"
+  end
+
   create_table "post_events", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -47,6 +53,22 @@ ActiveRecord::Schema.define(version: 2019_07_10_111554) do
   create_table "forms", force: :cascade do |t|
     t.string "title"
 
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "users_id"
+    t.index ["users_id"], name: "index_post_events_on_users_id"
+  end
+
+  create_table "submision", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "category"
+    t.string "importance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
