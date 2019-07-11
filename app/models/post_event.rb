@@ -9,8 +9,8 @@ class PostEvent < ApplicationRecord
 
     def file_size_have_to_be_less_than_250kB
         images.attachments.each do |photo|
-            if photo.byte_size > 250000
-                errors.add(:images, "can't be greater than 250kB")
+            if photo.byte_size > 2000000
+                errors.add(:images, "can't be greater than 2MB")
             end
         end
     end

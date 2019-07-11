@@ -21,7 +21,6 @@ export default class PostForm extends React.Component{
         data.append('post_event[category]', this.state.category)
         data.append('post_event[importance]', this.state.importance)
         data.append('image[]', this.state.images[0])
-        data.append('image[]', this.state.images[1])
 
         axios.post("/post_events.json", data, 
         {headers: {
