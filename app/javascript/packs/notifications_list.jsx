@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
+import CreateForm from './create_form';
 import axios from 'axios-on-rails'
 
 class NotificationList extends React.Component {
@@ -48,6 +49,7 @@ class NotificationList extends React.Component {
             
         return (
             <>
+                < CreateForm />
                 <div className='container-fluid'>
                     <div className='row'>
                         <div className='col'>
@@ -73,7 +75,7 @@ class NotificationList extends React.Component {
 
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
-      < Example />,
+      < NotificationList />,
       document.body.appendChild(document.createElement('div')),
     )
   })
