@@ -7,22 +7,25 @@ export default class PostForm extends React.Component{
         importance: "",
         title: "",
         description: "",
-        //images: [],
+        images: [],
         titleError: "",
         descriptionError: ""
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
+        const data = new FormData();
 
-        axios.post("/post_events.json", 
-        {post_event: {
-            title: this.state.title, 
-            description:this.state.description,
-            category:this.state.category,
-            importance:this.state.importance
-            //images:this.state.images
-        }}, 
+        data.append('post_event[title]', this.state.title)
+        data.append('image', this.state.images[0])
+        axios.post("/post_events.json", data, 
+        // {post_event: {
+        //     title: this.state.title, 
+        //     description:this.state.description,
+        //     category:this.state.category,
+        //     importance:this.state.importance,
+        //     images:this.state.images
+        // }}, 
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }})
@@ -80,6 +83,12 @@ export default class PostForm extends React.Component{
                         this.validateDescription())
                 }}
                 />
+                <input 
+                    type="file" 
+                    //value={this.state.images}
+                    onChange={e =>{
+                        this.setState({images: e.target.value})
+                    }}/>
                 <input type="submit" value="save"/>
             </form>
         )
