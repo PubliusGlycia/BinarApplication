@@ -9,15 +9,18 @@ class PostEventsController < ApplicationController
 
   def show_by_category
     @post_events = PostEvent.where(category: params[:category])
- end
+  end
 
   # POST /post_events
   # POST /post_events.json
   def create
+
     @post_event = PostEvent.new(post_event_params)
     
-    @post_event.images.attach(params[:image])
-         
+    #if @post_event.images.attached?
+      @post_event.images.attach(params[:image])
+    #end
+      
     respond_to do |format|
       if @post_event.save
         format.json { render :show, status: :created, location: @post_event }
@@ -39,6 +42,6 @@ class PostEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_event_params
-      params.require(:post_event).permit(:title, :description, :category, :importance )
+      params.require(:post_event).permit(:title, :description, :category, :importance, )
     end
 end

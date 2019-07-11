@@ -5,10 +5,10 @@ class PostEvent < ApplicationRecord
     validates :category, inclusion: { in: %w(defect supply others)}
     validates :importance, inclusion: { in: %w(important medium small)}
     has_many_attached :images
-    validate :file_size_have_to_be_less_than_250kB, on: :create
-    belongs_to :user
+    validate :file_size_have_to_be_less_than_2MB, on: :create
+    #belongs_to :user
     
-    def file_size_have_to_be_less_than_250kB
+    def file_size_have_to_be_less_than_2MB
         images.attachments.each do |photo|
             if photo.byte_size > 2000000
                 errors.add(:images, "can't be greater than 2MB")

@@ -1,9 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post_event.title %>
-</p>
+  <div>
+    <strong>Title:</strong>
+    <%= @post_event.title %>
+  </div>
 
-<%= link_to 'Edit', edit_post_event_path(@post_event) %> |
-<%= link_to 'Back', post_events_path %>
+  <div>
+    <strong>Description:</strong>
+    <%= @post_event.description %>
+  </div>
+
+  <div>
+    <strong>Category:</strong>
+    <%= @post_event.category %>
+  </div>
+
+  <div>
+    <strong>Importance:</strong>
+    <%= @post_event.importance %>
+  </div>
+
+  <div>
+    <%= link_to 'Edit', edit_post_event_path(@post_event) %> |
+    <%= link_to 'Back', post_events_path %>
+  </div>
