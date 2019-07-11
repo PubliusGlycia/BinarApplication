@@ -6,7 +6,8 @@ class PostEvent < ApplicationRecord
     validates :importance, inclusion: { in: %w(important medium small)}
     has_many_attached :images
     validate :file_size_have_to_be_less_than_250kB, on: :create
-
+    belongs_to :user
+    
     def file_size_have_to_be_less_than_250kB
         images.attachments.each do |photo|
             if photo.byte_size > 2000000
