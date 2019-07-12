@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
 import CreateForm from './create_form';
-import axios from 'axios-on-rails'
+import axios from 'axios-on-rails';
+import Navbar from "./navbar";
 
 class NotificationList extends React.Component {
     state = {
@@ -50,6 +51,7 @@ class NotificationList extends React.Component {
             
         return (
             <>
+                <Navbar admin={true} />
                 < CreateForm fetchPostEvents={this.fetchPostEvents}/>
                 <div className='container-fluid'>
                     <div className='row'>
