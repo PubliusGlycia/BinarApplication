@@ -20,6 +20,15 @@
     <%= @post_event.importance %>
   </div>
 
+  <% id = 1 %>
+
+  <% @post_event.images.each do |image| %>
+    <div class="level">
+      <%= link_to 'Attachment-' + id.to_s , rails_blob_path(image, only_path: true), class: 'button is-primary is-big' %>
+    </div>
+    <% id += 1 %>
+  <% end %>
+
   <div>
     <%= link_to 'Edit', edit_post_event_path(@post_event) %> |
     <%= link_to 'Back', post_events_path %>
