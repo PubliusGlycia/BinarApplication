@@ -11,7 +11,6 @@ class PostEvent < ApplicationRecord
     
     def file_size_have_to_be_less_than_2MB
         if images.attached?
-            byebug
             images.attachments.each do |photo|
                 if photo.byte_size > 2000000
                     errors.add(:images, "can't be greater than 2MB")
