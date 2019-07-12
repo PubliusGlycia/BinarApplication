@@ -1,6 +1,28 @@
 import React from 'react'
+import CreateForm from './create_form';
 
 export default class Navbar extends React.Component {
+
+    state = {
+        defects: [],
+        supplies: [],
+        isLoadingDefects: false,
+        isLoadingSupplies: false
+    }
+
+    fetchPostEvents = () => {
+        this.setState({ isLoadingDefects: true, isLoadingSupplies: true })
+        fetch("/post_events/event/defect.json")
+          .then(response => response.json())
+          .then(posts_events => {
+            this.setState({ defects: posts_events, isLoadingDefects: false });
+            });
+        fetch("/post_events/event/supply.json")
+            .then(response => response.json())
+            .then(posts_events => {
+              this.setState({ supplies: posts_events, isLoadingSupplies: false });
+              });
+    };
 
     render() {
 
@@ -15,6 +37,7 @@ export default class Navbar extends React.Component {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
+                        < CreateForm className="nav-item" />
                         <a className="nav-item nav-link active" href="#">Zgłoszenia</a>
                         { this.props.admin && <a className="nav-item nav-link" href="#">Archiwum</a> }
                         { this.props.admin && <a className="nav-item nav-link" href="#">Ewidencja</a> }
