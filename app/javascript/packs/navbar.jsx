@@ -37,7 +37,7 @@ export default class Navbar extends React.Component {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        < CreateForm className="nav-item" />
+                        <CreateForm className="nav-item" fetchPostEvents={this.props.fetchPostEvents}/>
                         <a className="nav-item nav-link active" href="#">Zgłoszenia</a>
                         { this.props.admin && <a className="nav-item nav-link" href="#">Archiwum</a> }
                         { this.props.admin && <a className="nav-item nav-link" href="#">Ewidencja</a> }

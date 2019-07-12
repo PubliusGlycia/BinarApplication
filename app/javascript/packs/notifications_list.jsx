@@ -51,8 +51,7 @@ class NotificationList extends React.Component {
             
         return (
             <>
-                <Navbar admin={true} />
-                < CreateForm fetchPostEvents={this.fetchPostEvents}/>
+                <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
                 <div className='container-fluid'>
                     <div className='row'>
                         <div className='col'>
