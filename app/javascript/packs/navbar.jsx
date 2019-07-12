@@ -5,8 +5,6 @@ export default class Navbar extends React.Component {
 
     render() {
 
-        // #4919aa
-
         return (
             <nav className="navbar navbar-expand-lg navbar-dark styled">
                     <style dangerouslySetInnerHTML={{__html: `
