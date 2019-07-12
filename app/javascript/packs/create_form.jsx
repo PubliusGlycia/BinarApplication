@@ -180,7 +180,7 @@ export default class CreateForm extends React.Component {
               <div className= "form-group">
                 <label htmlFor="fileControl">Załącznik (.jpg/.png)</label>
                 <input type="file" className="form-control-file" 
-                id="fileControl" accept=".jpeg,.png" 
+                id="fileControl" accept=".jpeg,.png,.jpg" 
                 multiple="multiple"
                     onChange={e =>{
                         this.setState({images: e.target.files})
