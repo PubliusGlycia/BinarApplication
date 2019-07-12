@@ -28,5 +28,3 @@ export default class Navbar extends React.Component {
         );
     }
 }
-
-// ReactDOM.render(<Navbar admin={true} />, document.body.appendChild(document.createElement('div')));
