@@ -31,6 +31,17 @@ export default class Notification extends React.Component {
             return '!!!'
     }
 
+    markAsInProgress(defect) {
+        const isAdmin = defect.isAdmin;
+        if(isAdmin){
+            return (
+            <Button variant="success" onClick={defect.handleProcess}>
+                                        Zatwierdź
+            </Button>
+            );
+        }
+    }
+
     render() {
         return (
             <>
@@ -51,7 +62,8 @@ export default class Notification extends React.Component {
                         <Modal.Title className='justify-content-between' style={{width: '100%'}}>
                             <Row>
                                 <Col md={7}>{this.props.title}</Col>
-                                <Col md={2}>{this.props.importance}</Col>
+                                <Col md={1}>{this.props.importance}</Col>
+                                <Col md={1}>{this.markAsInProgress}</Col>
                                 <Col md={3} style={{textAlign: 'right'}}>
                                     <Button variant="primary" onClick={this.handleClose}>
                                         Edytuj
@@ -72,7 +84,7 @@ export default class Notification extends React.Component {
                             </Row>                                                                          
                         </Modal.Body>
                     <Modal.Footer>
-                        
+                        <Col>Komentarze</Col>
                     </Modal.Footer>
                 </Modal>
                 
