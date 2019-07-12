@@ -1,7 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+// import ReactDOM from 'react-dom'
 
-class Navbar extends React.Component {
+export default class Navbar extends React.Component {
 
     render() {
 
@@ -29,4 +29,4 @@ class Navbar extends React.Component {
     }
 }
 
-ReactDOM.render(<Navbar admin={true} />, document.body.appendChild(document.createElement('div')));
+// ReactDOM.render(<Navbar admin={true} />, document.body.appendChild(document.createElement('div')));
