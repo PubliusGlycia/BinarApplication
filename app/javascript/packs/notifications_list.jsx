@@ -37,6 +37,7 @@ class NotificationList extends React.Component {
     componentDidMount() {
         this.fetchPostEvents();
     }
+
     render() {
         const defects = this.state.defects.map(defect => {
             console.log(defect)
@@ -49,7 +50,7 @@ class NotificationList extends React.Component {
             
         return (
             <>
-                < CreateForm />
+                < CreateForm fetchPostEvents={this.fetchPostEvents}/>
                 <div className='container-fluid'>
                     <div className='row'>
                         <div className='col'>

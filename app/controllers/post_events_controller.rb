@@ -17,9 +17,9 @@ class PostEventsController < ApplicationController
 
     @post_event = PostEvent.new(post_event_params)
     
-    #if @post_event.images.attached?
+    if params[:image]
       @post_event.images.attach(params[:image])
-    #end
+    end
       
     respond_to do |format|
       if @post_event.save
