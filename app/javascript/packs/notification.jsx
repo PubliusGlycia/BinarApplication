@@ -2,10 +2,8 @@ import React from 'react';
 
 export default class Notification extends React.Component {
     importanceCheck() {
-        if (this.props.importance == 'small') 
+        if (this.props.importance == 'trivial') 
             return '!'
-        else if (this.props.importance == 'medium')
-            return '!!'
         else if (this.props.importance == 'important')
             return '!!!'
     }

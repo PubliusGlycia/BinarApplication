@@ -8,13 +8,13 @@ RSpec.describe PostEvent, type: :model do
 
     describe 'validation' do
         it { is_expected.to validate_presence_of(:title) }
-        it { is_expected.to validate_length_of(:title).is_at_most(50) }
+        it { is_expected.to validate_length_of(:title).is_at_most(40) }
         it { is_expected.to validate_length_of(:description).is_at_most(300) }
     end
 
     describe 'choose one of options' do
         it { is_expected.to validate_inclusion_of(:category).in_array(%w[defect supply others]) }
-        it { is_expected.to validate_inclusion_of(:importance).in_array(%w[important medium small]) }
+        it { is_expected.to validate_inclusion_of(:importance).in_array(%w[important trivial]) }
     end
 
     describe 'images' do
