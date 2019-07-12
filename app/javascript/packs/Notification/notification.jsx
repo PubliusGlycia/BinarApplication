@@ -1,4 +1,5 @@
 import React from 'react';
+import { ListGroup, Row, Col } from 'react-bootstrap';
 
 export default class Notification extends React.Component {
     importanceCheck() {
@@ -13,14 +14,12 @@ export default class Notification extends React.Component {
     render() {
         return (
             <>
-                <a className={this.props.isConfirmed 
-                                ? 'list-group-item list-group-item-action list-group-item-success' 
-                                : 'list-group-item list-group-item-action'}>
-                    <div className='row'>
-                        <h5 className='col-11'>{this.props.title}</h5>
-                        <h1 className='col-1'>{this.importanceCheck()}</h1>
-                    </div>
-                </a>
+                <ListGroup.Item action variant={this.props.isConfirmed ? 'success' : ''}>
+                    <Row>
+                        <Col md={11} as='h5'>{this.props.title}</Col>
+                        <Col md={1} as='h1'>{this.importanceCheck()}</Col>
+                    </Row>
+                </ListGroup.Item>
             </>
         )
     }
