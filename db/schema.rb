@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2019_07_11_133911) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+  
   create_table "comments", force: :cascade do |t|
     t.bigint "users_id"
     t.datetime "created_at", null: false
