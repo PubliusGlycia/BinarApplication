@@ -32,7 +32,6 @@ export default class NotificationList extends React.Component {
         //     .then(post_events => {
         //         this.setState({ defects: post_events, isLoading: false});
         //     });
-
     };
 
     componentDidMount() {
@@ -55,7 +54,6 @@ export default class NotificationList extends React.Component {
                 <Container fluid>
                     <Row>
                         <Col>
-
                             <ListGroup>
                                 <ListGroup.Item variant='secondary'><h1 className='text-center'>Awarie</h1></ListGroup.Item> 
                                 {defects}
