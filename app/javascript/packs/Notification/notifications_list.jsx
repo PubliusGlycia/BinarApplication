@@ -39,12 +39,11 @@ export default class NotificationList extends React.Component {
             
         return (
             <>
-
                 <style type="text/css">
                     {`
                     .list-group{
                         max-height: 75vh;
-                        overflow: auto;
+                        overflow-y: auto;
                         -webkit-overflow-scrolling: touch;
                     }
                     `}

@@ -4,7 +4,6 @@ import NotificationList from '../notifications_list'
 import { Container } from 'react-bootstrap';
 
 class NotificationLists extends React.Component {
-    
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
         fetch("/post_events/event/defect.json")
