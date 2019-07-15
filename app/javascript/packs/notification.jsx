@@ -83,7 +83,7 @@ export default class Notification extends React.Component {
                                 <Col><Image src="{this.props.images}/171x180" thumbnail/> </Col>
                             </Row>
                             <Row>
-                                <Col>{"\n\n"} {this.props.date}</Col> 
+                                <Col>{"\n\n"}Dodano {this.props.date.substring(0,10)} {this.props.date.substring(11,16)} przez {this.props.key}</Col> 
                             </Row>                                                                          
                         </Modal.Body>
                     <Modal.Footer>
