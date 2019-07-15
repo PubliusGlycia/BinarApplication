@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
 import CreateForm from './create_form';
+import Navbar from "../navbar";
+
 
 import { ListGroup, Col, Row, Container } from 'react-bootstrap';
 
@@ -39,17 +41,8 @@ export default class NotificationList extends React.Component {
             
         return (
             <>
-                <style type="text/css">
-                    {`
-                    .list-group{
-                        max-height: 75vh;
-                        overflow-y: auto;
-                        -webkit-overflow-scrolling: touch;
-                    }
-                    `}
-                </style>
+                <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
-                <CreateForm fetchPostEvents={this.fetchPostEvents}/>
                 <Container fluid>
                     <Row>
 

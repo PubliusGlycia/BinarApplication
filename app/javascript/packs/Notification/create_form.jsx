@@ -42,13 +42,14 @@ export default class CreateForm extends React.Component {
         data.append('image[]', this.state.images[0])
         data.append('image[]', this.state.images[1])
       }
-        
+      
       axios.post("/post_events.json", data, 
       {headers: {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       }}).then(()=>{
             this.handleClose()
-            this.props.fetchPostEvents()
+            if (this.props.fetchPostEvents)
+              this.props.fetchPostEvents();
       })
     }
   
