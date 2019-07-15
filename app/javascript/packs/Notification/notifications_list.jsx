@@ -43,16 +43,6 @@ export default class NotificationList extends React.Component {
             <>
                 <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
-                <style type="text/css">
-                    {`
-                    .list-group{
-                        max-height: 75vh;
-                        overflow-y: auto;
-                        -webkit-overflow-scrolling: touch;
-                    }
-                    `}
-                </style>
-
                 <Container fluid>
                     <Row>
 
