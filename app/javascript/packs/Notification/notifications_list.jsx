@@ -50,22 +50,41 @@ export default class NotificationList extends React.Component {
             
         return (
             <>
+<<<<<<< HEAD
+=======
+                <style type="text/css">
+                    {`
+                    .list-group{
+                        max-height: 75vh;
+                        overflow-y: auto;
+                        -webkit-overflow-scrolling: touch;
+                    }
+                    `}
+                </style>
+
+>>>>>>> 876eee9a5bf06a07bd682d234aab7a3754519a4a
                 <CreateForm fetchPostEvents={this.fetchPostEvents}/>
                 <Container fluid>
                     <Row>
+
                         <Col>
+                            <ListGroup.Item variant='secondary'>
+                                <h1 className='text-center'>Awarie</h1>
+                            </ListGroup.Item>
                             <ListGroup>
-                                <ListGroup.Item variant='secondary'><h1 className='text-center'>Awarie</h1></ListGroup.Item> 
                                 {defects}
                             </ListGroup>
                         </Col>
-                            
+
                         <Col>
+                            <ListGroup.Item variant='secondary'>
+                                <h1 className='text-center'>Zapotrzebowanie</h1>
+                            </ListGroup.Item>
                             <ListGroup>
-                                <ListGroup.Item variant='secondary'><h1 className='text-center'>Zapotrzebowanie</h1></ListGroup.Item> 
                                 {supplies}
                             </ListGroup>
                         </Col>
+                        
                     </Row>
                 </Container>  
             </>
