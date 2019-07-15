@@ -15,7 +15,7 @@ FactoryBot.define do
         end
 
         trait :importance do 
-            importance { ['important','medium','small'].sample }
+            importance { ['important', 'trivial'].sample }
         end
 
         trait :invalid_photo do
