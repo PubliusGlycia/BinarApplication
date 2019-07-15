@@ -1,10 +1,12 @@
 class PostEventsController < ApplicationController
   before_action :set_post_event, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /post_events
   # GET /post_events.json
   def index
-    @post_events = PostEvent.all
+    if current_user
+      @post_events = PostEvent.all
+    end
   end
 
   def show_by_category
@@ -15,12 +17,17 @@ class PostEventsController < ApplicationController
   # POST /post_events.json
   def create
 
-    @post_event = PostEvent.new(post_event_params)
+    if current_user
+      post_event = PostEvent.new(post_event_params)
+      post_event.user = current_user
+      @post_event = post_event
     
-    if params[:image]
-      @post_event.images.attach(params[:image])
+      if params[:image]
+        @post_event.images.attach(params[:image])
+      end
+
     end
-      
+
     respond_to do |format|
       if @post_event.save
         format.json { render :show, status: :created, location: @post_event }
@@ -30,9 +37,12 @@ class PostEventsController < ApplicationController
     end
   end
 
+  
   # DESTROY
   def destroy
-    PostEvent.find(params[:id]).destroy
+    if @post_event.user_id == current_user.id
+      PostEvent.find(params[:id]).destroy
+    end
   end
 
   private
