@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Row } from 'react-bootstrap';
-import { Modal, Col } from 'react-bootstrap';
+import { Modal, Col, Image } from 'react-bootstrap';
 
 export default class Notification extends React.Component {
     constructor(props, context) {
@@ -36,7 +36,7 @@ export default class Notification extends React.Component {
         if(isAdmin){
             return (
             <Button variant="success" onClick={defect.handleProcess}>
-                                        Zatwierdź
+                Zatwierdź
             </Button>
             );
         }
@@ -80,7 +80,10 @@ export default class Notification extends React.Component {
                                 <Col>{this.props.description}</Col>
                             </Row>
                             <Row>
-                                <Col>{this.props.date}</Col> 
+                                <Col><Image src="{this.props.images}/171x180" thumbnail/> </Col>
+                            </Row>
+                            <Row>
+                                <Col>{"\n\n"} {this.props.date}</Col> 
                             </Row>                                                                          
                         </Modal.Body>
                     <Modal.Footer>
