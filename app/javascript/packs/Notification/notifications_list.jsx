@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
 import CreateForm from './create_form';
+import SearchBar from './search_bar';
 
 import { ListGroup, Col, Row, Container } from 'react-bootstrap';
+
 
 export default class NotificationList extends React.Component {
     state = {
@@ -24,14 +26,6 @@ export default class NotificationList extends React.Component {
             .then(posts_events => {
               this.setState({ supplies: posts_events, isLoading: false });
               });
-        // axios.get('/post_event', {
-        //     params: {
-        //         category: 'defect'
-        //     }})
-        //     .then(response => response.json())
-        //     .then(post_events => {
-        //         this.setState({ defects: post_events, isLoading: false});
-        //     });
     };
 
     componentDidMount() {
@@ -50,21 +44,9 @@ export default class NotificationList extends React.Component {
             
         return (
             <>
-<<<<<<< HEAD
-=======
-                <style type="text/css">
-                    {`
-                    .list-group{
-                        max-height: 75vh;
-                        overflow-y: auto;
-                        -webkit-overflow-scrolling: touch;
-                    }
-                    `}
-                </style>
-
->>>>>>> 876eee9a5bf06a07bd682d234aab7a3754519a4a
                 <CreateForm fetchPostEvents={this.fetchPostEvents}/>
                 <Container fluid>
+                    <SearchBar />
                     <Row>
 
                         <Col>
