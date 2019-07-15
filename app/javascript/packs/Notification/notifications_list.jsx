@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
 import CreateForm from './create_form';
+import axios from 'axios';
 
 import { ListGroup, Col, Row, Container } from 'react-bootstrap';
 
@@ -9,7 +10,8 @@ export default class NotificationList extends React.Component {
     state = {
         defects: [],
         supplies: [],
-        isLoading: false
+        isLoading: false,
+        state: ''
     }
 
     fetchPostEvents = () => {
@@ -34,6 +36,17 @@ export default class NotificationList extends React.Component {
         //     });
     };
 
+    handleDelete = (e) =>{
+        axios.delete('/post_events/'+ 4,
+        {headers: {
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        }}).then(response => {
+                    console.log('Deleted post with id: ');
+                    this.fetchPostEvents();
+                  });
+                  
+      }
+
     componentDidMount() {
         this.fetchPostEvents();
     }
@@ -51,6 +64,10 @@ export default class NotificationList extends React.Component {
         return (
             <>
                 <CreateForm fetchPostEvents={this.fetchPostEvents}/>
+
+        <button variant="primary" onClick={this.handleDelete}>
+            Usuń zgłoszenie
+          </button>
                 <Container fluid>
                     <Row>
                         <Col>
