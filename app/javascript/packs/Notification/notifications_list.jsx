@@ -37,7 +37,7 @@ export default class NotificationList extends React.Component {
     };
 
     handleDelete = (e) =>{
-        axios.delete('/post_events/'+ 12,
+        axios.delete('/post_events/'+ 14,
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }}).then(response => {

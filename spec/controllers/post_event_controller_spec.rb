@@ -1,21 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe PostEventsController, type: :controller do
-  
-    describe 'GET #index' do
+  let (:user) { create(:user) }
+  before {sign_in(user)}
+ 
+  describe 'GET #index' do
     subject { get :index }
-    
+
     describe 'successful response' do
-      login_user
       before { subject }
-      it { expect(subject.current_user).to_not eq(nil) }
+      it { expect(user).to_not eq(nil) }
       it { expect(response).to be_successful }
       it { expect(response).to render_template('index') }
     end
 
     context 'events' do
 
-      let(:user) login_user
       let(:event1) { create(:valid_post_event, user_id: user.id) }
       let(:event2) { create(:valid_post_event, user_id: user.id) }
 
@@ -28,7 +28,6 @@ RSpec.describe PostEventsController, type: :controller do
 
   describe 'GET #show' do
     
-    let(:user) login_user
     let(:event) { create(:valid_post_event, user_id: user.id) }
     before { get :show, params: { id: event.id } }
 
