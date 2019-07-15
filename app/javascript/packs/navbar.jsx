@@ -1,6 +1,6 @@
 import React from 'react'
-import CreateForm from './create_form';
-import { Container, Row, Col } from 'react-bootstrap';
+import CreateForm from './Notification/create_form';
+import { Row, Col } from 'react-bootstrap';
 
 export default class Navbar extends React.Component {
 
