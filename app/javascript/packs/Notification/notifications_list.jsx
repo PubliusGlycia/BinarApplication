@@ -24,14 +24,6 @@ export default class NotificationList extends React.Component {
             .then(posts_events => {
               this.setState({ supplies: posts_events, isLoading: false });
               });
-        // axios.get('/post_event', {
-        //     params: {
-        //         category: 'defect'
-        //     }})
-        //     .then(response => response.json())
-        //     .then(post_events => {
-        //         this.setState({ defects: post_events, isLoading: false});
-        //     });
     };
 
     componentDidMount() {
@@ -39,17 +31,26 @@ export default class NotificationList extends React.Component {
     }
 
     render() {
-        const defects = this.state.defects.map(defect => {
-            console.log(defect)
-            return <Notification key={defect.id} title={defect.title} importance={defect.importance} isConfirmed={defect.isConfirmed}/>})
-        
-            
+        const defects = this.state.defects.map(defect => 
+            <Notification key={defect.id} title={defect.title} importance={defect.importance} isConfirmed={defect.isConfirmed}/>)
         
         const supplies = this.state.supplies.map(supply =>
             <Notification key={supply.id} title={supply.title} importance={supply.importance} isConfirmed={supply.isConfirmed}/>)
             
         return (
             <>
+
+                <style type="text/css">
+                    {`
+                    .list-group{
+                        max-height: 300px;
+                        margin-bottom: 10px;
+                        overflow: auto;
+                        -webkit-overflow-scrolling: touch;
+                    }
+                    `}
+                </style>
+
                 <CreateForm fetchPostEvents={this.fetchPostEvents}/>
                 <Container fluid>
                     <Row>
