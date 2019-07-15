@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
 import CreateForm from './create_form';
-import axios from 'axios-on-rails';
 import Navbar from "./navbar";
 
-class NotificationList extends React.Component {
+
+import { ListGroup, Col, Row, Container } from 'react-bootstrap';
+
+export default class NotificationList extends React.Component {
     state = {
         defects: [],
         supplies: [],
@@ -32,7 +34,6 @@ class NotificationList extends React.Component {
         //     .then(post_events => {
         //         this.setState({ defects: post_events, isLoading: false});
         //     });
-
     };
 
     componentDidMount() {
@@ -52,24 +53,24 @@ class NotificationList extends React.Component {
         return (
             <>
                 <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
-                <div className='container-fluid'>
-                    <div className='row'>
-                        <div className='col'>
-
-                            <div className='list-group'>
-                                <div className='list-group-item list-group-item-secondary'><h1 className='text-center'>Awarie</h1></div> 
+                <CreateForm fetchPostEvents={this.fetchPostEvents}/>
+                <Container fluid>
+                    <Row>
+                        <Col>
+                            <ListGroup>
+                                <ListGroup.Item variant='secondary'><h1 className='text-center'>Awarie</h1></ListGroup.Item> 
                                 {defects}
-                            </div>
-                        </div>
+                            </ListGroup>
+                        </Col>
                             
-                        <div className='col'>
-                            <div className='list-group'>
-                                <div className='list-group-item list-group-item-secondary'><h1 className='text-center'>Zapotrzebowanie</h1></div> 
+                        <Col>
+                            <ListGroup>
+                                <ListGroup.Item variant='secondary'><h1 className='text-center'>Zapotrzebowanie</h1></ListGroup.Item> 
                                 {supplies}
-                            </div>
-                        </div>
-                    </div>
-                </div>  
+                            </ListGroup>
+                        </Col>
+                    </Row>
+                </Container>  
             </>
         )
     }
