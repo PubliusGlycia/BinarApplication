@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_11_133911) do
+ActiveRecord::Schema.define(version: 2019_07_16_073826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,15 +36,6 @@ ActiveRecord::Schema.define(version: 2019_07_11_133911) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-<<<<<<< HEAD
-=======
-  create_table "forms", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-  
->>>>>>> week_1
   create_table "comments", force: :cascade do |t|
     t.bigint "users_id"
     t.datetime "created_at", null: false
@@ -54,6 +45,13 @@ ActiveRecord::Schema.define(version: 2019_07_11_133911) do
 
   create_table "forms", force: :cascade do |t|
     t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "author"
+    t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
