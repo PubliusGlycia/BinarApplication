@@ -3,6 +3,7 @@ import { ListGroup, Row, Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Modal, Image } from 'react-bootstrap';
 import axios from 'axios';
+import { FilePond } from "react-filepond";
 
 export default class Notification extends React.Component {
     constructor(props, context) {
@@ -90,7 +91,7 @@ export default class Notification extends React.Component {
                                 <Col>{this.props.description}</Col>
                             </Row>
                             <Row>
-                                <Col><Image src="{this.props.images}/171x180" thumbnail/> </Col>
+                                <Col><FilePond /> </Col>
                             </Row>
                             <Row>
                                 <Col>{"\n\n"}Dodano {this.props.date.substring(0,10)} {this.props.date.substring(11,16)} przez {this.props.key}</Col> 
