@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
 import CreateForm from './create_form';
-import axios from 'axios';
 import Navbar from "../navbar";
 
 
@@ -30,17 +29,6 @@ export default class NotificationList extends React.Component {
               });
     };
 
-    handleDelete = (e) =>{
-        axios.delete('/post_events/'+ 14,
-        {headers: {
-            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-        }}).then(response => {
-                    console.log('Deleted post with id: ');
-                    this.fetchPostEvents();
-                  });
-
-      }
-
     componentDidMount() {
         this.fetchPostEvents();
     }
@@ -50,6 +38,7 @@ export default class NotificationList extends React.Component {
             console.log(defect)
             return <Notification
                 key={defect.id}
+                NotificationID={defect.id}
                 title={defect.title}
                 importance={defect.importance}
                 isConfirmed={defect.isConfirmed}
@@ -57,6 +46,8 @@ export default class NotificationList extends React.Component {
                 date={defect.created_at}
                 category={defect.category}
                 images={defect.images}
+                user_id={defect.user_id}
+                fetchPostEvents={this.fetchPostEvents}
             />})
         
             
@@ -64,6 +55,7 @@ export default class NotificationList extends React.Component {
         const supplies = this.state.supplies.map(supply =>
             <Notification
                 key={supply.id}
+                NotificationID={supply.id}
                 title={supply.title}
                 importance={supply.importance}
                 isConfirmed={supply.isConfirmed}
@@ -71,6 +63,8 @@ export default class NotificationList extends React.Component {
                 date={supply.created_at}
                 category={supply.category}
                 images={supply.images}
+                user_id={supply.user_id}
+                fetchPostEvents={this.fetchPostEvents}
             />)
 
         return (
@@ -79,9 +73,6 @@ export default class NotificationList extends React.Component {
 
                 <CreateForm fetchPostEvents={this.fetchPostEvents}/>
 
-        <button variant="primary" onClick={this.handleDelete}>
-            Usuń zgłoszenie
-          </button>
                 <Container fluid>
                     <Row>
 
