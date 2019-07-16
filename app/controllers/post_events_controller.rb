@@ -8,7 +8,7 @@ class PostEventsController < ApplicationController
   end
 
   def show_by_category
-    post_events = PostEvent.where(category: params[:category])
+    post_events = PostEvent.where(category: params[:category])  
     if params[:search_phrase]
       return @post_events = post_events.find_by_title(params[:search_phrase])
     end

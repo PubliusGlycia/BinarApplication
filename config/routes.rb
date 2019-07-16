@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-
+  get 'post_events/event' => 'post_events#show_by_category'
   resources :post_events
-  get 'post_events/event/:category' => 'post_events#show_by_category'
-
+    
   resources :forms
 
   # root 'navbar#home'
