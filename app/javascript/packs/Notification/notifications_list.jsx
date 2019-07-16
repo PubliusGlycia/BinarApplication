@@ -44,7 +44,6 @@ export default class NotificationList extends React.Component {
             
         return (
             <>
-                <CreateForm fetchPostEvents={this.fetchPostEvents}/>
                 <Container fluid>
                     <SearchBar />
                     <Row>
