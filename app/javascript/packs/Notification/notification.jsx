@@ -2,7 +2,7 @@ import React from 'react';
 import { ListGroup, Row, Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Modal, Image } from 'react-bootstrap';
-import NotificationModal from './notification_modal';
+import axios from 'axios';
 
 export default class Notification extends React.Component {
     constructor(props, context) {
@@ -15,13 +15,26 @@ export default class Notification extends React.Component {
           show: false,
         };
     }
-    
+
     handleClose() {
         this.setState({ show: false });
     }
     
     handleShow() {
         this.setState({ show: true });
+    }
+
+
+    handleDelete = (e) =>{
+        axios.delete('/post_events/'+ this.props.NotificationID,
+            {headers: {
+                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+                }}).then(response => {
+            console.log('Deleted post with id: ');
+            this.handleClose();
+            this.props.fetchPostEvents();
+        });
+
     }
 
     markAsInProgress(defect) {
@@ -55,12 +68,15 @@ export default class Notification extends React.Component {
                     <Modal.Header>
                         <Modal.Title className='justify-content-between' style={{width: '100%'}}>
                             <Row>
-                                <Col md={7}>{this.props.title}</Col>
+                                <Col md={6}>{this.props.title}</Col>
                                 <Col md={1}>{this.props.importance}</Col>
                                 <Col md={1}>{this.markAsInProgress}</Col>
-                                <Col md={3} style={{textAlign: 'right'}}>
+                                <Col md={4} style={{textAlign: 'right'}}>
                                     <Button variant="primary" onClick={this.handleClose}>
                                         Edytuj
+                                    </Button>
+                                    <Button variant="primary" onClick={this.handleDelete}>
+                                        Usuń
                                     </Button>
                                     <Button variant="secondary" onClick={this.handleClose}>
                                         Zamknij

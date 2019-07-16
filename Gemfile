@@ -38,6 +38,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'popper_js', '~> 1.9', '>= 1.9.9'
 gem 'jquery-rails'
 
+gem 'devise'
+
 #database output
 gem 'hirb'
 
