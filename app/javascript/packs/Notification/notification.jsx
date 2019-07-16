@@ -3,7 +3,6 @@ import { ListGroup, Row, Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Modal, Image } from 'react-bootstrap';
 import axios from 'axios';
-import { FilePond } from "react-filepond";
 
 export default class Notification extends React.Component {
     constructor(props, context) {
@@ -13,8 +12,10 @@ export default class Notification extends React.Component {
         this.handleClose = this.handleClose.bind(this);
     
         this.state = {
-          show: false,
-        };
+            show: false,
+            photo_urls: [],
+            isLoading: true
+        }
     }
 
     handleClose() {
@@ -22,6 +23,7 @@ export default class Notification extends React.Component {
     }
     
     handleShow() {
+        this.handlePhotoUrls()
         this.setState({ show: true });
     }
 
@@ -54,6 +56,18 @@ export default class Notification extends React.Component {
         else if (this.props.importance == 'important')
             return '!!!'
     }
+
+    handlePhotoUrls() {
+        this.setState({ isLoading: true });
+        console.log(this.props.NotificationID)
+        fetch('/post_events/'+ this.props.NotificationID +'.json')
+            .then(response => response.json())
+            .then(posts_events => {
+                this.setState({ photo_urls: posts_events.images_url, isLoading: false});
+                console.log(this.state.photo_urls[0].url)
+            });
+    }
+
 
     render() {
         return (
@@ -91,7 +105,10 @@ export default class Notification extends React.Component {
                                 <Col>{this.props.description}</Col>
                             </Row>
                             <Row>
-                                <Col><FilePond /> </Col>
+                                {this.state.isLoading
+                                    ? "loading image"
+                                    : <Col><img src={ "http://localhost:3000"+ this.state.photo_urls[0].url } /> </Col>}
+
                             </Row>
                             <Row>
                                 <Col>{"\n\n"}Dodano {this.props.date.substring(0,10)} {this.props.date.substring(11,16)} przez {this.props.key}</Col> 

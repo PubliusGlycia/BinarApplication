@@ -1,5 +1,5 @@
 class PostEventsController < ApplicationController
-  before_action :set_post_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_post_event, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
   # GET /post_events
   # GET /post_events.json
@@ -11,6 +11,10 @@ class PostEventsController < ApplicationController
 
   def show_by_category
     @post_events = PostEvent.where(category: params[:category])
+  end
+
+  def show
+    @post_event = PostEvent.find(params[:id])
   end
 
   # POST /post_events
