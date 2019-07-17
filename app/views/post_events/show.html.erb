@@ -28,8 +28,13 @@
     </div>
     <% id += 1 %>
   <% end %>
+  <p>
+    <%= @post_event.likes.count %>
+    <%= (@post_event.likes.count) == 1 ? 'Like' : 'Likes'%>
+  </p>
 
   <div>
     <%= link_to 'Edit', edit_post_event_path(@post_event) %> |
     <%= link_to 'Back', post_events_path %>
+    <%= button_to 'Like', post_event_likes_path(@post_event), method: :post %>
   </div>
