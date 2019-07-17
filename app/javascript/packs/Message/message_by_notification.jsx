@@ -21,8 +21,8 @@ export default class MessageByNotification extends React.Component {
     }
 
     render() {
-        const messages = this.state.messages.map((message) => 
-            <Message author={message.author} created={message.author} content={message.content} key={message.id} />)
+        const messages = this.state.messages.map((message, i) => 
+            <Message author={message.author} created={message.author} content={message.content} key={ i } />)
 
         return (
             <>
