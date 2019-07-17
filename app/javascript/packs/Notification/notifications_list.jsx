@@ -80,8 +80,6 @@ export default class NotificationList extends React.Component {
             <>
                 <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
-                <CreateForm fetchPostEvents={this.fetchPostEvents}/>
-
                 <Container fluid>
                     <Row>
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { ListGroup, Row, Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
-import { Modal, Image } from 'react-bootstrap';
+import { Modal, Card } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image'
 import axios from 'axios';
 
 export default class Notification extends React.Component {
@@ -68,6 +69,17 @@ export default class Notification extends React.Component {
             });
     }
 
+    loadImages() {
+        return this.state.photo_urls.map((photo) =>
+            <Card style={{ width: '12rem' }}>
+                <Card.Img src={ "http://localhost:3000"+ photo.url } variant="top" />
+                <Card.Body>
+                    <Card.Link  href={"http://localhost:3000"+ photo.url }>Open in tab</Card.Link>
+                </Card.Body>
+            </Card>
+        );
+    }
+
 
     render() {
         return (
@@ -107,7 +119,11 @@ export default class Notification extends React.Component {
                             <Row>
                                 {this.state.isLoading
                                     ? "loading image"
-                                    : <Col><img src={ "http://localhost:3000"+ this.state.photo_urls[0].url } /> </Col>}
+                                    :   <Col>
+                                            <Row>
+                                                {this.loadImages()}
+                                            </Row>
+                                        </Col>}
 
                             </Row>
                             <Row>
