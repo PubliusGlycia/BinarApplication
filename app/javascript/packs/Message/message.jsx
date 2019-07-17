@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Media, Card } from 'react-bootstrap';
 
 export default class Message extends React.Component {
@@ -32,10 +31,3 @@ export default class Message extends React.Component {
         );
     }
 }
-
-ReactDOM.render(
-<>
-<Message author='adamjedrzejec@gmail.com' created='16/07/2019 9:44' content='Random message 1'/>
-<Message author='jędrzejadamiec@gmail.com' created='16/07/2019 8:55' content='Message mess age messagemessage message.'/>
-<Message author='adamjarmułka@gmail.com' created='15/07/2019 12:16' content='iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAV1BMVEX///+ZmZmWlpbx8fGTk5OQkJDt7e2ampr29vahoaH5+fnV1dWenp6lpaXKysr8/Py/v7/e3t6urq65ubnW1tbj4'/>
-</>, document.body.appendChild(document.createElement('div')));
