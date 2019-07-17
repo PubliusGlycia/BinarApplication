@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get 'post_events/event' => 'post_events#show_by_category'
+
+  devise_for :users
   resources :post_events
     
   resources :forms
