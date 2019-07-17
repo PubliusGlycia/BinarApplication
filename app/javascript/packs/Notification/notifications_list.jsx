@@ -25,7 +25,7 @@ export default class NotificationList extends React.Component {
         .then(posts_events => {
             this.setState({ defects: posts_events.data, isLoading: false })
         })
-        console.log(this.state.defects)
+
         axios.get('/post_events/event.json', {
             params: {
                 category: 'supply',
@@ -84,7 +84,7 @@ export default class NotificationList extends React.Component {
         return (
             <>
                 <Container fluid>
-                    <SearchBar fetchPostEventsWhenSearch={() => this.fetchPostEventsWhenSearch()}/>
+                    <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch}/>
                     <Row>
 
                         <Col>
