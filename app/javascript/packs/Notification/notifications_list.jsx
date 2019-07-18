@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
 import CreateForm from './create_form';
+import Navbar from "../navbar";
+
 
 import { ListGroup, Col, Row, Container } from 'react-bootstrap';
 
@@ -9,7 +11,8 @@ export default class NotificationList extends React.Component {
     state = {
         defects: [],
         supplies: [],
-        isLoading: false
+        isLoading: false,
+        state: ''
     }
 
     fetchPostEvents = () => {
@@ -24,7 +27,16 @@ export default class NotificationList extends React.Component {
             .then(posts_events => {
               this.setState({ supplies: posts_events, isLoading: false });
               });
+        this.setState({ isLoading: true });
+        console.log(this.props.NotificationID)
+        fetch('/post_events/'+ this.props.NotificationID +'.json')
+            .then(response => response.json())
+            .then(posts_events => {
+                this.setState({ photo_urls: posts_events.images_url, isLoading: false});
+            });
     };
+
+
 
     componentDidMount() {
         this.fetchPostEvents();
@@ -33,44 +45,41 @@ export default class NotificationList extends React.Component {
     render() {
         const defects = this.state.defects.map(defect => {
             console.log(defect)
-            return <Notification 
-                key={defect.id} 
-                title={defect.title} 
-                importance={defect.importance} 
+            return <Notification
+                key={defect.id}
+                NotificationID={defect.id}
+                title={defect.title}
+                importance={defect.importance}
                 isConfirmed={defect.isConfirmed}
                 description={defect.description}
                 date={defect.created_at}
                 category={defect.category}
                 images={defect.images}
+                user_id={defect.user_id}
+                fetchPostEvents={this.fetchPostEvents}
             />})
-        
-            
-        
+
+
+
         const supplies = this.state.supplies.map(supply =>
-            <Notification 
-                key={supply.id} 
-                title={supply.title} 
-                importance={supply.importance} 
+            <Notification
+                key={supply.id}
+                NotificationID={supply.id}
+                title={supply.title}
+                importance={supply.importance}
                 isConfirmed={supply.isConfirmed}
                 description={supply.description}
                 date={supply.created_at}
                 category={supply.category}
                 images={supply.images}
+                user_id={supply.user_id}
+                fetchPostEvents={this.fetchPostEvents}
             />)
 
         return (
             <>
-                <style type="text/css">
-                    {`
-                    .list-group{
-                        max-height: 75vh;
-                        overflow-y: auto;
-                        -webkit-overflow-scrolling: touch;
-                    }
-                    `}
-                </style>
+                <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
-                <CreateForm fetchPostEvents={this.fetchPostEvents}/>
                 <Container fluid>
                     <Row>
 
@@ -78,20 +87,21 @@ export default class NotificationList extends React.Component {
                             <ListGroup.Item variant='secondary'>
                                 <h1 className='text-center'>Awarie</h1>
                             </ListGroup.Item>
-                            <ListGroup>
-                                {defects}
-                            </ListGroup>
+                            {this.state.isLoading
+                            ? "loading"
+                            : <ListGroup>{defects}</ListGroup>}
+
                         </Col>
 
                         <Col>
                             <ListGroup.Item variant='secondary'>
                                 <h1 className='text-center'>Zapotrzebowanie</h1>
                             </ListGroup.Item>
-                            <ListGroup>
-                                {supplies}
-                            </ListGroup>
+                            {this.state.isLoading
+                                ? "loading"
+                                : <ListGroup>{supplies}</ListGroup>}
                         </Col>
-                        
+
                     </Row>
                 </Container>  
             </>
