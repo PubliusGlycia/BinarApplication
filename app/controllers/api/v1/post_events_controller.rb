@@ -9,13 +9,16 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     end
   
     def show_by_category
-      @post_events = PostEvent.where(category: params[:category])
+      if current_user
+        @post_events = PostEvent.where(category: params[:category])
+        render :index
+      end
     end
   
     def show
-
+      @post_event = PostEvent.find(params[:id])
     end
-    # POST /post_events
+
     # POST /post_events.json
     def create
   
