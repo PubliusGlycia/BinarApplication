@@ -7,6 +7,10 @@ class LikesController < ApplicationController
         end
     end
 
+    def show_likes_count
+        @post_event.likes.count
+    end
+
     private
         def find_post_event
             @post_event = PostEvent.find(params[:post_event_id])
