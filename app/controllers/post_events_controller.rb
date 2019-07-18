@@ -17,6 +17,11 @@ class PostEventsController < ApplicationController
     @post_event = PostEvent.find(params[:id])
   end
 
+  def download
+    image = PostEvent.find(params[:id]).images[params[:image_position].to_i]
+    send_data("http://localhost:3000#{rails_blob_path(image, only_path: true)}", filename: image.filename.to_s)
+  end
+
   # POST /post_events
   # POST /post_events.json
   def create
