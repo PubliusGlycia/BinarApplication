@@ -11,20 +11,23 @@ export default class Notification extends React.Component {
     
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
-    
+        this.closeZoomInPhoto = this.closeZoomInPhoto.bind(this);
+
         this.state = {
             show: false,
             photo_urls: [],
             isLoading: true,
+            showPhoto: false,
+            photoUrl:''
         }
     }
 
     handleClose() {
-        this.setState({ show: false });
+        this.setState({ show: false, showPhoto: false });
     }
     
     handleShow() {
-        this.handlePhotoUrls()
+        this.handlePhotoUrls();
         this.setState({ show: true });
     }
 
@@ -39,7 +42,7 @@ export default class Notification extends React.Component {
             this.props.fetchPostEvents();
         });
 
-    }
+    };
 
     markAsInProgress(defect) {
         const isAdmin = defect.isAdmin;
@@ -51,16 +54,16 @@ export default class Notification extends React.Component {
             );
         }
     }
+
     importanceCheck() {
         if (this.props.importance == 'trivial') 
-            return '!'
+            return '!';
         else if (this.props.importance == 'important')
             return '!!!'
     }
 
     handlePhotoUrls() {
         this.setState({ isLoading: true });
-        console.log(this.props.NotificationID)
         fetch('/post_events/'+ this.props.NotificationID +'.json')
             .then(response => response.json())
             .then(posts_events => {
@@ -73,13 +76,19 @@ export default class Notification extends React.Component {
         return this.state.photo_urls.map((photo, index) =>
             <Card style={{ width: '15rem' }}>
                 <Card.Body>
-                    <div className="mdb-lightbox no-margin">
-                        <img src={ "http://localhost:3000"+ photo.url } onClick={() => window.open("http://localhost:3000"+ photo.url, "_blank")} fluid/>
-                    </div>
+                    <Image src={ "http://localhost:3000"+ photo.url } value={photo.url} onClick={() => this.showZoomInPhoto(photo.url)} fluid/>
                     <Button href={"http://localhost:3000/post_events/download/" + this.props.NotificationID +"/"+index} target="_blank"> Download </Button>
                 </Card.Body>
             </Card>
         );
+    }
+
+    showZoomInPhoto = (url) => {
+        this.setState({showPhoto: true, photoUrl:url})
+    };
+
+    closeZoomInPhoto() {
+        this.setState({showPhoto: false})
     }
 
     render() {
@@ -134,6 +143,14 @@ export default class Notification extends React.Component {
                     <Modal.Footer>
                         <Col>Komentarze</Col>
                     </Modal.Footer>
+
+                    {this.state.showPhoto
+                        ? <div className="photoDiv" >
+                            <Button variant="dark" className="float-right" onClick={this.closeZoomInPhoto}>Close</Button>
+                            <img src={ "http://localhost:3000" + this.state.photoUrl} style={{width: '100%',height: '100%'}}/>
+                        </div>
+                        : ''  }
+
                 </Modal>
             </>
         )
