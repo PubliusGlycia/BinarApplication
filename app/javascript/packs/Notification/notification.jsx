@@ -16,7 +16,6 @@ export default class Notification extends React.Component {
             show: false,
             photo_urls: [],
             isLoading: true,
-            downloading:false
         }
     }
 
@@ -74,31 +73,14 @@ export default class Notification extends React.Component {
         return this.state.photo_urls.map((photo, index) =>
             <Card style={{ width: '15rem' }}>
                 <Card.Body>
-                    <Image src={ "http://localhost:3000"+ photo.url } onClick={() => window.open("http://localhost:3000"+ photo.url, "_blank")} fluid/>
+                    <div className="mdb-lightbox no-margin">
+                        <img src={ "http://localhost:3000"+ photo.url } onClick={() => window.open("http://localhost:3000"+ photo.url, "_blank")} fluid/>
+                    </div>
                     <Button href={"http://localhost:3000/post_events/download/" + this.props.NotificationID +"/"+index} target="_blank"> Download </Button>
                 </Card.Body>
             </Card>
         );
     }
-
-    downloadPhoto(photo_name) {
-        return service.getRestClient().get("http://localhost:3000"+photo_url,{ responseType:"blob" });
-    }
-
-    downloadFile = (photo_name) => {
-        this.setState({ downloading: true });
-        this.downloadPhoto(photo_name).then((response) => {
-            this.setState({ downloading: false});
-            var filename=this.extractFileName(response.headers['content-disposition']);
-            saveAs(response.data, filename);
-        }).catch(function (error) {
-            if (error.response) {
-                console.log('Error', error.response.status);
-            } else {
-                console.log('Error', error.message);
-            }
-        });
-    };
 
     render() {
         return (
