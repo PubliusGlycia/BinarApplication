@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './message';
+import MessageForm from './message_form';
 import axios from 'axios';
 
 export default class MessageByNotification extends React.Component {
@@ -37,6 +38,7 @@ export default class MessageByNotification extends React.Component {
 
 ReactDOM.render(
     <>
+        <MessageForm />
         <MessageByNotification />
     </>, document.body.appendChild(document.createElement('div'))
 );
