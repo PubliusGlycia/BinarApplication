@@ -60,7 +60,18 @@ export default class NotificationList extends React.Component {
         .then(posts_events => {
             this.setState({ supplies: posts_events.data, isLoading: false })
         })
+        axios.get('/post_events/'+ this.props.NotificationID +'.json')
+        .then(posts_events => {
+            this.setState({ photo_urls: posts_events.images_url, isLoading: false});
+        })
+        // fetch('/post_events/'+ this.props.NotificationID +'.json')
+        //     .then(response => response.json())
+        //     .then(posts_events => {
+        //         this.setState({ photo_urls: posts_events.images_url, isLoading: false});
+        //     });
     };
+
+
 
     componentDidMount() {
         this.fetchPostEvents();
@@ -82,9 +93,9 @@ export default class NotificationList extends React.Component {
                 user_id={defect.user_id}
                 fetchPostEvents={this.fetchPostEvents}
             />})
-        
-            
-        
+
+
+
         const supplies = this.state.supplies.map(supply =>
             <Notification
                 key={supply.id}
@@ -112,18 +123,19 @@ export default class NotificationList extends React.Component {
                             <ListGroup.Item variant='secondary'>
                                 <h1 className='text-center'>Awarie</h1>
                             </ListGroup.Item>
-                            <ListGroup>
-                                {defects}
-                            </ListGroup>
+                            {this.state.isLoading
+                            ? "loading"
+                            : <ListGroup>{defects}</ListGroup>}
+
                         </Col>
 
                         <Col>
                             <ListGroup.Item variant='secondary'>
                                 <h1 className='text-center'>Zapotrzebowanie</h1>
                             </ListGroup.Item>
-                            <ListGroup>
-                                {supplies}
-                            </ListGroup>
+                            {this.state.isLoading
+                                ? "loading"
+                                : <ListGroup>{supplies}</ListGroup>}
                         </Col>
 
                     </Row>
