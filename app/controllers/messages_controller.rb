@@ -10,8 +10,19 @@ class MessagesController < ApplicationController
         @message = Message.new
     end
 
+    def show_by_id
+        @post_messages = Message.where(post_event_id: params[:id])
+
+        # respond_to do |format|
+        #     format.json { render json: @post_messages }
+        # end
+    end
+
+    # POST /messages
+    # POST /messages.json
     def create
         @message = Message.new(message_params)
+
 
         respond_to do |format|
             if @message.save
@@ -29,6 +40,6 @@ class MessagesController < ApplicationController
     end
 
     def message_params
-        params.require(:message).permit(:author, :content)
+        params.require(:message).permit(:author, :content, :post_event_id)
     end
 end

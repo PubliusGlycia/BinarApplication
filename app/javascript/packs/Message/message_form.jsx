@@ -8,6 +8,7 @@ export default class CreateForm extends React.Component {
       super(props, context);
   
       this.state = {
+        maxLength: 200,
         show: false,
         author: "",
         content: "",
@@ -23,7 +24,7 @@ export default class CreateForm extends React.Component {
       data.append('message[content]', this.state.content)
       data.append('message[post_event_id]', '5')
 
-      console.log(data);
+      console.log(data.getAll('message[content]'));
 
       // axios.post("/post_events.json", data, 
       // {headers: {
@@ -36,11 +37,11 @@ export default class CreateForm extends React.Component {
     }
 
     validateContent = () =>{
-      const maxLength = 200;
+      
       this.setState(state => {
         console.log(state.content.length);
         return {errorDescription:
-            (state.content.lenght < maxLength ? '' : 'Komentarz nie może być dłuższy niż ' + maxLength + ' znaków')}
+            (state.content.length < this.state.maxLength ? '' : 'Komentarz nie może być dłuższy niż ' + this.state.maxLength + ' znaków')}
       });
       
       console.log(this.state.content.length + ' ' + this.state.errorDescription);

@@ -8,7 +8,9 @@ class PostEvent < ApplicationRecord
     validate :file_format_jpg_jpeg_png, on: :create
     #belongs_to :user
     has_many_attached :images
+    has_many :message
     
+
     def file_size_have_to_be_less_than_5MB
         if images.attached?
             images.attachments.each do |photo|
