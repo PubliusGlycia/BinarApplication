@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  get 'post_events/event' => 'post_events#show_by_category'
+  get 'post_events/event' => 'post_events#search_filter'
   get 'post_events/download/:id/:image_position' => 'post_events#download'
   resources :post_events
   
