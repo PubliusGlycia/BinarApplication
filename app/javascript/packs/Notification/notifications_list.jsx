@@ -13,7 +13,7 @@ export default class NotificationList extends React.Component {
         supplies: [],
         isLoading: false,
         state: ''
-    }
+    };
 
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
@@ -28,7 +28,7 @@ export default class NotificationList extends React.Component {
               this.setState({ supplies: posts_events, isLoading: false });
               });
         this.setState({ isLoading: true });
-        console.log(this.props.NotificationID)
+        console.log(this.props.NotificationID);
         fetch('/post_events/'+ this.props.NotificationID +'.json')
             .then(response => response.json())
             .then(posts_events => {
@@ -44,8 +44,8 @@ export default class NotificationList extends React.Component {
 
     render() {
         const defects = this.state.defects.map(defect => {
-            console.log(defect)
-            return <Notification
+            return <ListGroup.Item style={{ background: '#36372D' }}>
+            <Notification
                 key={defect.id}
                 NotificationID={defect.id}
                 title={defect.title}
@@ -57,11 +57,14 @@ export default class NotificationList extends React.Component {
                 images={defect.images}
                 user_id={defect.user_id}
                 fetchPostEvents={this.fetchPostEvents}
-            />})
+            />
+            </ListGroup.Item>
+        });
 
 
 
         const supplies = this.state.supplies.map(supply =>
+            <ListGroup.Item style={{ background: '#36372D' }}>
             <Notification
                 key={supply.id}
                 NotificationID={supply.id}
@@ -74,37 +77,38 @@ export default class NotificationList extends React.Component {
                 images={supply.images}
                 user_id={supply.user_id}
                 fetchPostEvents={this.fetchPostEvents}
-            />)
+            />
+            </ListGroup.Item>);
 
         return (
-            <>
+            <div className='body'>
                 <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
                 <Container fluid>
                     <Row>
 
                         <Col>
-                            <ListGroup.Item variant='secondary'>
+                            <ListGroup.Item variant='flush' className='col_title'>
                                 <h1 className='text-center'>Awarie</h1>
                             </ListGroup.Item>
                             {this.state.isLoading
                             ? "loading"
-                            : <ListGroup>{defects}</ListGroup>}
+                            : <ListGroup variant="flush" >{defects}</ListGroup>}
 
                         </Col>
 
                         <Col>
-                            <ListGroup.Item variant='secondary'>
+                            <ListGroup.Item variant='flush' className='col_title'>
                                 <h1 className='text-center'>Zapotrzebowanie</h1>
                             </ListGroup.Item>
                             {this.state.isLoading
                                 ? "loading"
-                                : <ListGroup>{supplies}</ListGroup>}
+                                : <ListGroup variant="flush" >{supplies}</ListGroup>}
                         </Col>
 
                     </Row>
                 </Container>  
-            </>
+            </div>
         )
     }
 }
@@ -114,4 +118,4 @@ document.addEventListener('DOMContentLoaded', () => {
       < NotificationList />,
       document.body.appendChild(document.createElement('div')),
     )
-  })
+  });
