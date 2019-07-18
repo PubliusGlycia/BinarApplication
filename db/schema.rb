@@ -60,15 +60,6 @@ ActiveRecord::Schema.define(version: 2019_07_15_111847) do
     t.index ["user_id"], name: "index_post_events_on_user_id"
   end
 
-  create_table "submision", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.string "category"
-    t.string "importance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

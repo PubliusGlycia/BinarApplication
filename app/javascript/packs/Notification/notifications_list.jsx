@@ -42,6 +42,16 @@ export default class NotificationList extends React.Component {
         this.fetchPostEvents();
     }
 
+    updateElement = (defect, key, value) => {
+        this.setState({defects: this.state.defects.map(index => {
+            if(index.id === defect.id) {
+                return {...index, [key]: value}
+            } else {
+                return index;
+            }
+        })})
+    }
+
     render() {
         const defects = this.state.defects.map(defect => {
             console.log(defect)
@@ -49,12 +59,16 @@ export default class NotificationList extends React.Component {
                 key={defect.id}
                 NotificationID={defect.id}
                 title={defect.title}
+                setTitle={title => {this.updateElement(defect, 'title', title)}}
                 importance={defect.importance}
+                setImportance={importance => {this.updateElement(defect, 'importance', importance)}}
                 isConfirmed={defect.isConfirmed}
                 description={defect.description}
+                setDescription={description => {this.updateElement(defect, 'description', description)}}
                 date={defect.created_at}
                 category={defect.category}
                 images={defect.images}
+                setImages={images => {this.updateElement(defect, 'images', images)}}
                 user_id={defect.user_id}
                 fetchPostEvents={this.fetchPostEvents}
             />})

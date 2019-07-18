@@ -11,6 +11,7 @@ export default class Notification extends React.Component {
     
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
         this.closeZoomInPhoto = this.closeZoomInPhoto.bind(this);
 
         this.state = {
@@ -20,6 +21,28 @@ export default class Notification extends React.Component {
             showPhoto: false,
             photoUrl:''
         }
+    }
+
+    handleSubmit = (e) => {
+        this.setState({ edit: false });
+        e.preventDefault();
+        const data = new FormData();
+  
+        data.append('post_event[title]', this.props.title)
+        data.append('post_event[description]', this.props.description)
+        data.append('post_event[importance]', this.props.importance)
+          
+        axios.post("/post_events.json", data, 
+        {headers: {
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        }}).then(()=>{
+              this.handleClose()
+              this.props.fetchPostEvents()
+        })
+    }
+      
+    handleEdit() {
+        this.setState({ edit: true });
     }
 
     handleClose() {
@@ -91,7 +114,16 @@ export default class Notification extends React.Component {
         this.setState({showPhoto: false})
     }
 
+
+
     render() {
+        const edit = this.state.edit;
+        let button;
+        if(edit){
+            button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button>
+        }else{
+            button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button>
+        }
         return (
             <>
                 <ListGroup.Item action onClick={this.handleShow} variant={this.props.isConfirmed ? 'success' : ''}>
@@ -103,15 +135,25 @@ export default class Notification extends React.Component {
 
                 <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header>
-                        <Modal.Title className='justify-content-between' style={{width: '100%'}}>
+                        <Modal.Title className='justify-content-between' 
+                        style={{overflow: "hidden",
+                                width: '100%', 
+                                position: 'relative'}}>
                             <Row>
-                                <Col md={6}>{this.props.title}</Col>
-                                <Col md={1}>{this.props.importance}</Col>
+                                <Col md={6}>
+                                <Handler edit={edit} value={this.props.title} 
+                                    onChange={e =>{
+                                      this.props.setTitle(e.target.value)                                     
+                                    }}>
+                                </Handler></Col>
+                                <Col md={1}>
+                                <div>Pilność</div>
+                                    <Handler edit={edit} value={this.props.importance} 
+                                    onChange={e =>{this.props.setImportance(e.target.value)}} 
+                                    type={"radio"}></Handler></Col>
                                 <Col md={1}>{this.markAsInProgress}</Col>
                                 <Col md={4} style={{textAlign: 'right'}}>
-                                    <Button variant="primary" onClick={this.handleClose}>
-                                        Edytuj
-                                    </Button>
+                                    {button}
                                     <Button variant="primary" onClick={this.handleDelete}>
                                         Usuń
                                     </Button>
@@ -124,9 +166,19 @@ export default class Notification extends React.Component {
                     </Modal.Header>
                         <Modal.Body>
                             <Row>
-                                <Col>{this.props.description}</Col>
+                            <Col className='description' style={{overflow: "hidden"}}>
+                                    <AreaHandler edit={edit} style={{width: '100%'}} 
+                                    value={this.props.description} 
+                                    onChange={e =>{this.props.setDescription(e.target.value)}}>
+                                    </AreaHandler>
+                            </Col>
                             </Row>
                             <Row>
+                                <Col className='image'><Image src="{this.props.images}/171x180" thumbnail/>
+                                  <Handler edit={edit} value={this.props.image} onChange={e =>{
+                                      this.props.setImages(e.target.value)
+                                  }} type={"file"}></Handler>
+                                </Col>
                                 {this.state.isLoading
                                     ? "loading image"
                                     :   <Col>
@@ -137,7 +189,8 @@ export default class Notification extends React.Component {
 
                             </Row>
                             <Row>
-                                <Col>{"\n\n"}Dodano {this.props.date.substring(0,10)} {this.props.date.substring(11,16)} przez {this.props.key}</Col> 
+                                <Col className='date'>{"\n\n"}Dodano {this.props.date.substring(0,10)} 
+                                  {this.props.date.substring(11,16)} przez User</Col> 
                             </Row>                                                                          
                         </Modal.Body>
                     <Modal.Footer>
@@ -156,3 +209,21 @@ export default class Notification extends React.Component {
         )
     }
 }
+
+class Handler extends React.Component {
+    render() {
+      return this.props.edit ? (
+        <input onChange={this.props.onChange} type={this.props.type} value={this.props.value} />
+      ) : <div>{this.props.value}</div>   
+    }
+  }
+  
+  class AreaHandler extends React.Component {
+    render() {
+      const {edit, value, ...rest} = this.props;
+  
+      return edit ? (
+        <textarea value={value} {...rest} />
+      ) : <div>{value}</div>
+    }
+  }
