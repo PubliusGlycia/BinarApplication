@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
-import { Modal } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+import { FormControl, InputGroup, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 
@@ -17,8 +16,7 @@ export default class CreateForm extends React.Component {
         show: false,
         author: "",
         content: "",
-        titleError: "",
-        descriptionError: ""
+        errorDescription: ""
       };
     }
 
@@ -49,18 +47,21 @@ export default class CreateForm extends React.Component {
     render() {
       return (
         <>
-            <Form>
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Example textarea</Form.Label>
-                    <Form.Control as="textarea" rows="3" />
-                </Form.Group>
-            </Form>
+          <InputGroup className="mb-3">
+            <FormControl
+              placeholder="Recipient's username"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+            />
+            <InputGroup.Append>
+              <Button variant="outline-secondary">Button</Button>
+            </InputGroup.Append>
+          </InputGroup>
 
-
-
+{/* 
           <Button variant="primary" onClick={this.handleShow}>
             Dodaj zgłoszenie
-          </Button>
+          </Button> */}
   
         </>
       );
