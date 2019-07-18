@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   
   root 'navbar#home'
 
-  get '/kutas/:id' => 'messages#show_by_id'
+  get '/messages_by_post/:id' => 'messages#show_by_post_id'
 
   # get '/messages' => 'messages#index';
   # get '/messages/new' => 'messages#new';

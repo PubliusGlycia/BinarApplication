@@ -10,12 +10,8 @@ class MessagesController < ApplicationController
         @message = Message.new
     end
 
-    def show_by_id
+    def show_by_post_id
         @post_messages = Message.where(post_event_id: params[:id])
-
-        # respond_to do |format|
-        #     format.json { render json: @post_messages }
-        # end
     end
 
     # POST /messages
