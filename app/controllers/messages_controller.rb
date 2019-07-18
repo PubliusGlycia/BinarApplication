@@ -18,15 +18,15 @@ class MessagesController < ApplicationController
     # POST /messages.json
     def create
         @message = Message.new(message_params)
+        @message.save
 
-
-        respond_to do |format|
-            if @message.save
-              format.json { render :create, status: :created, location: @message }
-            else
-              format.json { render json: @message.errors, status: :unprocessable_entity }
-            end
-        end
+        # respond_to do |format|
+        #     if @message.save
+        #       format.json { render :create, status: :created, location: @message }
+        #     else
+        #       format.json { render json: @message.errors, status: :unprocessable_entity }
+        #     end
+        # end
     end
 
     private

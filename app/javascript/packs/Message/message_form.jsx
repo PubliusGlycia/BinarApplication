@@ -10,8 +10,9 @@ export default class CreateForm extends React.Component {
       this.state = {
         maxLength: 200,
         show: false,
-        author: "",
-        content: "",
+        author: "default_author",
+        content: "default_content",
+        postID: "5",
         errorDescription: ""
       };
     }
@@ -20,20 +21,14 @@ export default class CreateForm extends React.Component {
       e.preventDefault();
       const data = new FormData();
 
-      data.append('message[author]', 'autoooooooooor')
+      data.append('message[author]', this.state.author)
       data.append('message[content]', this.state.content)
-      data.append('message[post_event_id]', '5')
+      data.append('message[post_event_id]', this.state.postID)
 
-      console.log(data.getAll('message[content]'));
-
-      // axios.post("/post_events.json", data, 
-      // {headers: {
-      //     "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-      // }}).then(()=>{
-      //       this.handleClose()
-      //       if (this.props.fetchPostEvents)
-      //         this.props.fetchPostEvents();
-      // })
+      axios.post("/messages.json", data, 
+      {headers: {
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      }})
     }
 
     validateContent = () =>{
