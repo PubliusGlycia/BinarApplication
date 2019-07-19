@@ -94,7 +94,7 @@ export default class Notification extends React.Component {
     render() {
         return (
             <>
-                <ListGroup.Item action onClick={this.handleShow} variant={this.props.isConfirmed ? 'success' : ''}>
+                <ListGroup.Item action  style={{ background: '#46473A' , color: '#fff', borderRadius: '5px' }} onClick={this.handleShow} variant={this.props.isConfirmed ? 'success' : ''}>
                     <Row>
                         <Col md={11} as='h5'>{this.props.title}</Col>
                         <Col md={1} as='h1'>{this.importanceCheck()}</Col>

@@ -16,7 +16,7 @@ export default class NotificationList extends React.Component {
         supplies: [],
         isLoading: false,
         state: ''
-    }
+    };
 
     fetchPostEventsWhenSearch = (phrase) => {
         this.setState({ isLoading: true });
@@ -43,6 +43,7 @@ export default class NotificationList extends React.Component {
 
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
+        
         axios.get('/post_events/event.json', {
             params: {
                 category: 'defect'
@@ -60,15 +61,7 @@ export default class NotificationList extends React.Component {
         .then(posts_events => {
             this.setState({ supplies: posts_events.data, isLoading: false })
         })
-        axios.get('/post_events/'+ this.props.NotificationID +'.json')
-        .then(posts_events => {
-            this.setState({ photo_urls: posts_events.images_url, isLoading: false});
-        })
-        // fetch('/post_events/'+ this.props.NotificationID +'.json')
-        //     .then(response => response.json())
-        //     .then(posts_events => {
-        //         this.setState({ photo_urls: posts_events.images_url, isLoading: false});
-        //     });
+
     };
 
 
@@ -79,8 +72,8 @@ export default class NotificationList extends React.Component {
 
     render() {
         const defects = this.state.defects.map(defect => {
-            console.log(defect)
-            return <Notification
+            return <ListGroup.Item style={{ background: '#36372D' }}>
+            <Notification
                 key={defect.id}
                 NotificationID={defect.id}
                 title={defect.title}
@@ -92,11 +85,14 @@ export default class NotificationList extends React.Component {
                 images={defect.images}
                 user_id={defect.user_id}
                 fetchPostEvents={this.fetchPostEvents}
-            />})
+            />
+            </ListGroup.Item>
+        });
 
 
 
         const supplies = this.state.supplies.map(supply =>
+            <ListGroup.Item style={{ background: '#36372D' }}>
             <Notification
                 key={supply.id}
                 NotificationID={supply.id}
@@ -109,10 +105,11 @@ export default class NotificationList extends React.Component {
                 images={supply.images}
                 user_id={supply.user_id}
                 fetchPostEvents={this.fetchPostEvents}
-            />)
+            />
+            </ListGroup.Item>);
 
         return (
-            <>
+            <div className='body'>
                 <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
                 <Container fluid>
@@ -120,27 +117,27 @@ export default class NotificationList extends React.Component {
                     <Row>
 
                         <Col>
-                            <ListGroup.Item variant='secondary'>
+                            <ListGroup.Item variant='flush' className='col_title'>
                                 <h1 className='text-center'>Awarie</h1>
                             </ListGroup.Item>
                             {this.state.isLoading
                             ? "loading"
-                            : <ListGroup>{defects}</ListGroup>}
+                            : <ListGroup variant="flush" >{defects}</ListGroup>}
 
                         </Col>
 
                         <Col>
-                            <ListGroup.Item variant='secondary'>
+                            <ListGroup.Item variant='flush' className='col_title'>
                                 <h1 className='text-center'>Zapotrzebowanie</h1>
                             </ListGroup.Item>
                             {this.state.isLoading
                                 ? "loading"
-                                : <ListGroup>{supplies}</ListGroup>}
+                                : <ListGroup variant="flush" >{supplies}</ListGroup>}
                         </Col>
 
                     </Row>
                 </Container>  
-            </>
+            </div>
         )
     }
 }
@@ -150,4 +147,4 @@ document.addEventListener('DOMContentLoaded', () => {
       < NotificationList />,
       document.body.appendChild(document.createElement('div')),
     )
-  })
+  });
