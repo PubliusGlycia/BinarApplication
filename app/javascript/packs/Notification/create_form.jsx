@@ -29,17 +29,17 @@ export default class CreateForm extends React.Component {
       e.preventDefault();
       const data = new FormData();
 
-      data.append('post_event[title]', this.state.title)
-      data.append('post_event[description]', this.state.description)
-      data.append('post_event[category]', this.state.category)
-      data.append('post_event[importance]', this.state.importance)
+      data.append('post_event[title]', this.state.title);
+      data.append('post_event[description]', this.state.description);
+      data.append('post_event[category]', this.state.category);
+      data.append('post_event[importance]', this.state.importance);
       
       if (this.state.images.length == 1)
       {
         data.append('image[]', this.state.images[0])
       }else if (this.state.images.length == 2)
       {
-        data.append('image[]', this.state.images[0])
+        data.append('image[]', this.state.images[0]);
         data.append('image[]', this.state.images[1])
       }
       
@@ -47,11 +47,13 @@ export default class CreateForm extends React.Component {
       {headers: {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       }}).then(()=>{
-            this.handleClose()
-            if (this.props.fetchPostEvents)
+          this.handleClose();
+          this.setState({images: '', category: '', importance: '', title: '', description: ''});
+
+          if (this.props.fetchPostEvents)
               this.props.fetchPostEvents();
       })
-    }
+    };
   
     handleClose() {
       this.setState({ show: false });
@@ -63,25 +65,25 @@ export default class CreateForm extends React.Component {
   
     handleCategoryChange = (e) =>{
       this.setState({category: e.target.value})
-    }
+    };
 
     handleImportanceChange = (e) =>{
         this.setState({importance: e.target.value})
-    }
+    };
 
     validateTitle = () =>{
       this.setState(state => {
           return {titleError:
               state.title.lenght > 30 ? null : 'Tytuł nie może być dłuższy niż 30 znaków'}
       });
-    }
+    };
 
     validateDescription = () =>{
         this.setState(state => {
             return {descriptionError:
                 state.description.lenght > 300 ? null : 'Opis nie może być dłuższy niż 300 znaków'}
         });
-    }
+    };
     render() {
       return (
         <>
