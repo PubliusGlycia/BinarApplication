@@ -76,13 +76,6 @@ export default class CreateForm extends React.Component {
         this.setState({importance: e.target.value})
     };
 
-    validateTitle = () =>{
-      this.setState(state => {
-          return {titleError:
-              state.title.lenght > 30 ? null : 'Tytuł nie może być dłuższy niż 30 znaków'}
-      });
-    };
-
     validateDescription = () =>{
         this.setState(state => {
             return {descriptionError:
@@ -164,8 +157,7 @@ export default class CreateForm extends React.Component {
                     id="title" placeholder="Podaj tytuł..." maxLength="30"
                     value={this.state.title}
                     onChange={e =>{
-                      this.setState({title: e.target.value},
-                      this.validateTitle())
+                      this.setState({title: e.target.value})
                     }} />
                   </WarrningDiv>
               </div>
