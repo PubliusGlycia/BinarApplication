@@ -1,10 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Notification from './notification';
-import { Modal } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+import {Button, Modal} from 'react-bootstrap';
 import axios from 'axios';
-
+import WarrningDiv from './warrning_div'
 
 export default class CreateForm extends React.Component {
     constructor(props, context) {
@@ -21,7 +18,10 @@ export default class CreateForm extends React.Component {
         description: "",
         images: [],
         titleError: "",
-        descriptionError: ""
+        descriptionError: "",
+        errCategory: "",
+        errImportance: "",
+        errTitle: ""
       };
     }
 
@@ -52,6 +52,11 @@ export default class CreateForm extends React.Component {
 
           if (this.props.fetchPostEvents)
               this.props.fetchPostEvents();
+      }).catch((error) =>{
+          this.setState({errTitle: error.response.data.title, errCategory: error.response.data.category, errImportance: error.response.data.importance});
+          console.log(this.state.errTitle);
+          console.log(this.state.errCategory);
+          console.log(this.state.errImportance)
       })
     };
   
@@ -84,13 +89,14 @@ export default class CreateForm extends React.Component {
                 state.description.lenght > 300 ? null : 'Opis nie może być dłuższy niż 300 znaków'}
         });
     };
+
     render() {
       return (
         <>
           <Button variant="primary" onClick={this.handleShow}>
             Dodaj zgłoszenie
           </Button>
-  
+
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Formularz zgłoszeniowy</Modal.Title>
@@ -102,37 +108,37 @@ export default class CreateForm extends React.Component {
                 <label htmlFor="Title">Kategoria zgłoszenia</label>
               </div>
 
-              <div>
+              <WarrningDiv error={this.state.errCategory} >
                 <div className="form-check form-check-inline">
-                  <input className="form-check-input" 
-                  type="radio" name="inlineRadioOptions1" 
-                  id="inlineRadio1" value="defect" 
+                  <input className="form-check-input"
+                  type="radio" name="inlineRadioOptions1"
+                  id="inlineRadio1" value="defect"
                   onChange={this.handleCategoryChange}/>
                   <label className="form-check-label" htmlFor="inlineRadio1">Awaria</label>
                 </div>
 
                 <div className="form-check form-check-inline">
-                  <input className="form-check-input" 
-                  type="radio" name="inlineRadioOptions1" 
-                  id="inlineRadio2" value="supply" 
+                  <input className="form-check-input"
+                  type="radio" name="inlineRadioOptions1"
+                  id="inlineRadio2" value="supply"
                   onChange={this.handleCategoryChange}/>
                   <label className="form-check-label" htmlFor="inlineRadio2">Zakupy</label>
                 </div>
 
                 <div className="form-check form-check-inline">
-                  <input className="form-check-input" 
-                  type="radio" name="inlineRadioOptions1" 
-                  id="inlineRadio3" value="others" 
+                  <input className="form-check-input"
+                  type="radio" name="inlineRadioOptions1"
+                  id="inlineRadio3" value="others"
                   onChange={this.handleCategoryChange}/>
                   <label className="form-check-label" htmlFor="inlineRadio2">Inne</label>
                 </div>
-              </div>
+              </WarrningDiv>
 
               <div>
                 <label htmlFor="Title">Pilność</label>
               </div>
 
-              <div>
+              <WarrningDiv error={this.state.errImportance}>
                 <div className="form-check form-check-inline">
                   <input className="form-check-input" 
                   type="radio" name="inlineRadioOptions2" 
@@ -148,17 +154,20 @@ export default class CreateForm extends React.Component {
                   onChange={this.handleImportanceChange}/>
                   <label className="form-check-label" htmlFor="inlineRadio3">Important</label>
                 </div>
-              </div>
+              </WarrningDiv>
+              <h1/>
 
               <div className = "form-group">
                 <label htmlFor="Title">Tytuł zgłoszenia</label>
-                <input type="title" className="form-control" 
-                id="title" placeholder="Podaj tytuł..." maxLength="30"
-                value={this.state.title}
-                onChange={e =>{
-                  this.setState({title: e.target.value},
-                  this.validateTitle())
-                }} />
+                  <WarrningDiv error={this.state.errTitle}>
+                    <input type="title" className="form-control"
+                    id="title" placeholder="Podaj tytuł..." maxLength="30"
+                    value={this.state.title}
+                    onChange={e =>{
+                      this.setState({title: e.target.value},
+                      this.validateTitle())
+                    }} />
+                  </WarrningDiv>
               </div>
 
               <div className = "form-group">
