@@ -18,12 +18,13 @@
  @import "bootstrap";
 
 
- .navlist {
-     background: #555555;
-     color: white;
-     font: 20px 'Arial';
- }
+.body{
+  background: #36372d;
+  height: 100vh;
+}
 
- .navbar {
-    padding: 10px;
+.col_title{
+  background: #4919AA;
+  color: #FFFFFF;
+  border-radius: 30px;
 }

@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
 import CreateForm from './create_form';
+import SearchBar from './search_bar';
+import axios from 'axios'
 import Navbar from "../navbar";
 
 
 import { ListGroup, Col, Row, Container } from 'react-bootstrap';
+
 
 export default class NotificationList extends React.Component {
     state = {
@@ -13,21 +16,52 @@ export default class NotificationList extends React.Component {
         supplies: [],
         isLoading: false,
         state: ''
-    }
+    };
+
+    fetchPostEventsWhenSearch = (phrase) => {
+        this.setState({ isLoading: true });
+        axios.get('/post_events/event.json', {
+            params: {
+                category: 'defect',
+                search_phrase: phrase
+            }
+        })
+        .then(posts_events => {
+            this.setState({ defects: posts_events.data, isLoading: false })
+        })
+
+        axios.get('/post_events/event.json', {
+            params: {
+                category: 'supply',
+                search_phrase: phrase
+            }
+        })
+        .then(posts_events => {
+            this.setState({ supplies: posts_events.data, isLoading: false })
+        })
+    };
 
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
-        fetch("/post_events/event/defect.json")
-          .then(response => response.json())
-          .then(posts_events => {
-            this.setState({ defects: posts_events, isLoading: false });
-            });
-        fetch("/post_events/event/supply.json")
-            .then(response => response.json())
-            .then(posts_events => {
-              this.setState({ supplies: posts_events, isLoading: false });
-              });
         
+        axios.get('/post_events/event.json', {
+            params: {
+                category: 'defect'
+            }
+        })
+        .then(posts_events => {
+            this.setState({ defects: posts_events.data, isLoading: false })
+        })
+
+        axios.get('/post_events/event.json', {
+            params: {
+                category: 'supply'
+            }
+        })
+        .then(posts_events => {
+            this.setState({ supplies: posts_events.data, isLoading: false })
+        })
+
     };
 
 
@@ -48,8 +82,8 @@ export default class NotificationList extends React.Component {
 
     render() {
         const defects = this.state.defects.map(defect => {
-            console.log(defect)
-            return <Notification
+            return <ListGroup.Item style={{ background: '#36372D' }}>
+            <Notification
                 key={defect.id}
                 NotificationID={defect.id}
                 title={defect.title}
@@ -65,11 +99,14 @@ export default class NotificationList extends React.Component {
                 setImages={images => {this.updateElement(defect, 'images', images)}}
                 user_id={defect.user_id}
                 fetchPostEvents={this.fetchPostEvents}
-            />})
+            />
+            </ListGroup.Item>
+        });
 
 
 
         const supplies = this.state.supplies.map(supply =>
+            <ListGroup.Item style={{ background: '#36372D' }}>
             <Notification
                 key={supply.id}
                 NotificationID={supply.id}
@@ -82,37 +119,39 @@ export default class NotificationList extends React.Component {
                 images={supply.images}
                 user_id={supply.user_id}
                 fetchPostEvents={this.fetchPostEvents}
-            />)
+            />
+            </ListGroup.Item>);
 
         return (
-            <>
+            <div className='body'>
                 <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
                 <Container fluid>
+                    <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch}/>
                     <Row>
 
                         <Col>
-                            <ListGroup.Item variant='secondary'>
+                            <ListGroup.Item variant='flush' className='col_title'>
                                 <h1 className='text-center'>Awarie</h1>
                             </ListGroup.Item>
                             {this.state.isLoading
                             ? "loading"
-                            : <ListGroup>{defects}</ListGroup>}
+                            : <ListGroup variant="flush" >{defects}</ListGroup>}
 
                         </Col>
 
                         <Col>
-                            <ListGroup.Item variant='secondary'>
+                            <ListGroup.Item variant='flush' className='col_title'>
                                 <h1 className='text-center'>Zapotrzebowanie</h1>
                             </ListGroup.Item>
                             {this.state.isLoading
                                 ? "loading"
-                                : <ListGroup>{supplies}</ListGroup>}
+                                : <ListGroup variant="flush" >{supplies}</ListGroup>}
                         </Col>
 
                     </Row>
                 </Container>  
-            </>
+            </div>
         )
     }
 }
@@ -122,4 +161,4 @@ document.addEventListener('DOMContentLoaded', () => {
       < NotificationList />,
       document.body.appendChild(document.createElement('div')),
     )
-  })
+  });
