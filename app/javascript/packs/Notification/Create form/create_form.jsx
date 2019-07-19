@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Notification from './notification';
+import Notification from '../notification';
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';

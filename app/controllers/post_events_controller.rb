@@ -56,7 +56,7 @@ class PostEventsController < ApplicationController
   # UPDATE
   def update
     post_event = PostEvent.find(params[:id])
-    post_event.update_attributes(post_event_params)
+    post_event.update(post_event_params)
   end
 
   private

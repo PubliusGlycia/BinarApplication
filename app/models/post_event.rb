@@ -2,8 +2,8 @@ class PostEvent < ApplicationRecord
     validates :title, presence:true
     validates :title, length: { maximum: 40 }
     validates :description, length: { maximum: 300 }
-    validates :category, inclusion: { in: %w(defect supply others)}
-    validates :importance, inclusion: { in: %w(important trivial)}
+    validates :category, inclusion: { in: %w(defect supply others), message: "Category need to be choosen" }
+    validates :importance, inclusion: { in: %w(important trivial), message: "Importance need to be choosen"}
     validate :file_size_have_to_be_less_than_5MB, on: :create
     validate :file_format_jpg_jpeg_png, on: :create
     belongs_to :user

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
-import CreateForm from './create_form';
+import CreateForm from './Create form/create_form';
 import Navbar from "../navbar";
 
 
-import { ListGroup, Col, Row, Container } from 'react-bootstrap';
+import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 
 export default class NotificationList extends React.Component {
     state = {
@@ -30,15 +30,23 @@ export default class NotificationList extends React.Component {
         
     };
 
-
-
     componentDidMount() {
         this.fetchPostEvents();
     }
 
-    updateElement = (defect, key, value) => {
+    updateDefectElement = (defect, key, value) => {
         this.setState({defects: this.state.defects.map(index => {
             if(index.id === defect.id) {
+                return {...index, [key]: value}
+            } else {
+                return index;
+            }
+        })})
+    }
+
+    updateSupplyElement = (supply, key, value) => {
+        this.setState({supplies: this.state.supplies.map(index => {
+            if(index.id === supply.id) {
                 return {...index, [key]: value}
             } else {
                 return index;
@@ -53,16 +61,16 @@ export default class NotificationList extends React.Component {
                 key={defect.id}
                 NotificationID={defect.id}
                 title={defect.title}
-                setTitle={title => {this.updateElement(defect, 'title', title)}}
+                setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
                 importance={defect.importance}
-                setImportance={importance => {this.updateElement(defect, 'importance', importance)}}
+                setImportance={importance => {this.updateDefectElement(defect, 'importance', importance)}}
                 isConfirmed={defect.isConfirmed}
                 description={defect.description}
-                setDescription={description => {this.updateElement(defect, 'description', description)}}
+                setDescription={description => {this.updateDefectElement(defect, 'description', description)}}
                 date={defect.created_at}
                 category={defect.category}
                 images={defect.images}
-                setImages={images => {this.updateElement(defect, 'images', images)}}
+                setImages={images => {this.updateDefectElement(defect, 'images', images)}}
                 user_id={defect.user_id}
                 fetchPostEvents={this.fetchPostEvents}
             />})
@@ -74,12 +82,16 @@ export default class NotificationList extends React.Component {
                 key={supply.id}
                 NotificationID={supply.id}
                 title={supply.title}
+                setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}
                 importance={supply.importance}
+                setImportance={importance => {this.updateSupplyElement(supply, 'importance', importance)}}
                 isConfirmed={supply.isConfirmed}
                 description={supply.description}
+                setDescription={description => {this.updateSupplyElement(supply, 'description', description)}}
                 date={supply.created_at}
                 category={supply.category}
                 images={supply.images}
+                setImages={images => {this.updateSupplyElement(supply, 'images', images)}}
                 user_id={supply.user_id}
                 fetchPostEvents={this.fetchPostEvents}
             />)
