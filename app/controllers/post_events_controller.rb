@@ -10,10 +10,8 @@ class PostEventsController < ApplicationController
   end
 
   def search_filter
-    @post_events = PostEvent.where(category: params[:category])
+    @post_events = PostEvent.where(category: params[:category])  
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
-  def show_by_category
-    @post_events = PostEvent.where(category: params[:category])
   end
 
   def show
