@@ -11,6 +11,10 @@ class PostEvent < ApplicationRecord
     has_many_attached :images
     has_many :message
     
+    scope :find_by_title, -> (query) do
+        where("title ILIKE ?","%#{sanitize_sql_like(query)}%")
+    end
+
 
     def file_size_have_to_be_less_than_5MB
         if images.attached?

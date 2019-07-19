@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(version: 2019_07_19_082426) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "post_event_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_event_id"], name: "index_likes_on_post_event_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -70,6 +79,15 @@ ActiveRecord::Schema.define(version: 2019_07_19_082426) do
     t.index ["user_id"], name: "index_post_events_on_user_id"
   end
 
+  create_table "submision", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "category"
+    t.string "importance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -84,6 +102,8 @@ ActiveRecord::Schema.define(version: 2019_07_19_082426) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "likes", "post_events"
+  add_foreign_key "likes", "users"
   add_foreign_key "messages", "post_events"
   add_foreign_key "messages", "users"
 end
