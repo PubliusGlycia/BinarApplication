@@ -27,13 +27,7 @@ export default class NotificationList extends React.Component {
             .then(posts_events => {
               this.setState({ supplies: posts_events, isLoading: false });
               });
-        this.setState({ isLoading: true });
-        console.log(this.props.NotificationID)
-        fetch('/post_events/'+ this.props.NotificationID +'.json')
-            .then(response => response.json())
-            .then(posts_events => {
-                this.setState({ photo_urls: posts_events.images_url, isLoading: false});
-            });
+    
     };
 
 

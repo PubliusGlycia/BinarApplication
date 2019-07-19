@@ -12,7 +12,7 @@ export default class CreateForm extends React.Component {
         show: false,
         author: "default_author",
         content: "default_content",
-        postID: "5",
+        postID: this.props.notifID,
         errorDescription: ""
       };
     }
