@@ -47,14 +47,14 @@ export default class CreateForm extends React.Component {
         <>
           <Form className="w-75">
               <Form.Group controlId="exampleForm.ControlTextarea" className="mb-0">
-                <Form.Control as="textarea" placeholder="Wpisz komentarz..." rows="2"
+                <Form.Control as="textarea" placeholder="Wpisz komentarz..." rows="2" style={ this.state.errorDescription ? { borderColor: '#ACF231' } : {} }
                 onChange={e =>{
                   this.setState({content: e.target.value},
                   this.validateContent())
                 }} />
               </Form.Group>
               <Button className="w-100 mt-0" variant="primary" type="submit" onClick={this.handleSubmit}>
-                Submit
+                Dodaj komentarz
               </Button>
           </Form>
         </>

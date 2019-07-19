@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
     before_action :set_message, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!
 
     def index
         @messages = Message.all
@@ -17,7 +18,11 @@ class MessagesController < ApplicationController
     # POST /messages
     # POST /messages.json
     def create
-        @message = Message.new(message_params)
+        #message = Message.new(message_params)
+        @message = current_user.message.build(message_params)
+        # console.log('USER: ' + current_user)
+        #message.user = current_user
+        #@message = message
         @message.save
 
         # respond_to do |format|
@@ -36,6 +41,6 @@ class MessagesController < ApplicationController
     end
 
     def message_params
-        params.require(:message).permit(:author, :content, :post_event_id)
+        params.require(:message).permit(:user_id, :content, :post_event_id)
     end
 end
