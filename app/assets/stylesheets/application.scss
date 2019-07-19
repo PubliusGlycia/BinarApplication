@@ -13,5 +13,18 @@
  *= require_tree .
  *= require_self
  */
- @import "bootstrap-sprockets";
+
+//  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+
+.body{
+  background: #36372d;
+  height: 100vh;
+}
+
+.col_title{
+  background: #4919AA;
+  color: #FFFFFF;
+  border-radius: 30px;
+}

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+  <div>
+    <strong>Title:</strong>
+    <%= @post_event.title %>
+  </div>
+
+  <div>
+    <strong>Description:</strong>
+    <%= @post_event.description %>
+  </div>
+
+  <div>
+    <strong>Category:</strong>
+    <%= @post_event.category %>
+  </div>
+
+  <div>
+    <strong>Importance:</strong>
+    <%= @post_event.importance %>
+  </div>
+
+  <% id = 1 %>
+
+  <% @post_event.images.each do |image| %>
+    <div class="level">
+      <%= link_to 'Attachment-' + id.to_s , rails_blob_path(image, only_path: true), class: 'button is-primary is-big' %>
+    </div>
+    <% id += 1 %>
+  <% end %>
+
+  <div>
+    <%= link_to 'Edit', edit_post_event_path(@post_event) %> |
+    <%= link_to 'Back', post_events_path %>
+  </div>
