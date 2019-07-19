@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  resources :post_events
-  get 'post_events/event/:category' => 'post_events#show_by_category'
+  get 'post_events/event' => 'post_events#search_filter'
   get 'post_events/download/:id/:image_position' => 'post_events#download'
-  resources :forms
+  resources :post_events
 
-  # root 'navbar#home'
+  resources :forms
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -77,3 +77,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #Gem for Bootstrap
 gem 'bootstrap', '~> 4.3.1'
 gem 'sassc-rails', '>= 2.1.0'
+
+gem 'capistrano-rails'
+gem 'capistrano-rvm'
+
+group :production do
+  gem 'unicorn-rails'
+end
