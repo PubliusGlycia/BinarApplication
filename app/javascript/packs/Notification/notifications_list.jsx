@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
 import CreateForm from './create_form';
+import SearchBar from './search_bar';
+import axios from 'axios'
 import Navbar from "../navbar";
 
 
 import { ListGroup, Col, Row, Container } from 'react-bootstrap';
+
 
 export default class NotificationList extends React.Component {
     state = {
@@ -15,25 +18,50 @@ export default class NotificationList extends React.Component {
         state: ''
     };
 
+    fetchPostEventsWhenSearch = (phrase) => {
+        this.setState({ isLoading: true });
+        axios.get('/post_events/event.json', {
+            params: {
+                category: 'defect',
+                search_phrase: phrase
+            }
+        })
+        .then(posts_events => {
+            this.setState({ defects: posts_events.data, isLoading: false })
+        })
+
+        axios.get('/post_events/event.json', {
+            params: {
+                category: 'supply',
+                search_phrase: phrase
+            }
+        })
+        .then(posts_events => {
+            this.setState({ supplies: posts_events.data, isLoading: false })
+        })
+    };
+
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
-        fetch("/post_events/event/defect.json")
-          .then(response => response.json())
-          .then(posts_events => {
-            this.setState({ defects: posts_events, isLoading: false });
-            });
-        fetch("/post_events/event/supply.json")
-            .then(response => response.json())
-            .then(posts_events => {
-              this.setState({ supplies: posts_events, isLoading: false });
-              });
-        this.setState({ isLoading: true });
-        console.log(this.props.NotificationID);
-        fetch('/post_events/'+ this.props.NotificationID +'.json')
-            .then(response => response.json())
-            .then(posts_events => {
-                this.setState({ photo_urls: posts_events.images_url, isLoading: false});
-            });
+        
+        axios.get('/post_events/event.json', {
+            params: {
+                category: 'defect'
+            }
+        })
+        .then(posts_events => {
+            this.setState({ defects: posts_events.data, isLoading: false })
+        })
+
+        axios.get('/post_events/event.json', {
+            params: {
+                category: 'supply'
+            }
+        })
+        .then(posts_events => {
+            this.setState({ supplies: posts_events.data, isLoading: false })
+        })
+
     };
 
 
@@ -85,6 +113,7 @@ export default class NotificationList extends React.Component {
                 <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
                 <Container fluid>
+                    <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch}/>
                     <Row>
 
                         <Col>
