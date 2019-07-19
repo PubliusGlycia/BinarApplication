@@ -31,9 +31,7 @@ class PostEventsController < ApplicationController
       post_event.user = current_user
       @post_event = post_event
     
-      if params[:image]
-        @post_event.images.attach(params[:image])
-      end
+      @post_event.images.attach(params[:image]) if params[:image] 
 
     end
 
@@ -53,6 +51,12 @@ class PostEventsController < ApplicationController
     else
       head 404
     end
+  end
+
+  # UPDATE
+  def update
+    post_event = PostEvent.find(params[:id])
+    post_event.update_attributes(post_event_params)
   end
 
   private

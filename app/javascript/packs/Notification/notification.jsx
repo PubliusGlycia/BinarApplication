@@ -19,7 +19,7 @@ export default class Notification extends React.Component {
             photo_urls: [],
             isLoading: true,
             showPhoto: false,
-            photoUrl:''
+            photoUrl:'',
         }
     }
 
@@ -30,14 +30,14 @@ export default class Notification extends React.Component {
   
         data.append('post_event[title]', this.props.title)
         data.append('post_event[description]', this.props.description)
+        data.append('post_event[category]', this.props.category)
         data.append('post_event[importance]', this.props.importance)
           
-        axios.post("/post_events.json", data, 
+        axios.patch("/post_events/"+this.props.NotificationID + '.json', data, 
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }}).then(()=>{
               this.handleClose()
-              this.props.fetchPostEvents()
         })
     }
       
@@ -53,7 +53,6 @@ export default class Notification extends React.Component {
         this.handlePhotoUrls();
         this.setState({ show: true });
     }
-
 
     handleDelete = (e) =>{
         axios.delete('/post_events/'+ this.props.NotificationID,
@@ -128,7 +127,7 @@ export default class Notification extends React.Component {
             <>
                 <ListGroup.Item action onClick={this.handleShow} variant={this.props.isConfirmed ? 'success' : ''}>
                     <Row>
-                        <Col md={11} as='h5'>{this.props.title}</Col>
+                        <Col md={11} as='h5' style={{overflow: "hidden"}}>{this.props.title}</Col>
                         <Col md={1} as='h1'>{this.importanceCheck()}</Col>
                     </Row>
                 </ListGroup.Item>
@@ -138,10 +137,11 @@ export default class Notification extends React.Component {
                         <Modal.Title className='justify-content-between' 
                         style={{overflow: "hidden",
                                 width: '100%', 
-                                position: 'relative'}}>
+                                position: 'relative'
+                                }}>
                             <Row>
-                                <Col md={6}>
-                                <Handler edit={edit} value={this.props.title} 
+                                <Col md={6} style={{overflow: "hidden"}}>
+                                <Handler maxLength='30' edit={edit} value={this.props.title} 
                                     onChange={e =>{
                                       this.props.setTitle(e.target.value)                                     
                                     }}>
@@ -154,7 +154,7 @@ export default class Notification extends React.Component {
                                 <Col md={1}>{this.markAsInProgress}</Col>
                                 <Col md={4} style={{textAlign: 'right'}}>
                                     {button}
-                                    <Button variant="primary" onClick={this.handleDelete}>
+                                    <Button variant="danger" onClick={this.handleDelete}>
                                         Usuń
                                     </Button>
                                     <Button variant="secondary" onClick={this.handleClose}>
@@ -174,7 +174,7 @@ export default class Notification extends React.Component {
                             </Col>
                             </Row>
                             <Row>
-                                <Col className='image'><Image src="{this.props.images}/171x180" thumbnail/>
+                                <Col className='image'>
                                   <Handler edit={edit} value={this.props.image} onChange={e =>{
                                       this.props.setImages(e.target.value)
                                   }} type={"file"}></Handler>
