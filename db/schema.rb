@@ -52,6 +52,19 @@ ActiveRecord::Schema.define(version: 2019_07_17_112431) do
   create_table "likes", force: :cascade do |t|
     t.bigint "post_event_id"
     t.bigint "user_id"
+
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_event_id"], name: "index_likes_on_post_event_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "post_events", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "category"
+    t.string "importance"
+
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_event_id"], name: "index_likes_on_post_event_id"
@@ -67,15 +80,6 @@ ActiveRecord::Schema.define(version: 2019_07_17_112431) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_post_events_on_user_id"
-  end
-
-  create_table "submision", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.string "category"
-    t.string "importance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

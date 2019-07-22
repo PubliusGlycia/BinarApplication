@@ -265,14 +265,6 @@ GEM
       unicorn
     warden (1.2.8)
       rack (>= 2.0.6)
-    unicorn (5.5.1)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
-    unicorn-rails (2.2.1)
-      rack
-      unicorn
-    warden (1.2.8)
-      rack (>= 2.0.6)
     web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
