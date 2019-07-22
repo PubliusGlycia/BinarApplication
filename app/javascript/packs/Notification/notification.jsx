@@ -25,7 +25,7 @@ export default class Notification extends React.Component {
     }
     
     handleShow() {
-        this.handlePhotoUrls();
+        this.fetchPhotoUrls();
         this.setState({ show: true });
     }
 
@@ -60,7 +60,7 @@ export default class Notification extends React.Component {
             return '!!!'
     }
 
-    handlePhotoUrls() {
+    fetchPhotoUrls() {
         this.setState({ isLoading: true });
         fetch('/post_events/'+ this.props.NotificationID +'.json')
             .then(response => response.json())
