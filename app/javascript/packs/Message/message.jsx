@@ -21,7 +21,7 @@ export default class Message extends React.Component {
                                 Created: { this.props.created }
                             </div>
                             <hr className='mt-1' style={{ background: '#9C82D0' }}/>
-                            <div style={{ font: 'Muli', fontSize: '13px', color:'#EEE' }}>
+                            <div style={{ font: 'Muli', fontSize: '13px', color:'#EEE', wordBreak: 'break-word' }}>
                                 { this.props.content }
                             </div>
                         </Media.Body>

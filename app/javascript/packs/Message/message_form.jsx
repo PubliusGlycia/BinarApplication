@@ -10,8 +10,7 @@ export default class CreateForm extends React.Component {
       this.state = {
         maxLength: 200,
         show: false,
-        author: "default_author",
-        content: "default_content",
+        content: "",
         postID: this.props.notifID,
         errorDescription: ""
       };
@@ -21,33 +20,33 @@ export default class CreateForm extends React.Component {
       e.preventDefault();
       const data = new FormData();
 
-      data.append('message[author]', this.state.author)
       data.append('message[content]', this.state.content)
       data.append('message[post_event_id]', this.state.postID)
 
       axios.post("/messages.json", data, 
       {headers: {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-      }})
+      }}).then(() =>
+        this.props.fetchMessages()
+      ).then(() =>
+        document.getElementById('textarea').value = ''
+      )
     }
 
     validateContent = () =>{
       
       this.setState(state => {
-        console.log(state.content.length);
         return {errorDescription:
             (state.content.length < this.state.maxLength ? '' : 'Komentarz nie może być dłuższy niż ' + this.state.maxLength + ' znaków')}
       });
-      
-      console.log(this.state.content.length + ' ' + this.state.errorDescription);
     }
 
     render() {
-      return (     
+      return (
         <>
           <Form className="w-75">
               <Form.Group controlId="exampleForm.ControlTextarea" className="mb-0">
-                <Form.Control as="textarea" placeholder="Wpisz komentarz..." rows="2" style={ this.state.errorDescription ? { borderColor: '#ACF231' } : {} }
+                <Form.Control id="textarea" as="textarea" placeholder="Wpisz komentarz..." rows="2" style={ this.state.errorDescription ? { borderColor: '#f23131'} : {} }
                 onChange={e =>{
                   this.setState({content: e.target.value},
                   this.validateContent())

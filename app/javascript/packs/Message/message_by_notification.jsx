@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Message from './message';
 import MessageForm from './message_form';
 import axios from 'axios';
@@ -17,7 +16,7 @@ export default class MessageByNotification extends React.Component {
     }
 
     formatDate = (date) => {
-        return date.slice(0, date.indexOf('T')) + ' at ' + date.slice(date.indexOf('T') + 1, date.lastIndexOf(':'))
+        return date.substring(0,10) + ' at ' + date.substring(11,16)
     }
 
     componentDidMount() {
@@ -26,20 +25,13 @@ export default class MessageByNotification extends React.Component {
 
     render() {
         const messages = this.state.messages.sort((a, b) => a.created_at < b.created_at ).map((message, i) => 
-            <Message author={message.author} created={this.formatDate(message.created_at)} content={message.content} key={ i } />)
+            <Message author={message.author} created={this.formatDate(message.created_at)} content={message.content} key={ 'message_' + i } />)
         console.log(this.state.messages);
         return (
             <>
-                <MessageForm notifID={this.props.notifID} userID={this.state.userID} />
+                <MessageForm notifID={this.props.notifID} userID={this.state.userID} fetchMessages={this.fetchMessages} />
                 { messages }
             </>
         );
     }
 }
-
-// ReactDOM.render(
-//     <>
-//         <MessageForm />
-//         <MessageByNotification />
-//     </>, document.body.appendChild(document.createElement('div'))
-// );
