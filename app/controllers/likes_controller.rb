@@ -15,5 +15,5 @@ class LikesController < ApplicationController
         def already_liked?
             Like.where(user_id: current_user.id, post_event_id:
             params[:post_event_id]).exists?
-          end
+        end
 end
