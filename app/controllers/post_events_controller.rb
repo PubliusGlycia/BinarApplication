@@ -1,17 +1,15 @@
 class PostEventsController < ApplicationController
-  before_action :set_post_event, only: [:edit, :update, :destroy]
+  before_action :set_post_event, only: [:destroy]
   before_action :authenticate_user!
   # GET /post_events
   # GET /post_events.json
   def index
-    if current_user
-      @post_events = PostEvent.all
-    end
+    @post_events = PostEvent.all if current_user
   end
 
   def search_filter
-    @post_events = PostEvent.where(category: params[:category])  
-    @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
+    @post_events = PostEvent.where(category: params[:category])
+    @post_events = @post_events.find_by(params[:search_phrase]) if params[:search_phrase]
   end
 
   def show
@@ -26,16 +24,11 @@ class PostEventsController < ApplicationController
   # POST /post_events
   # POST /post_events.json
   def create
-
     if current_user
       post_event = PostEvent.new(post_event_params)
       post_event.user = current_user
       @post_event = post_event
-    
-      if params[:image]
-        @post_event.images.attach(params[:image])
-      end
-
+      @post_event.images.attach(params[:image]) if params[:image]
     end
 
     respond_to do |format|
@@ -57,13 +50,14 @@ class PostEventsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post_event
-      @post_event = PostEvent.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_event_params
-      params.require(:post_event).permit(:title, :description, :category, :importance, )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post_event
+    @post_event = PostEvent.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def post_event_params
+    params.require(:post_event).permit(:title, :description, :category, :importance)
+  end
 end
