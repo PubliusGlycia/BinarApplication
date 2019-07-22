@@ -13,7 +13,6 @@ export default class WarrningDiv extends React.Component {
             red_div= {};
             error_msg = <></>
         }
-
         return <div style={red_div}>
             {this.props.children}
             {error_msg}

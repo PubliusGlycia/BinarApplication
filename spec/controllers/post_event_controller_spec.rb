@@ -9,7 +9,6 @@ RSpec.describe PostEventsController, type: :controller do
 
     describe 'successful response' do
       before { subject }
-      it { expect(user).to_not eq(nil) }
       it { expect(response).to be_successful }
       it { expect(response).to render_template('index') }
     end
