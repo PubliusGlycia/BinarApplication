@@ -7,7 +7,7 @@ class PostEvent < ApplicationRecord
     validate :file_size_have_to_be_less_than_5MB, on: :create
     validate :file_format_jpg_jpeg_png, on: :create
     belongs_to :user
-    has_many :likes, dependent: :destroy
+    # has_many :likes, dependent: :destroy
     
     has_many_attached :images
     
