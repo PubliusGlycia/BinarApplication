@@ -1,7 +1,5 @@
 import React from 'react';
-import { ListGroup, Row, Col } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import { Modal, Card } from 'react-bootstrap';
+import {Button, Card, Col, ListGroup, Modal, Row} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image'
 import axios from 'axios';
 
@@ -68,7 +66,6 @@ export default class Notification extends React.Component {
             .then(response => response.json())
             .then(posts_events => {
                 this.setState({ photo_urls: posts_events.images_url, isLoading: false});
-                console.log(this.state.photo_urls[0].url)
             });
     }
 
@@ -76,8 +73,8 @@ export default class Notification extends React.Component {
         return this.state.photo_urls.map((photo, index) =>
             <Card style={{ width: '15rem' }}>
                 <Card.Body>
-                    <Image src={ "http://localhost:3000"+ photo.url } value={photo.url} onClick={() => this.showZoomInPhoto(photo.url)} fluid/>
-                    <Button href={"http://localhost:3000/post_events/download/" + this.props.NotificationID +"/"+index} target="_blank"> Download </Button>
+                    <Image src={ `http://localhost:3000/ ${photo.url} `} value={photo.url} onClick={() => this.showZoomInPhoto(photo.url)} fluid/>
+                    <Button href={`http://localhost:3000/post_events/download/" ${this.props.NotificationID} / ${index}`} target="_blank"> Download </Button>
                 </Card.Body>
             </Card>
         );
@@ -147,7 +144,7 @@ export default class Notification extends React.Component {
                     {this.state.showPhoto
                         ? <div className="photoDiv" >
                             <Button variant="dark" className="float-right" onClick={this.closeZoomInPhoto}>Close</Button>
-                            <img src={ "http://localhost:3000" + this.state.photoUrl} style={{width: '100%',height: '100%'}}/>
+                            <img src={ `http://localhost:3000" ${this.state.photoUrl}`} style={{width: '100%',height: '100%'}}/>
                         </div>
                         : ''  }
 
