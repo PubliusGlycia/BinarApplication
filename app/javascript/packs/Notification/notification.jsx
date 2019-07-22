@@ -146,9 +146,17 @@ export default class Notification extends React.Component {
 
         return (
             <>
+                {this.props.admin
+                        ? ''
+                        : <input className="form-check-input"
+                                   type="checkbox" name="notificationsToArchive"
+                                   id="inlineRadio" value={this.props.NotificationID}
+                                   onChange={e => {this.props.notificationsToArchive(e.target.value)}}/>
+                }
+
                 <ListGroup.Item action  style={{ background: '#46473A' , color: '#fff', borderRadius: '5px' }} onClick={this.handleShow} variant={this.props.isConfirmed ? 'success' : ''}>
                     <Row>
-                        <Col md={11} as='h5' style={{overflow: "hidden"}}>{this.props.title}</Col>
+                        <Col md={10} as='h5' style={{overflow: "hidden"}}>{this.props.title}</Col>
                         <Col md={1} as='h1'>{this.importanceCheck()}</Col>
                     </Row>
                 </ListGroup.Item>

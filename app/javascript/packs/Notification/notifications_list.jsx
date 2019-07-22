@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
-import CreateForm from './Create form/create_form';
 import SearchBar from './search_bar';
 import axios from 'axios'
 import Navbar from "../navbar";
 
 
-import {Col, Container, ListGroup, Row} from 'react-bootstrap';
+import {Button, Col, Container, ListGroup, Row} from 'react-bootstrap';
 
 
 export default class NotificationList extends React.Component {
@@ -15,7 +14,9 @@ export default class NotificationList extends React.Component {
         defects: [],
         supplies: [],
         isLoading: false,
-        state: ''
+        state: '',
+        admin: false,
+        notificationsToArchive: []
     };
 
     fetchPostEventsWhenSearch = (phrase) => {
@@ -51,7 +52,7 @@ export default class NotificationList extends React.Component {
         })
         .then(posts_events => {
             this.setState({ defects: posts_events.data, isLoading: false })
-        })
+        });
 
         axios.get('/post_events/event.json', {
             params: {
@@ -66,6 +67,20 @@ export default class NotificationList extends React.Component {
 
     componentDidMount() {
         this.fetchPostEvents();
+        this.checkUser()
+    }
+
+    checkUser() {
+        axios.get('/user/check')
+            .then(response =>{
+                if (response.status == 202){
+                    this.setState({admin: true})
+                }
+            })
+            .catch (function (error){
+                console.log(error.response.status);
+                this.setState({admin: false})
+        })
     }
 
     updateDefectElement = (defect, key, value) => {
@@ -76,7 +91,7 @@ export default class NotificationList extends React.Component {
                 return index;
             }
         })})
-    }
+    };
 
     updateSupplyElement = (supply, key, value) => {
         this.setState({supplies: this.state.supplies.map(index => {
@@ -86,6 +101,19 @@ export default class NotificationList extends React.Component {
                 return index;
             }
         })})
+    };
+
+    updateArchiveList = (idToArchive) => {
+
+        this.setState(previousState => ({
+            notificationsToArchive: [...previousState.notificationsToArchive, idToArchive]
+        }), () => {
+            console.log(this.state.notificationsToArchive)
+        })
+    };
+
+    archive(){
+
     }
 
     render() {
@@ -93,6 +121,7 @@ export default class NotificationList extends React.Component {
             return <ListGroup.Item style={{ background: '#36372D' }}>
             <Notification
                 key={defect.id}
+                admin={this.props.admin}
                 NotificationID={defect.id}
                 title={defect.title}
                 setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
@@ -107,6 +136,7 @@ export default class NotificationList extends React.Component {
                 setImages={images => {this.updateDefectElement(defect, 'images', images)}}
                 user_id={defect.user_id}
                 fetchPostEvents={this.fetchPostEvents}
+                notificationsToArchive={this.updateArchiveList}
             />
             </ListGroup.Item>
         });
@@ -117,6 +147,7 @@ export default class NotificationList extends React.Component {
             <ListGroup.Item style={{ background: '#36372D' }}>
             <Notification
                 key={supply.id}
+                admin={this.props.admin}
                 NotificationID={supply.id}
                 title={supply.title}
                 setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}
@@ -139,7 +170,19 @@ export default class NotificationList extends React.Component {
                 <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
                 <Container fluid>
-                    <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch}/>
+                    <Row>
+                        <Col sm={8}>
+                            <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch}/>
+                        </Col>
+
+                        <Col sm={4}>
+                            <Button variant="secondary" onClick={this.archive}>
+                                Archive
+                            </Button>
+                        </Col>
+                    </Row>
+
+
                     <Row>
 
                         <Col>
@@ -149,7 +192,6 @@ export default class NotificationList extends React.Component {
                             {this.state.isLoading
                             ? "loading"
                             : <ListGroup variant="flush" >{defects}</ListGroup>}
-
                         </Col>
 
                         <Col>

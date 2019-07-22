@@ -1,16 +1,16 @@
 import React from 'react';
-import { Form, Col } from 'react-bootstrap';
+import {Col, Form} from 'react-bootstrap';
 
 export default class SearchBar extends React.Component {
     handleChange = (e) => {
         this.props.fetchPostEventsWhenSearch(e.target.value)
-    }
+    };
 
     render() {
         return (
             <>
                 <Form>
-                    <Form.Row className="justify-content-around">
+                    <Form.Row >
 
                         <Col md={10}>
                             <Form.Group>
