@@ -71,7 +71,7 @@ export default class Notification extends React.Component {
 
     loadImages() {
         return this.state.photo_urls.map((photo, index) =>
-            <Card style={{ width: '15rem' }}>
+            <Card key={index} style={{ width: '15rem' }}>
                 <Card.Body>
                     <Image src={ `/ ${photo.url} `} value={photo.url} onClick={() => this.showZoomInPhoto(photo.url)} fluid/>
                     <Button href={`/post_events/download/ ${this.props.NotificationID} / ${index}`} target="_blank"> Download </Button>
