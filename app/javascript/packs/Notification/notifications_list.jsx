@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Notification from './notification';
-import CreateForm from './create_form';
 import SearchBar from './search_bar';
 import axios from 'axios'
 import Navbar from "../navbar";
 
 
-import { ListGroup, Col, Row, Container } from 'react-bootstrap';
+import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 
 
 export default class NotificationList extends React.Component {
@@ -28,7 +27,7 @@ export default class NotificationList extends React.Component {
         })
         .then(posts_events => {
             this.setState({ defects: posts_events.data, isLoading: false })
-        })
+        });
 
         axios.get('/post_events/event.json', {
             params: {
@@ -51,7 +50,7 @@ export default class NotificationList extends React.Component {
         })
         .then(posts_events => {
             this.setState({ defects: posts_events.data, isLoading: false })
-        })
+        });
 
         axios.get('/post_events/event.json', {
             params: {
