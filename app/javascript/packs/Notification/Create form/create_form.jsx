@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import Notification from '../notification';
 import {Button, Modal} from 'react-bootstrap';
 import axios from 'axios';
 import WarrningDiv from './warrning_div'
@@ -29,10 +31,10 @@ export default class CreateForm extends React.Component {
       e.preventDefault();
       const data = new FormData();
 
-      data.append('post_event[title]', this.state.title);
-      data.append('post_event[description]', this.state.description);
-      data.append('post_event[category]', this.state.category);
-      data.append('post_event[importance]', this.state.importance);
+      data.append('post_event[title]', this.state.title)
+      data.append('post_event[description]', this.state.description)
+      data.append('post_event[category]', this.state.category)
+      data.append('post_event[importance]', this.state.importance)
       
       if (this.state.images.length == 1)
       {
@@ -89,7 +91,7 @@ export default class CreateForm extends React.Component {
           <Button variant="primary" onClick={this.handleShow}>
             Dodaj zgłoszenie
           </Button>
-
+          
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Formularz zgłoszeniowy</Modal.Title>
@@ -106,6 +108,7 @@ export default class CreateForm extends React.Component {
                   <input className="form-check-input"
                   type="radio" name="inlineRadioOptions1"
                   id="inlineRadio1" value="defect"
+
                   onChange={this.handleCategoryChange}/>
                   <label className="form-check-label" htmlFor="inlineRadio1">Awaria</label>
                 </div>
