@@ -73,8 +73,8 @@ export default class Notification extends React.Component {
         return this.state.photo_urls.map((photo, index) =>
             <Card style={{ width: '15rem' }}>
                 <Card.Body>
-                    <Image src={ `http://localhost:3000/ ${photo.url} `} value={photo.url} onClick={() => this.showZoomInPhoto(photo.url)} fluid/>
-                    <Button href={`http://localhost:3000/post_events/download/" ${this.props.NotificationID} / ${index}`} target="_blank"> Download </Button>
+                    <Image src={ `/ ${photo.url} `} value={photo.url} onClick={() => this.showZoomInPhoto(photo.url)} fluid/>
+                    <Button href={`/post_events/download/ ${this.props.NotificationID} / ${index}`} target="_blank"> Download </Button>
                 </Card.Body>
             </Card>
         );
@@ -144,7 +144,7 @@ export default class Notification extends React.Component {
                     {this.state.showPhoto
                         ? <div className="photoDiv" >
                             <Button variant="dark" className="float-right" onClick={this.closeZoomInPhoto}>Close</Button>
-                            <img src={ `http://localhost:3000" ${this.state.photoUrl}`} style={{width: '100%',height: '100%'}}/>
+                            <img src={ `/ ${this.state.photoUrl}`} style={{width: '100%',height: '100%'}}/>
                         </div>
                         : ''  }
 
