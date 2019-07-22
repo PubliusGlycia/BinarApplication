@@ -1,10 +1,6 @@
 import React from 'react';
 import {Button, Card, Col, ListGroup, Modal, Row} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image'
-import { ListGroup, Row, Col, ToggleButton } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import { Modal, Card } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 import WarrningDiv from './Create form/warrning_div';
 
@@ -36,10 +32,10 @@ export default class Notification extends React.Component {
         e.preventDefault();
         const data = new FormData();
 
-        data.append('post_event[title]', this.props.title)
-        data.append('post_event[description]', this.props.description)
-        data.append('post_event[category]', this.props.category)
-        data.append('post_event[importance]', this.props.importance)
+        data.append('post_event[title]', this.props.title);
+        data.append('post_event[description]', this.props.description);
+        data.append('post_event[category]', this.props.category);
+        data.append('post_event[importance]', this.props.importance);
 
         axios.patch("/post_events/"+this.props.NotificationID + '.json', data,
         {headers: {
@@ -63,11 +59,11 @@ export default class Notification extends React.Component {
                 return this.props.setImportance('trivial')
             }
         });
-    }
+    };
 
     handleEdit = () => {
         this.setState({ edit: true });
-    }
+    };
 
     handleClose() {
         this.setState({ show: false, showPhoto: false });
