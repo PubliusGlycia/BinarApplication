@@ -1,7 +1,10 @@
 // Place all the styles related to the Notification controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-
-.navbar {
-    padding: 50px;
+.photoDiv{
+  position: fixed;
+  width: 80vw;
+  height: 80vh;
+  left: 10vw;
+  top: 10vh;
 }
