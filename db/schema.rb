@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 2019_07_17_112431) do
     t.string "description"
     t.string "category"
     t.string "importance"
-
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_event_id"], name: "index_likes_on_post_event_id"
@@ -90,7 +89,6 @@ ActiveRecord::Schema.define(version: 2019_07_17_112431) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
