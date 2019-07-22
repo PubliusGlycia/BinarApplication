@@ -12,6 +12,11 @@ class PostEventsController < ApplicationController
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
   end
 
+  def check_user
+    return head 404 unless current_user.admin == true
+      return head 202
+  end
+
   def show
     @post_event = PostEvent.find(params[:id])
   end
