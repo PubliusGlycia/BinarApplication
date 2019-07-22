@@ -9,7 +9,7 @@ class PostEventsController < ApplicationController
 
   def search_filter
     @post_events = PostEvent.where(category: params[:category])
-    @post_events = @post_events.find_by(params[:search_phrase]) if params[:search_phrase]
+    @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
   end
 
   def check_user
