@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'post_events/event' => 'post_events#search_filter'
   get 'post_events/download/:id/:image_position' => 'post_events#download'
   resources :post_events
+  get 'user/check' => 'post_events#check_user'
   
   resources :forms
 
