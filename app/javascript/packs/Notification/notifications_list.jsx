@@ -28,7 +28,7 @@ export default class NotificationList extends React.Component {
         })
         .then(posts_events => {
             this.setState({ defects: posts_events.data, isLoading: false })
-        })
+        });
 
         axios.get('/post_events/event.json', {
             params: {

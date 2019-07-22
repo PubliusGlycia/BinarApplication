@@ -1,6 +1,6 @@
 import React from 'react'
 import CreateForm from './Notification/Create form/create_form';
-import { Row, Col } from 'react-bootstrap';
+import {Col, Row} from 'react-bootstrap';
 
 export default class Navbar extends React.Component {
 
@@ -9,10 +9,10 @@ export default class Navbar extends React.Component {
         supplies: [],
         isLoadingDefects: false,
         isLoadingSupplies: false
-    }
+    };
 
     fetchPostEvents = () => {
-        this.setState({ isLoadingDefects: true, isLoadingSupplies: true })
+        this.setState({ isLoadingDefects: true, isLoadingSupplies: true });
         fetch("/post_events/event/defect.json")
           .then(response => response.json())
           .then(posts_events => {
