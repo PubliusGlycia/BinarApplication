@@ -8,7 +8,8 @@ class PostEventsController < ApplicationController
   end
 
   def search_filter
-    @post_events = PostEvent.where(category: params[:category])  
+    @post_events = PostEvent.where(category: params[:category])
+    @post_events = @post_events.where(archive: :false)
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
   end
 
@@ -52,6 +53,11 @@ class PostEventsController < ApplicationController
   def update
     post_event = PostEvent.find(params[:id])
     post_event.update(post_event_params)
+  end
+
+  def archive_events
+    @post_events = PostEvent.where(id: params[:id])
+    @post_events.update(archive: true)
   end
 
   private
