@@ -43,6 +43,12 @@ class PostEventsController < ApplicationController
       @post_event.destroy
   end
 
+  # UPDATE
+  def update
+    post_event = PostEvent.find(params[:id])
+    post_event.update(post_event_params)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post_event
