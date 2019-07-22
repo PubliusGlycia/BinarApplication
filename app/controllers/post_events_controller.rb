@@ -4,14 +4,17 @@ class PostEventsController < ApplicationController
   # GET /post_events
   # GET /post_events.json
   def index
-    if current_user
-      @post_events = PostEvent.all
-    end
+    @post_events = PostEvent.all
   end
 
   def search_filter
     @post_events = PostEvent.where(category: params[:category])  
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
+  end
+
+  def check_user
+    return head 404 unless current_user.admin == true
+      return head 202
   end
 
   def show
@@ -26,17 +29,9 @@ class PostEventsController < ApplicationController
   # POST /post_events
   # POST /post_events.json
   def create
+    @post_event = current_user.post_event.build(post_event_params)
 
-    if current_user
-      post_event = PostEvent.new(post_event_params)
-      post_event.user = current_user
-      @post_event = post_event
-    
-      if params[:image]
-        @post_event.images.attach(params[:image])
-      end
-
-    end
+    @post_event.images.attach(params[:image]) if params[:image]
 
     respond_to do |format|
       if @post_event.save
@@ -49,11 +44,14 @@ class PostEventsController < ApplicationController
 
   # DESTROY
   def destroy
-    if @post_event.user_id == current_user.id
+    return head 404 unless @post_event.user_id == current_user.id
       @post_event.destroy
-    else
-      head 404
-    end
+  end
+
+  # UPDATE
+  def update
+    post_event = PostEvent.find(params[:id])
+    post_event.update(post_event_params)
   end
 
   private
