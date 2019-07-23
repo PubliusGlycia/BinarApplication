@@ -6,7 +6,6 @@ import SearchBar from './search_bar';
 import axios from 'axios'
 import Navbar from "../navbar";
 
-
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 
 
@@ -43,7 +42,7 @@ export default class NotificationList extends React.Component {
 
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
-        
+
         axios.get('/post_events/event.json', {
             params: {
                 category: 'defect'
@@ -162,7 +161,7 @@ export default class NotificationList extends React.Component {
                         </Col>
 
                     </Row>
-                </Container>  
+                </Container>
             </div>
         )
     }
