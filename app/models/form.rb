@@ -1,3 +1,0 @@
-class Form < ApplicationRecord
-    
-end
