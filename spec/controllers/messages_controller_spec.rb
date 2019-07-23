@@ -14,20 +14,30 @@ RSpec.describe MessagesController, type: :controller do
       it { expect(response).to render_template('index') }
     end
     
-    context 'events' do
+    context 'messages' do
 
       let(:message1) { create(:valid_message, user_id: user.id, post_event_id: post_event.id) }
       let(:message2) { create(:valid_message, user_id: user.id, post_event_id: post_event.id) }
 
-      it 'returns all events' do
+      it 'returns all messages' do
         subject
         expect(assigns(:post_messages)).to match_array([message1, message2])
       end
     end
   end
 
-  # it 'should require content' do
-  #   expect(user.messages.build()).to be_valid
-  #   expect(user.messages.build(content: 'test')).to be_valid
-  # end
+  describe 'POST #create' do
+    let(:message) { create(:valid_message, user_id: user.id, post_event_id: post_event.id) }    
+
+    describe 'successful response' do
+      it { expect(response).to be_successful }
+    end
+
+    it 'creates a message' do
+      get :index , params: { id: post_event.id}
+      expect(assigns(:post_messages)).to match_array([message])
+    end
+
+  end
+
 end

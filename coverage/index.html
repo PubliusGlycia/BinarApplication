@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2019-07-23T14:30:19+02:00">2019-07-23T14:30:19+02:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2019-07-23T16:16:03+02:00">2019-07-23T16:16:03+02:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.36
+         0.41
        </span>
     </span> hits/line)
   </h2>
@@ -117,7 +117,7 @@
         <td>11</td>
         <td>8</td>
         <td>3</td>
-        <td>1.1</td>
+        <td>1.3</td>
       </tr>
       
       <tr>
@@ -227,7 +227,7 @@
         <td>20</td>
         <td>19</td>
         <td>1</td>
-        <td>1.6</td>
+        <td>1.9</td>
       </tr>
       
       <tr>
@@ -253,7 +253,7 @@
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.11
+         0.13
        </span>
     </span> hits/line)
   </h2>
@@ -325,7 +325,7 @@
         <td>11</td>
         <td>8</td>
         <td>3</td>
-        <td>1.1</td>
+        <td>1.3</td>
       </tr>
       
       <tr>
@@ -407,7 +407,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.39
+         1.58
        </span>
     </span> hits/line)
   </h2>
@@ -459,7 +459,7 @@
         <td>20</td>
         <td>19</td>
         <td>1</td>
-        <td>1.6</td>
+        <td>1.9</td>
       </tr>
       
       <tr>
@@ -1373,14 +1373,14 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="5">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="5">
+          <span class="hits">4</span>
           
           <code class="ruby">    message_with_user = Message.includes(:user)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="6">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="6">
+          <span class="hits">4</span>
           
           <code class="ruby">    @post_messages = message_with_user.where(post_event_id: params[:id]).order(created_at: :desc)</code>
         </li>
@@ -2350,8 +2350,8 @@
           <code class="ruby">  def file_size_have_to_be_less_than_5mb</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="18">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="18">
+          <span class="hits">4</span>
           
           <code class="ruby">    return false unless images.attached?</code>
         </li>
@@ -2362,8 +2362,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="20">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="8" data-linenumber="20">
+          <span class="hits">8</span>
           
           <code class="ruby">    images.attachments.each { |photo| errors.add(:images, &#39;can\&#39;t be greater than 5MB&#39;) if photo.byte_size &gt; 5_000_000 }</code>
         </li>
@@ -2386,8 +2386,8 @@
           <code class="ruby">  def file_format_jpg_jpeg_png</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="24">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="24">
+          <span class="hits">4</span>
           
           <code class="ruby">    return false unless images.attached?</code>
         </li>
@@ -2398,14 +2398,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="26">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="26">
+          <span class="hits">4</span>
           
           <code class="ruby">    images.attachments.each do |photo|</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="27">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="27">
+          <span class="hits">4</span>
           
           <code class="ruby">      if photo.content_type != &#39;image/png&#39; &amp;&amp; photo.content_type != &#39;image/jpg&#39; &amp;&amp; photo.content_type != &#39;image/jpeg&#39;</code>
         </li>
