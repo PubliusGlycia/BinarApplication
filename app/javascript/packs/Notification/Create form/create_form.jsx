@@ -8,10 +8,10 @@ import WarrningDiv from './warrning_div'
 export default class CreateForm extends React.Component {
     constructor(props, context) {
       super(props, context);
-  
+
       this.handleShow = this.handleShow.bind(this);
       this.handleClose = this.handleClose.bind(this);
-  
+
       this.state = {
         show: false,
         category: "",
@@ -35,7 +35,7 @@ export default class CreateForm extends React.Component {
       data.append('post_event[description]', this.state.description)
       data.append('post_event[category]', this.state.category)
       data.append('post_event[importance]', this.state.importance)
-      
+
       if (this.state.images.length == 1)
       {
         data.append('image[]', this.state.images[0])
@@ -44,8 +44,8 @@ export default class CreateForm extends React.Component {
         data.append('image[]', this.state.images[0]);
         data.append('image[]', this.state.images[1])
       }
-      
-      axios.post("/post_events.json", data, 
+
+      axios.post("/post_events.json", data,
       {headers: {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       }}).then(()=>{
@@ -56,20 +56,17 @@ export default class CreateForm extends React.Component {
               this.props.fetchPostEvents();
       }).catch((error) =>{
           this.setState({errTitle: error.response.data.title, errCategory: error.response.data.category, errImportance: error.response.data.importance});
-          console.log(this.state.errTitle);
-          console.log(this.state.errCategory);
-          console.log(this.state.errImportance)
       })
     };
-  
+
     handleClose() {
       this.setState({ show: false });
     }
-  
+
     handleShow() {
       this.setState({ show: true });
     }
-  
+
     handleCategoryChange = (e) =>{
       this.setState({category: e.target.value})
     };
@@ -91,7 +88,7 @@ export default class CreateForm extends React.Component {
           <Button variant="primary" onClick={this.handleShow}>
             Dodaj zgłoszenie
           </Button>
-          
+
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Formularz zgłoszeniowy</Modal.Title>
@@ -136,17 +133,17 @@ export default class CreateForm extends React.Component {
 
               <WarrningDiv error={this.state.errImportance}>
                 <div className="form-check form-check-inline">
-                  <input className="form-check-input" 
-                  type="radio" name="inlineRadioOptions2" 
-                  id="inlineRadio1" value="trivial" 
+                  <input className="form-check-input"
+                  type="radio" name="inlineRadioOptions2"
+                  id="inlineRadio1" value="trivial"
                   onChange={this.handleImportanceChange}/>
                   <label className="form-check-label" htmlFor="inlineRadio1">Trivial</label>
                 </div>
 
                 <div className="form-check form-check-inline">
-                  <input className="form-check-input" 
-                  type="radio" name="inlineRadioOptions2" 
-                  id="inlineRadio3" value="important" 
+                  <input className="form-check-input"
+                  type="radio" name="inlineRadioOptions2"
+                  id="inlineRadio3" value="important"
                   onChange={this.handleImportanceChange}/>
                   <label className="form-check-label" htmlFor="inlineRadio3">Important</label>
                 </div>
@@ -167,7 +164,7 @@ export default class CreateForm extends React.Component {
 
               <div className = "form-group">
                 <label htmlFor="description">Opis zgłoszenia</label>
-                <textarea className="form-control" 
+                <textarea className="form-control"
                 id="description" rows="3" maxLength="300"
                 value={this.state.description}
                     onChange={e =>{
@@ -178,8 +175,8 @@ export default class CreateForm extends React.Component {
 
               <div className= "form-group">
                 <label htmlFor="fileControl">Załącznik (.jpg/.png)</label>
-                <input type="file" className="form-control-file" 
-                id="fileControl" accept=".jpeg,.png,.jpg" 
+                <input type="file" className="form-control-file"
+                id="fileControl" accept=".jpeg,.png,.jpg"
                 multiple="multiple"
                     onChange={e =>{
                         this.setState({images: e.target.files})
@@ -205,4 +202,3 @@ export default class CreateForm extends React.Component {
       );
     }
   }
-  

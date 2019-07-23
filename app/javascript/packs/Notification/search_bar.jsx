@@ -14,16 +14,16 @@ export default class SearchBar extends React.Component {
 
                         <Col md={10}>
                             <Form.Group>
-                                <Form.Control 
-                                    type='string' 
-                                    placeholder="Wyszukaj..." 
+                                <Form.Control
+                                    type='string'
+                                    placeholder="Wyszukaj..."
                                     onChange={this.handleChange}
                                 />
                             </Form.Group>
                         </Col>
 
                     </Form.Row>
-                     
+
                 </Form>
             </>
         )

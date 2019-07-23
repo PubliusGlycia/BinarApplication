@@ -1,5 +1,5 @@
 class PostEventsController < ApplicationController
-  before_action :set_post_event, only: [:edit, :update, :destroy]
+  before_action :set_post_event, only: [:destroy]
   before_action :authenticate_user!
   # GET /post_events
   # GET /post_events.json
@@ -31,7 +31,6 @@ class PostEventsController < ApplicationController
   # POST /post_events.json
   def create
     @post_event = current_user.post_event.build(post_event_params)
-
     @post_event.images.attach(params[:image]) if params[:image]
 
     respond_to do |format|
@@ -62,14 +61,14 @@ class PostEventsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post_event
-      @post_event = PostEvent.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_event_params
-      params.require(:post_event).permit(:title, :description, :category, :importance, )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post_event
+    @post_event = PostEvent.find(params[:id])
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def post_event_params
+    params.require(:post_event).permit(:title, :description, :category, :importance)
+  end
 end
