@@ -4,7 +4,7 @@ class PostEvent < ApplicationRecord
   validates :description, length: { maximum: 300 }
   validates :category, inclusion: { in: %w[defect supply others], message: 'Category need to be choosen' }
   validates :importance, inclusion: { in: %w[important trivial], message: 'Importance need to be choosen' }
-  validate :file_size_have_to_be_less_than_5MB, on: :create
+  validate :file_size_have_to_be_less_than_5mb, on: :create
   validate :file_format_jpg_jpeg_png, on: :create
   belongs_to :user
 
@@ -15,7 +15,7 @@ class PostEvent < ApplicationRecord
   def file_size_have_to_be_less_than_5mb
     return false unless images.attached?
 
-    images.attachments.each { |photo| errors.add(:images, 'can\'t be greater than 2MB') if photo.byte_size > 5_000_000 }
+    images.attachments.each { |photo| errors.add(:images, 'can\'t be greater than 5MB') if photo.byte_size > 5_000_000 }
   end
 
   def file_format_jpg_jpeg_png
