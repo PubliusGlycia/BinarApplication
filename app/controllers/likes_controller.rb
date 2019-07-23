@@ -5,13 +5,11 @@ class LikesController < ApplicationController
 
   def create
     @post_event.likes.create(user_id: current_user.id) unless already_liked?
-
   end
 
   def index
     @likes_count = @post_event.likes.count
     @already_liked = already_liked?
-    @user_like_id = @post_event.likes.where(user_id: current_user.id)
 
     if @already_liked
       @user_like_id = @post_event.likes.where(user_id: current_user.id).first.id
@@ -22,6 +20,7 @@ class LikesController < ApplicationController
 
   def destroy
     return head 404 unless already_liked?
+
     @like.destroy
   end
 

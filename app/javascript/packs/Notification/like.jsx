@@ -25,8 +25,8 @@ export default class Like extends React.Component {
         this.fetchLikes();
     }
 
-    handleClick = () => {
-
+    handleClick = (e) => {
+            e.stopPropagation()
         if (this.state.isLiked) {
             axios.delete(`/post_events/${this.props.notificationID}/likes/${this.state.likeID}`,
             {headers: {
@@ -47,7 +47,7 @@ export default class Like extends React.Component {
         return (
             <>
                 <Row>
-                    <h5>{this.state.likesCount}</h5>
+                    <p>{this.state.likesCount}</p>
                 </Row>
                 <Row>
                     {this.state.isLiked
@@ -56,13 +56,15 @@ export default class Like extends React.Component {
                           size="sm"
                           type="submit"
                           value="Unlike"
+                          variant="outline-primary"
                           onClick={this.handleClick}
                         />
                       : <Button
                           as="input"
                           size="sm"
                           type="submit"
-                          value="Like"
+                          value=" Like "
+
                           onClick={this.handleClick}
                     />}
 
