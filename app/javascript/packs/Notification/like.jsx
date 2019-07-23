@@ -4,7 +4,7 @@ export default class Like extends React.Component {
 
     render() {
         <>
-            
+
         </>
     }
 }
