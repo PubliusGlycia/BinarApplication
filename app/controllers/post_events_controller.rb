@@ -15,7 +15,8 @@ class PostEventsController < ApplicationController
 
   def check_user
     return head 404 unless current_user.admin == true
-      return head 202
+
+    head 202
   end
 
   def show
@@ -45,7 +46,8 @@ class PostEventsController < ApplicationController
   # DESTROY
   def destroy
     return head 404 unless @post_event.user_id == current_user.id
-      @post_event.destroy
+
+    @post_event.destroy
   end
 
   # UPDATE
@@ -57,6 +59,7 @@ class PostEventsController < ApplicationController
   def archive_events
     @post_events = PostEvent.where(id: params[:post_event_ids])
     @post_events.update_all(archive: true)
+    #@post_events.find_each { |post_event| post_event.update(archive: true)}
     head :ok
   end
 
