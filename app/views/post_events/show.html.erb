@@ -36,5 +36,11 @@
   <div>
     <%= link_to 'Edit', edit_post_event_path(@post_event) %> |
     <%= link_to 'Back', post_events_path %>
-    <%= button_to 'Like', post_event_likes_path(@post_event), method: :post %>
+
+    <% pre_like = @post_event.likes.find { |like| like.user_id == current_user.id} %>
+    <% if pre_like %>
+      <%= button_to 'Unlike', post_event_like_path(@post_event, pre_like), method: :delete %>
+    <% else %>
+      <%= button_to 'Like', post_event_likes_path(@post_event), method: :post %>
+    <% end %>
   </div>

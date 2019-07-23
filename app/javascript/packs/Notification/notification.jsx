@@ -6,6 +6,7 @@ import WarrningDiv from './Create form/warrning_div';
 import InputField from '../input_field';
 import AreaInputField from '../area_input_field';
 import ButtonInputField from '../button_input_field';
+import Like from './like';
 
 export default class Notification extends React.Component {
     constructor(props, context) {
@@ -40,15 +41,13 @@ export default class Notification extends React.Component {
         data.append('post_event[category]', this.props.category);
         data.append('post_event[importance]', this.props.importance);
 
-        axios.patch("/post_events/"+this.props.NotificationID + '.json', data,
+        axios.patch("/post_events/"+this.props.notificationID + '.json', data,
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }}).then(()=>{
             this.handleClose()
         }).catch((error) =>{
             this.setState({errTitle: error.response.data.title, errImportance: error.response.data.importance});
-            console.log(this.state.errTitle);
-            console.log(this.state.errImportance)
         })
     };
 
@@ -78,7 +77,7 @@ export default class Notification extends React.Component {
     }
 
     handleDelete = (e) =>{
-        axios.delete('/post_events/'+ this.props.NotificationID,
+        axios.delete('/post_events/'+ this.props.notificationID,
             {headers: {
                     "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
                 }}).then(response => {
@@ -97,7 +96,7 @@ export default class Notification extends React.Component {
 
     fetchPhotoUrls() {
         this.setState({ isLoading: true });
-        fetch('/post_events/'+ this.props.NotificationID +'.json')
+        fetch('/post_events/'+ this.props.notificationID +'.json')
             .then(response => response.json())
             .then(posts_events => {
                 this.setState({ photo_urls: posts_events.images_url, isLoading: false});
@@ -117,7 +116,7 @@ export default class Notification extends React.Component {
                       fluid
                     />
                     <Button
-                      href={`/post_events/download/ ${this.props.NotificationID} / ${index}`}
+                      href={`/post_events/download/ ${this.props.notificationID} / ${index}`}
                       target="_blank"
                       >
                         Download
@@ -159,18 +158,20 @@ export default class Notification extends React.Component {
                   >
                     <Row>
                         <Col
-                          md={11}
+                          md={10}
                           as='h5'
-                          style={{overflow: "hidden"}}
+                          style={{ overflow: "hidden" }}
                           >
                             {this.props.title}
                         </Col>
-
+                        <Col md={1}>
+                            <Like notificationID={ this.props.notificationID }/>
+                        </Col>
                         <Col
                           md={1}
                           as='h1'
                           >
-                            {this.importanceCheck()}
+                            { this.importanceCheck()}
                         </Col>
                     </Row>
                 </ListGroup.Item>

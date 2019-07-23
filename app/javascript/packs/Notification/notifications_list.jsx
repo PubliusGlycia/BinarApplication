@@ -91,7 +91,7 @@ export default class NotificationList extends React.Component {
             return <ListGroup.Item style={{ background: '#36372D' }}>
             <Notification
                 key={defect.id}
-                NotificationID={defect.id}
+                notificationID={defect.id}
                 title={defect.title}
                 setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
                 importance={defect.importance}
@@ -115,7 +115,7 @@ export default class NotificationList extends React.Component {
             <ListGroup.Item style={{ background: '#36372D' }}>
             <Notification
                 key={supply.id}
-                NotificationID={supply.id}
+                notificationID={supply.id}
                 title={supply.title}
                 setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}
                 importance={supply.importance}
