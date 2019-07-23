@@ -176,7 +176,6 @@ export default class Notification extends React.Component {
 
                     : '' }
 
-                <ListGroup.Item action  style={{ background: '#46473A' , color: '#fff', borderRadius: '5px' }} onClick={this.handleShow} variant={this.props.isConfirmed ? 'success' : ''}>
                 <ListGroup.Item
                   action
                   style={{ background: '#46473A',

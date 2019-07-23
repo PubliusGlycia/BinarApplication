@@ -91,7 +91,7 @@ export default class NotificationList extends React.Component {
                 return index;
             }
         })})
-    }
+    };
 
     updateSupplyElement = (supply, key, value) => {
         this.setState({supplies: this.state.supplies.map(index => {
@@ -155,7 +155,7 @@ export default class NotificationList extends React.Component {
         });
 
         const supplies = this.state.supplies.map(supply =>
-            <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
+            <ListGroup.Item key={supply.id} style={{ background: '#36372D' }}>
             <Notification
                 key={supply.id}
                 admin={this.state.admin}
