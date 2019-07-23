@@ -90,8 +90,8 @@ export default class NotificationList extends React.Component {
     }
 
     render() {
-        const defects = this.state.defects.map(defect => {
-            return <ListGroup.Item style={{ background: '#36372D' }}>
+        const defects = this.state.defects.map((defect, i) => {
+            return <ListGroup.Item style={{ background: '#36372D' }} key={i} >
             <Notification
                 key={defect.id}
                 NotificationID={defect.id}
@@ -114,8 +114,8 @@ export default class NotificationList extends React.Component {
 
 
 
-        const supplies = this.state.supplies.map(supply =>
-            <ListGroup.Item style={{ background: '#36372D' }}>
+        const supplies = this.state.supplies.map((supply, i) =>
+            <ListGroup.Item style={{ background: '#36372D' }} key={i} >
             <Notification
                 key={supply.id}
                 NotificationID={supply.id}

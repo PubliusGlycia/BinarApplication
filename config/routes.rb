@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   get 'user/check' => 'post_events#check_user'
 
   resources :forms
+  get '/messages_by_post/:id' => 'messages#index'
   resources :messages
-  get '/messages_by_post/:id' => 'messages#show_by_post_id'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

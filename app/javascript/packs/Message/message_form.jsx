@@ -11,25 +11,24 @@ export default class CreateForm extends React.Component {
         maxLength: 200,
         show: false,
         content: "",
-        postID: this.props.notifID,
+        postID: this.props.notificationID,
         errorDescription: ""
       };
     }
 
     handleSubmit = (e) => {
       e.preventDefault();
-      const data = new FormData();
+      const data = { message: { content: this.state.content, post_event_id: this.state.postID } };
 
-      data.append('message[content]', this.state.content)
-      data.append('message[post_event_id]', this.state.postID)
+      data.message.content = this.state.content;
+      data.message.post_event_id = this.state.postID;
 
       axios.post("/messages.json", data, 
       {headers: {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       }}).then(() =>
-        this.props.fetchMessages()
-      ).then(() =>
-        document.getElementById('textarea').value = ''
+        this.props.fetchMessages(),
+        this.state.content = ''
       )
     }
 
@@ -46,11 +45,12 @@ export default class CreateForm extends React.Component {
         <>
           <Form className="w-75">
               <Form.Group controlId="exampleForm.ControlTextarea" className="mb-0">
-                <Form.Control id="textarea" as="textarea" placeholder="Wpisz komentarz..." rows="2" style={ this.state.errorDescription ? { borderColor: '#f23131'} : {} }
+                <Form.Control as="textarea" placeholder="Wpisz komentarz..." rows="2" style={ this.state.errorDescription ? { borderColor: '#f23131'} : {} }
                 onChange={e =>{
                   this.setState({content: e.target.value},
                   this.validateContent())
-                }} />
+                }}
+                value={this.state.content} />
               </Form.Group>
               <Button className="w-100 mt-0" variant="primary" type="submit" onClick={this.handleSubmit}>
                 Dodaj komentarz

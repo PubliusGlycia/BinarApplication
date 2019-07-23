@@ -9,7 +9,7 @@ class PostEvent < ApplicationRecord
     belongs_to :user
     
     has_many_attached :images
-    has_many :message
+    has_many :messages
     
     scope :find_by_title, -> (query) do
         where("title ILIKE ?","%#{sanitize_sql_like(query)}%")

@@ -4,5 +4,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
     has_many :post_event
-    has_many :message
+    has_many :messages
 end

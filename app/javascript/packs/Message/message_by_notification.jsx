@@ -10,7 +10,7 @@ export default class MessageByNotification extends React.Component {
     }
 
     fetchMessages = () => {
-        axios.get("/messages_by_post/" + this.props.notifID + ".json").then((response) => {
+        axios.get("/messages_by_post/" + this.props.notificationID + ".json").then((response) => {
             this.setState({ messages: response.data.messages });
         });
     }
@@ -24,12 +24,11 @@ export default class MessageByNotification extends React.Component {
     }
 
     render() {
-        const messages = this.state.messages.sort((a, b) => a.created_at < b.created_at ).map((message, i) => 
-            <Message author={message.author} created={this.formatDate(message.created_at)} content={message.content} key={ 'message_' + i } />)
-        console.log(this.state.messages);
+        const messages = this.state.messages.sort((a, b) => a.created_at < b.created_at ).map((message) => 
+            <Message author={message.author} created={this.formatDate(message.created_at)} content={message.content} key={ message.id } />)
         return (
             <>
-                <MessageForm notifID={this.props.notifID} userID={this.state.userID} fetchMessages={this.fetchMessages} />
+                <MessageForm notificationID={this.props.notificationID} userID={this.state.userID} fetchMessages={this.fetchMessages} />
                 { messages }
             </>
         );
