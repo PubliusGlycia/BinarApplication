@@ -10,7 +10,9 @@ class PostEventsController < ApplicationController
   def search_filter
     @post_events = PostEvent.where(category: params[:category])
     @post_events = @post_events.where(archive: false)
+    # rubocop:disable Rails/DynamicFindBy
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
+    # rubocop:enable Rails/DynamicFindBy
   end
 
   def check_user
@@ -58,8 +60,9 @@ class PostEventsController < ApplicationController
 
   def archive_events
     @post_events = PostEvent.where(id: params[:post_event_ids])
+    # rubocop:disable Rails/SkipsModelValidations
     @post_events.update_all(archive: true)
-    #@post_events.find_each { |post_event| post_event.update(archive: true)}
+    # rubocop:enable Rails/SkipsModelValidations
     head :ok
   end
 
