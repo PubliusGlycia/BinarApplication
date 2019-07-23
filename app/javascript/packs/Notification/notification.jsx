@@ -7,6 +7,7 @@ import InputField from '../input_field';
 import AreaInputField from '../area_input_field';
 import ButtonInputField from '../button_input_field';
 import CheckBox from './Archive/check_box';
+import AcceptancePopover from '../delete_button'
 
 export default class Notification extends React.Component {
     constructor(props, context) {
@@ -27,7 +28,8 @@ export default class Notification extends React.Component {
             isClicked: false,
             descriptionError: "",
             errImportance: "",
-            errTitle: ""
+            errTitle: "",
+            showErrorDelete: false
         }
     }
 
@@ -71,6 +73,7 @@ export default class Notification extends React.Component {
 
     handleClose() {
         this.setState({ show: false, showPhoto: false });
+        this.props.fetchPostEvents();
     }
     
     handleShow() {
@@ -78,15 +81,8 @@ export default class Notification extends React.Component {
         this.setState({ show: true });
     }
 
-    handleDelete = () =>{
-        axios.delete('/post_events/'+ this.props.NotificationID,
-            {headers: {
-                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-                }}).then(response => {
-            this.handleClose();
-            this.props.fetchPostEvents();
-        });
-
+    handleErrorDeleteMessage = () =>{
+        this.setState({showErrorDelete: true})
     };
 
     importanceCheck() {
@@ -155,6 +151,8 @@ export default class Notification extends React.Component {
         let impText;
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
+
+
 
         return (
             <>
@@ -230,12 +228,12 @@ export default class Notification extends React.Component {
                                   style={{textAlign: 'right'}}
                                   >
                                     {button}
-                                    <Button
-                                      variant="danger"
-                                      onClick={this.handleDelete}
-                                      >
-                                        Usuń
-                                    </Button>
+                                    <AcceptancePopover
+                                        NotificationID={this.props.NotificationID}
+                                        handleClose={this.handleClose}
+                                        handleErrorDeleteMessage={this.handleErrorDeleteMessage}
+                                        showError={this.state.showErrorDelete}
+                                    />
                                     <Button
                                       variant="secondary"
                                       onClick={this.handleClose}
