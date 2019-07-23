@@ -1,4 +1,4 @@
-class MessagesController < ApplicationController
+class Api::V1::MessagesController < Api::V1::ApplicationController
   before_action :authenticate_user!
 
   def index

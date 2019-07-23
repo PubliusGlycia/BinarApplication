@@ -10,7 +10,7 @@ export default class MessageByNotification extends React.Component {
     }
 
     fetchMessages = () => {
-        axios.get("/messages_by_post/" + this.props.notificationID + ".json").then((response) => {
+        axios.get("/api/v1/messages_by_post/" + this.props.notificationID + ".json").then((response) => {
             this.setState({ messages: response.data.messages });
         });
     }

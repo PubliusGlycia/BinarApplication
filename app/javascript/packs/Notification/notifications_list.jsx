@@ -78,7 +78,7 @@ export default class NotificationList extends React.Component {
                     this.setState({admin: true})
                 }
             })
-            .catch (function (error){
+            .catch ((error) => {
                 console.log(error.response.status);
                 this.setState({admin: false})
         })
