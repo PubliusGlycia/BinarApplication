@@ -40,6 +40,7 @@ export default class Like extends React.Component {
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
             }}).then( this.fetchLikes() )
         }
+        this.fetchLikes()
     }
 
     render() {
@@ -49,13 +50,22 @@ export default class Like extends React.Component {
                     <h5>{this.state.likesCount}</h5>
                 </Row>
                 <Row>
-                        <Button
+                    {this.state.isLiked
+                      ? <Button
+                          as="input"
+                          size="sm"
+                          type="submit"
+                          value="Unlike"
+                          onClick={this.handleClick}
+                        />
+                      : <Button
                           as="input"
                           size="sm"
                           type="submit"
                           value="Like"
                           onClick={this.handleClick}
-                        />
+                    />}
+
                 </Row>
             </>
         )

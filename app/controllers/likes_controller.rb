@@ -11,7 +11,13 @@ class LikesController < ApplicationController
   def index
     @likes_count = @post_event.likes.count
     @already_liked = already_liked?
-    @user_like = @post_event.likes.where(user_id: current_user.id).first!
+    @user_like_id = @post_event.likes.where(user_id: current_user.id)
+
+    if @already_liked
+      @user_like_id = @post_event.likes.where(user_id: current_user.id).first.id
+    else
+      @user_like_id = nil
+    end
   end
 
   def destroy
