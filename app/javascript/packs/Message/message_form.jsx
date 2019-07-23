@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
-import axios from 'axios';
+import Axios from 'axios';
 
 
 export default class CreateForm extends React.Component {
@@ -20,7 +20,7 @@ export default class CreateForm extends React.Component {
       e.preventDefault();
       const data = { message: { content: this.state.content, post_event_id: this.state.postID } };
 
-      axios.post("/api/v1/messages.json", data, 
+      Axios.post("/api/v1/messages.json", data, 
       {headers: {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       }}).then(() =>

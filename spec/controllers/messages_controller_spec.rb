@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe MessagesController, type: :controller do
+RSpec.describe Api::V1::MessagesController, type: :controller do
   let (:user) { create(:user) }
   let (:post_event) { create(:valid_post_event, user_id: user.id) }
   before {sign_in(user)}

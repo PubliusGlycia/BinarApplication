@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   
   root 'post_events#index'
 
-  root 'post_events#index'
-
   devise_for :users
   namespace 'api' do
     namespace 'v1' do
