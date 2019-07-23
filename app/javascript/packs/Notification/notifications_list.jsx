@@ -66,8 +66,8 @@ export default class NotificationList extends React.Component {
     };
 
     componentDidMount() {
+        this.checkUser();
         this.fetchPostEvents();
-        this.checkUser()
     }
 
     checkUser() {
@@ -134,7 +134,7 @@ export default class NotificationList extends React.Component {
             return <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
             <Notification
                 key={defect.id}
-                admin={this.props.admin}
+                admin={this.state.admin}
                 NotificationID={defect.id}
                 title={defect.title}
                 setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
@@ -158,7 +158,7 @@ export default class NotificationList extends React.Component {
             <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
             <Notification
                 key={supply.id}
-                admin={this.props.admin}
+                admin={this.state.admin}
                 NotificationID={supply.id}
                 title={supply.title}
                 setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}

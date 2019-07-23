@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/binarsummer/Desktop/BinarApplication/app/models/user.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/models/user.rb": [
         1,
         null,
         null,
@@ -11,40 +11,45 @@
         1,
         null
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/models/application_record.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/models/application_record.rb": [
         1,
         1,
         null
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/helpers/application_helper.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/helpers/navbar_helper.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/helpers/navbar_helper.rb": [
         1,
         null
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/helpers/notifications_helper.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/helpers/notifications_helper.rb": [
         1,
         null
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/helpers/user_helper.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/helpers/user_helper.rb": [
         1,
         null
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/controllers/post_events_controller.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/controllers/post_events_controller.rb": [
         1,
         1,
         1,
         null,
         null,
         1,
-        4,
-        4,
-        null,
+        3,
         null,
         null,
         1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
         0,
         null,
         null,
@@ -60,15 +65,9 @@
         null,
         null,
         1,
-        null,
-        0,
-        0,
-        0,
         0,
         null,
         0,
-        null,
-        null,
         null,
         0,
         0,
@@ -84,9 +83,6 @@
         0,
         0,
         null,
-        0,
-        null,
-        null,
         null,
         null,
         1,
@@ -95,6 +91,12 @@
         null,
         null,
         1,
+        2,
+        2,
+        2,
+        null,
+        null,
+        1,
         null,
         1,
         0,
@@ -103,53 +105,58 @@
         null,
         1,
         0,
-        null,
-        null
-      ],
-      "/home/binarsummer/Desktop/BinarApplication/app/controllers/application_controller.rb": [
-        1,
-        null
-      ],
-      "/home/binarsummer/Desktop/BinarApplication/app/models/post_event.rb": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        null,
-        1,
-        19,
-        7,
-        7,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        19,
-        7,
-        7,
-        1,
-        null,
-        null,
-        null,
         null,
         null,
         null
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/jobs/application_job.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/models/post_event.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        21,
+        9,
+        9,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        21,
+        9,
+        9,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/jobs/application_job.rb": [
         0,
         0
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/controllers/forms_controller.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/controllers/forms_controller.rb": [
         0,
         0,
         0,
@@ -162,41 +169,41 @@
         null,
         0
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/controllers/navbar_controller.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/controllers/navbar_controller.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/models/comment.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/models/comment.rb": [
         0,
         0,
         0
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/models/form.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/models/form.rb": [
         0,
         null,
         0
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/channels/application_cable/connection.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/channels/application_cable/connection.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/channels/application_cable/channel.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/binarsummer/Desktop/BinarApplication/app/mailers/application_mailer.rb": [
+      "/home/binarsummer/Desktop/Projects/BinarApplication/app/mailers/application_mailer.rb": [
         0,
         0,
         0,
         0
       ]
     },
-    "timestamp": 1563547848
+    "timestamp": 1563879069
   }
 }
