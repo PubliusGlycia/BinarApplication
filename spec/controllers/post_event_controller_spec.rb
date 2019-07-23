@@ -42,5 +42,16 @@ RSpec.describe PostEventsController, type: :controller do
     end
   end
 
+  describe 'Archive' do
+
+    let!(:event_to_archive) { create(:valid_post_event, user_id: user.id) }
+    before { post :archive_events, params: {post_event_ids: event_to_archive.id} }
+
+    describe 'Element succesfully' do
+      it {expect(response).to be_successful}
+      it {expect(event_to_archive.reload.archive).to eq(true)}
+    end
+
+  end
 
 end

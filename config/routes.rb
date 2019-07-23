@@ -16,5 +16,10 @@ Rails.application.routes.draw do
   get 'post_events/event/:category' => 'post_events#show_by_category'
 
   resources :post_events
+  get 'user/check' => 'post_events#check_user'
+  post 'archive' => 'post_events#archive_events'
+
+  resources :forms
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
