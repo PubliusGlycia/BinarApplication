@@ -42,5 +42,4 @@ RSpec.describe PostEventsController, type: :controller do
     end
   end
 
-
 end

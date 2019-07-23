@@ -20,9 +20,6 @@ export default class CreateForm extends React.Component {
       e.preventDefault();
       const data = { message: { content: this.state.content, post_event_id: this.state.postID } };
 
-      data.message.content = this.state.content;
-      data.message.post_event_id = this.state.postID;
-
       axios.post("/messages.json", data, 
       {headers: {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
