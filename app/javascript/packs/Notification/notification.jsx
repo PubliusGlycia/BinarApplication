@@ -6,6 +6,7 @@ import WarrningDiv from './Create form/warrning_div';
 import InputField from '../input_field';
 import AreaInputField from '../area_input_field';
 import ButtonInputField from '../button_input_field';
+import CheckBox from './Archive/check_box';
 
 export default class Notification extends React.Component {
     constructor(props, context) {
@@ -26,8 +27,7 @@ export default class Notification extends React.Component {
             isClicked: false,
             descriptionError: "",
             errImportance: "",
-            errTitle: "",
-            checked: false
+            errTitle: ""
         }
     }
 
@@ -136,14 +136,10 @@ export default class Notification extends React.Component {
         this.setState({showPhoto: false})
     }
 
-    handleCheckbox = (value) => {
-
-        let checked = !this.state.checked;
-        this.setState({checked: checked});
-
-        if (!this.state.checked){
+    handleCheckbox = (value,checked) => {
+        if (!checked){
             this.props.notificationsToArchive(value,true)
-        }else if(this.state.checked){
+        }else{
             this.props.notificationsToArchive(value,false)
         }
     };
@@ -163,18 +159,11 @@ export default class Notification extends React.Component {
         return (
             <>
                 {this.props.admin
-                        ? <input className="form-check-input"
-                                 type="checkbox" name="notificationsToArchive"
-                                 style={{ width: '25px',
-                                     height:'25px',
-                                     borderRadius: '5px',
-                                     border:'2px',
-                                     marginTop: '25px'}}
-                                 value={this.props.NotificationID}
-                                 checked={this.state.checked}
-                                 onChange={e => {this.handleCheckbox(e.target.value)}}/>
-
-                    : '' }
+                        ? <CheckBox
+                        idValue={this.props.NotificationID}
+                        checkFunction={this.handleCheckbox}
+                        />
+                        : '' }
 
                 <ListGroup.Item
                   action
