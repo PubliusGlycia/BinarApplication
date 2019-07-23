@@ -34,11 +34,14 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'builder', '~> 3.2', '>= 3.2.2'
+
 #Front-end elements
 gem 'popper_js', '~> 1.9', '>= 1.9.9'
 gem 'jquery-rails'
 
 gem 'devise'
+gem 'omniauth-google-oauth2'
 
 #database output
 gem 'hirb'

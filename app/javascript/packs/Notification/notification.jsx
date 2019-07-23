@@ -1,9 +1,5 @@
 import React from 'react';
 import {Button, Card, Col, ListGroup, Modal, Row} from 'react-bootstrap';
-import Image from 'react-bootstrap/Image'
-import { ListGroup, Row, Col, ToggleButton } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import { Modal, Card } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 import WarrningDiv from './Create form/warrning_div';
@@ -11,7 +7,7 @@ import WarrningDiv from './Create form/warrning_div';
 export default class Notification extends React.Component {
     constructor(props, context) {
         super(props, context);
-    
+
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
@@ -72,7 +68,7 @@ export default class Notification extends React.Component {
     handleClose() {
         this.setState({ show: false, showPhoto: false });
     }
-    
+
     handleShow() {
         this.fetchPhotoUrls();
         this.setState({ show: true });
@@ -90,19 +86,8 @@ export default class Notification extends React.Component {
 
     };
 
-    markAsInProgress(defect) {
-        const isAdmin = defect.isAdmin;
-        if(isAdmin){
-            return (
-            <Button variant="success" onClick={defect.handleProcess}>
-                Zatwierdź
-            </Button>
-            );
-        }
-    }
-
     importanceCheck() {
-        if (this.props.importance == 'trivial') 
+        if (this.props.importance == 'trivial')
             return '!';
         else if (this.props.importance == 'important')
             return '!!!'
@@ -185,7 +170,7 @@ export default class Notification extends React.Component {
                                 </Col>
 
                                 <Col md={1}>
-                                {this.markAsInProgress}
+
                                 </Col>
 
                                 <Col md={4} style={{textAlign: 'right'}}>
@@ -228,7 +213,7 @@ export default class Notification extends React.Component {
                             <Row>
                                 <Col className='date'>{"\n\n"}Dodano {this.props.date.substring(0,10)}
                                   {this.props.date.substring(11,16)} przez User</Col>
-                            </Row>                                                                          
+                            </Row>
                         </Modal.Body>
                     <Modal.Footer>
                         <Col>Komentarze</Col>
