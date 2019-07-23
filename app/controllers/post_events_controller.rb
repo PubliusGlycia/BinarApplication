@@ -47,7 +47,7 @@ class PostEventsController < ApplicationController
 
   # DESTROY
   def destroy
-    return head 404 unless @post_event.user_id == current_user.id
+    return head 404 unless @post_event.user_id == current_user.id || current_user.admin == true
 
     @post_event.destroy
   end
