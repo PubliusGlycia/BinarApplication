@@ -4,9 +4,9 @@ import Notification from './notification';
 import SearchBar from './search_bar';
 import axios from 'axios'
 import Navbar from "../navbar";
+import ArchiveButton from "./Archive/archive_button"
 
-
-import {Button, Col, Container, ListGroup, Row} from 'react-bootstrap';
+import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 
 
 export default class NotificationList extends React.Component {
@@ -103,18 +103,31 @@ export default class NotificationList extends React.Component {
         })})
     };
 
-    updateArchiveList = (idToArchive) => {
+    updateArchiveList = (idToArchive,save) => {
 
-        this.setState(previousState => ({
-            notificationsToArchive: [...previousState.notificationsToArchive, idToArchive]
-        }), () => {
-            console.log(this.state.notificationsToArchive)
-        })
+        if(save){
+            this.setState(previousState => ({
+                notificationsToArchive: [...previousState.notificationsToArchive, idToArchive]
+            }), () => {
+                console.log(this.state.notificationsToArchive)
+            })
+        }else{
+            let tmpArray = [...this.state.notificationsToArchive];
+            let index = tmpArray.indexOf(idToArchive);
+            if (index !== -1) {
+                tmpArray.splice(index, 1);
+                this.setState({notificationsToArchive: tmpArray},
+                    () => {
+                    console.log(this.state.notificationsToArchive)
+                });
+            }
+        }
+
     };
 
-    archive(){
-
-    }
+    clearArchiveList = () => {
+        this.setState({notificationsToArchive: ''})
+    };
 
     render() {
         const defects = this.state.defects.map(defect => {
@@ -141,8 +154,6 @@ export default class NotificationList extends React.Component {
             </ListGroup.Item>
         });
 
-
-
         const supplies = this.state.supplies.map(supply =>
             <ListGroup.Item style={{ background: '#36372D' }}>
             <Notification
@@ -162,6 +173,7 @@ export default class NotificationList extends React.Component {
                 setImages={images => {this.updateSupplyElement(supply, 'images', images)}}
                 user_id={supply.user_id}
                 fetchPostEvents={this.fetchPostEvents}
+                notificationsToArchive={this.updateArchiveList}
             />
             </ListGroup.Item>);
 
@@ -176,9 +188,10 @@ export default class NotificationList extends React.Component {
                         </Col>
 
                         <Col sm={4}>
-                            <Button variant="secondary" onClick={this.archive}>
-                                Archive
-                            </Button>
+                            <ArchiveButton
+                                notificationsToArchive={this.state.notificationsToArchive}
+                                fetchPostEvents={this.fetchPostEvents}
+                                clearArchiveList={this.clearArchiveList}/>
                         </Col>
                     </Row>
 

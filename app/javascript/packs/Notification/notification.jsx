@@ -23,7 +23,8 @@ export default class Notification extends React.Component {
             isClicked: false,
             descriptionError: "",
             errImportance: "",
-            errTitle: ""
+            errTitle: "",
+            checked: false
         }
     }
 
@@ -132,6 +133,18 @@ export default class Notification extends React.Component {
         this.setState({showPhoto: false})
     }
 
+    handleCheckbox = (value) => {
+
+        let checked = !this.state.checked;
+        this.setState({checked: checked});
+
+        if (!this.state.checked){
+            this.props.notificationsToArchive(value,true)
+        }else if(this.state.checked){
+            this.props.notificationsToArchive(value,false)
+        }
+    };
+
     render() {
 
         const edit = this.state.edit;
@@ -151,7 +164,8 @@ export default class Notification extends React.Component {
                         : <input className="form-check-input"
                                    type="checkbox" name="notificationsToArchive"
                                    id="inlineRadio" value={this.props.NotificationID}
-                                   onChange={e => {this.props.notificationsToArchive(e.target.value)}}/>
+                                   checked={this.state.checked}
+                                   onChange={e => {this.handleCheckbox(e.target.value)}}/>
                 }
 
                 <ListGroup.Item action  style={{ background: '#46473A' , color: '#fff', borderRadius: '5px' }} onClick={this.handleShow} variant={this.props.isConfirmed ? 'success' : ''}>
