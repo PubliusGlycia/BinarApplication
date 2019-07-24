@@ -78,7 +78,7 @@ export default class NotificationList extends React.Component {
                     console.log(response.data.user_id);
                     this.setState({admin: true})
                 }else{
-                    console.log("user");
+                    console.log(response.data.user_id);
                     this.setState({admin: false, currentUserId: response.data.user_id })
                 }
             })
