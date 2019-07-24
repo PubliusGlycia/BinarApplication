@@ -18,15 +18,16 @@ export default class Message extends React.Component {
                         />
                         <Media.Body>
                             <Row>
-                                <Col sm={10}>
+                                <Col sm={9}>
                                     <h6 style={{ font: 'Muli', color: '#EEE' }}>{ this.props.author }</h6>
                                     <div style={{ font: 'Muli', fontSize: '11px', color:'#EEE' }}>
-                                        Created: { this.props.created }
+                                        Dodano: { this.props.created }
                                     </div>
                                 </Col>
+                                { ((this.props.author == this.props.currentUserEmail) || (this.props.currentUserId == true)) &&
                                 <Col>
-                                    <Button id='button-edit' variant="warning">Edit</Button>
-                                </Col>
+                                    <Button id='button-edit' variant="warning">Edytuj</Button>
+                                </Col> }
                             </Row>
                             <hr className='mt-1' style={{ background: '#9C82D0' }}/>
                             <div style={{ font: 'Muli', fontSize: '13px', color:'#EEE', wordBreak: 'break-word' }}>

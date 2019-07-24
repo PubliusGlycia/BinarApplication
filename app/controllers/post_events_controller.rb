@@ -16,12 +16,14 @@ class PostEventsController < ApplicationController
   end
 
   def check_admin
+    @current_user_id =
+      if current_user.admin
+        true
+      else
+        current_user.id
+      end
 
-    if current_user.admin
-        @current_user_id = true
-    else
-        @current_user_id = current_user.id
-    end
+    @current_user_email = current_user.email
   end
 
   def show

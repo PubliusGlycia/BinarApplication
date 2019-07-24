@@ -16,6 +16,7 @@ export default class NotificationList extends React.Component {
         state: '',
         admin: false,
         currentUserId:'',
+        currentUserEmail:'',
         notificationsToArchive: []
     };
 
@@ -78,9 +79,9 @@ export default class NotificationList extends React.Component {
                     console.log(response.data.user_id);
                     this.setState({admin: true})
                 }else{
-                    console.log(response.data.user_id);
-                    this.setState({admin: false, currentUserId: response.data.user_id })
-                }
+                    console.log(response.data);
+                    this.setState({admin: false, currentUserId: response.data.user_id, currentUserEmail: response.data.user_email })
+                };
             })
     }
 
@@ -137,6 +138,7 @@ export default class NotificationList extends React.Component {
                 key={defect.id}
                 admin={this.state.admin}
                 currentUserId={this.state.currentUserId}
+                currentUserEmail={this.state.currentUserEmail}
                 notificationID={defect.id}
                 title={defect.title}
                 setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
@@ -162,6 +164,7 @@ export default class NotificationList extends React.Component {
                 key={supply.id}
                 admin={this.state.admin}
                 currentUserId={this.state.currentUserId}
+                currentUserEmail={this.state.currentUserEmail}
                 notificationID={supply.id}
                 title={supply.title}
                 setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}
