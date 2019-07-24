@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PostEventsController, type: :controller do
   let (:user) { create(:user) }
   before {sign_in(user)}
- 
+
   describe 'GET #index' do
     subject { get :index }
 
@@ -26,7 +26,7 @@ RSpec.describe PostEventsController, type: :controller do
   end
 
   describe 'GET #show' do
-    
+
     let(:event) { create(:valid_post_event, user_id: user.id) }
     before { get :show, params: { id: event.id } }
 
@@ -41,6 +41,5 @@ RSpec.describe PostEventsController, type: :controller do
       end
     end
   end
-
 
 end

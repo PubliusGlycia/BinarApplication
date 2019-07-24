@@ -1,21 +1,19 @@
-class LikesController < ApplicationController
+class Api::V1::LikesController < Api::V1::ApplicationController
   before_action :set_post_event
   before_action :set_like, only: [:destroy]
   before_action :authenticate_user!
-
-  def create
-    @post_event.likes.create(user_id: current_user.id) unless already_liked?
-  end
 
   def index
     @likes_count = @post_event.likes.count
     @already_liked = already_liked?
 
-    if @already_liked
-      @user_like_id = @post_event.likes.where(user_id: current_user.id).first.id
-    else
-      @user_like_id = nil
-    end
+    return @user_like_id = @post_event.likes.where(user_id: current_user.id).first.id if @already_liked
+
+    @user_like_id = nil
+  end
+
+  def create
+    @post_event.likes.create(user_id: current_user.id) unless already_liked?
   end
 
   def destroy
@@ -36,5 +34,6 @@ class LikesController < ApplicationController
 
   def set_like
     @like = @post_event.likes.find(params[:id])
+    it { expect { subject }.to change(Like, :count).by(1) }
   end
 end

@@ -9,10 +9,9 @@ export default class Like extends React.Component {
     }
 
     fetchLikes = () => {
-        axios.get(`/post_events/${this.props.notificationID}/likes.json`, {
+        axios.get(`/api/v1/post_events/${this.props.notificationID}/likes.json`, {
         })
         .then(likes => {
-            console.log(likes);
             this.setState({
                 isLiked: likes.data.already_liked,
                 likesCount: likes.data.likes_count,
@@ -20,7 +19,6 @@ export default class Like extends React.Component {
             })
         });
     }
-
     componentDidMount() {
         this.fetchLikes();
     }
@@ -28,14 +26,14 @@ export default class Like extends React.Component {
     handleClick = (e) => {
             e.stopPropagation()
         if (this.state.isLiked) {
-            axios.delete(`/post_events/${this.props.notificationID}/likes/${this.state.likeID}`,
+            axios.delete(`/api/v1/post_events/${this.props.notificationID}/likes/${this.state.likeID}`,
             {headers: {
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
             }}).then( this.fetchLikes() )
 
         } else {
             let data = { post_event_id: this.props.notificationID };
-            axios.post(`/post_events/${this.props.notificationID}/likes`, data,
+            axios.post(`/api/v1/post_events/${this.props.notificationID}/likes`, data,
             {headers: {
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
             }}).then( this.fetchLikes() )
@@ -64,10 +62,8 @@ export default class Like extends React.Component {
                           size="sm"
                           type="submit"
                           value=" Like "
-
                           onClick={this.handleClick}
                     />}
-
                 </Row>
             </>
         )
