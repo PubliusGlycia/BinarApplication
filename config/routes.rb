@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   devise_for :users
   namespace 'api' do
     namespace 'v1' do
-      get 'post_events/event/:category' => 'post_events#show_by_category'
+      get '/post_events/event/:category' => 'post_events#show_by_category'
       resources :post_events
+      get '/messages_by_post/:id' => 'messages#index'
+      resources :messages
     end
   end
 

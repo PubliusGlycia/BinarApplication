@@ -8,6 +8,8 @@ class PostEvent < ApplicationRecord
   validate :file_format_jpg_jpeg_png, on: :create
   belongs_to :user
 
+  has_many :messages, dependent: :destroy
+
   has_many_attached :images
 
   scope :find_by_title, ->(query) do where('title ILIKE ?', "%#{sanitize_sql_like(query)}%") end
