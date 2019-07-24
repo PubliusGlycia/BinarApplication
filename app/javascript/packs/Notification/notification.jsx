@@ -7,7 +7,7 @@ import InputField from '../input_field';
 import AreaInputField from '../area_input_field';
 import ButtonInputField from '../button_input_field';
 import CheckBox from './Archive/check_box';
-import AcceptancePopover from '../delete_button'
+import DeleteAcceptancePopover from "../delete_acceptance_popover"
 
 export default class Notification extends React.Component {
     constructor(props, context) {
@@ -29,7 +29,6 @@ export default class Notification extends React.Component {
             descriptionError: "",
             errImportance: "",
             errTitle: "",
-            showErrorDelete: false
         }
     }
 
@@ -43,7 +42,7 @@ export default class Notification extends React.Component {
         data.append('post_event[category]', this.props.category);
         data.append('post_event[importance]', this.props.importance);
 
-        axios.patch("/post_events/"+this.props.NotificationID + '.json', data,
+        axios.patch("/post_events/"+this.props.notificationID + '.json', data,
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }}).then(()=>{
@@ -54,7 +53,6 @@ export default class Notification extends React.Component {
             console.log(this.state.errImportance)
         })
     };
-
 
     handleClick = () => {
         this.setState(isClicked => {
@@ -81,10 +79,6 @@ export default class Notification extends React.Component {
         this.setState({ show: true });
     }
 
-    handleErrorDeleteMessage = () =>{
-        this.setState({showErrorDelete: true})
-    };
-
     importanceCheck() {
         if (this.props.importance == 'trivial')
             return '!';
@@ -94,7 +88,7 @@ export default class Notification extends React.Component {
 
     fetchPhotoUrls() {
         this.setState({ isLoading: true });
-        fetch('/post_events/'+ this.props.NotificationID +'.json')
+        fetch('/post_events/'+ this.props.notificationID +'.json')
             .then(response => response.json())
             .then(posts_events => {
                 this.setState({ photo_urls: posts_events.images_url, isLoading: false});
@@ -114,7 +108,7 @@ export default class Notification extends React.Component {
                       fluid
                     />
                     <Button
-                      href={`/post_events/download/ ${this.props.NotificationID} / ${index}`}
+                      href={`/post_events/download/ ${this.props.notificationID} / ${index}`}
                       target="_blank"
                       >
                         Download
@@ -152,13 +146,25 @@ export default class Notification extends React.Component {
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
 
+        let DeleteButton;
+
+        if(this.props.currentUserId == this.props.user_id)
+        {
+            DeleteButton = <DeleteAcceptancePopover
+                            notificationID={this.props.notificationID}
+                            handleClose={this.handleClose}/>
+        }else{
+            DeleteButton = <></>
+        }
+
+
 
 
         return (
             <>
                 {this.props.admin
                         ? <CheckBox
-                        idValue={this.props.NotificationID}
+                        idValue={this.props.notificationID}
                         checkFunction={this.handleCheckbox}
                         />
                         : '' }
@@ -228,12 +234,7 @@ export default class Notification extends React.Component {
                                   style={{textAlign: 'right'}}
                                   >
                                     {button}
-                                    <AcceptancePopover
-                                        NotificationID={this.props.NotificationID}
-                                        handleClose={this.handleClose}
-                                        handleErrorDeleteMessage={this.handleErrorDeleteMessage}
-                                        showError={this.state.showErrorDelete}
-                                    />
+                                    {DeleteButton}
                                     <Button
                                       variant="secondary"
                                       onClick={this.handleClose}
