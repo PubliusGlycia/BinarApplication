@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :post_events do
         resources :likes, :only => [:create, :destroy, :index]
       end
+      get '/messages_by_post/:id' => 'messages#index'
       resources :messages
     end
   end
