@@ -10,7 +10,7 @@ export default class DeleteAcceptancePopover extends React.Component {
 
     handleDelete = () =>{
 
-        axios.delete('/post_events/'+ this.props.notificationID,
+        axios.delete('api/v1/post_events/'+ this.props.notificationID,
             {headers: {
                     "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
                 }}).then(response => {
