@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Button, Overlay, Popover} from "react-bootstrap";
 import axios from "axios";
 
@@ -31,7 +30,7 @@ export default class DeleteAcceptancePopover extends React.Component {
             <Overlay
             placement="right"
             show={this.state.showPopover}
-            target={ReactDOM.findDOMNode(this.target)}
+            target={this.target}
             >
                 <Popover title="Are you sure ? ">
                     <Button variant="success" onClick={this.handleDelete}>Yes</Button>
