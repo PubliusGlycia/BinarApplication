@@ -28,10 +28,12 @@ export default class MessageByNotification extends React.Component {
             <Message
             author={message.author}
             created={this.formatDate(message.created_at)}
+            updated={this.formatDate(message.updated_at)}
             content={message.content}
-            key={ message.id }
+            messageId={ message.id }
             currentUserId={ this.props.currentUserId }
-            currentUserEmail={ this.props.currentUserEmail } />)
+            currentUserEmail={ this.props.currentUserEmail }
+            key={ message.id } />)
         return (
             <>
                 <MessageForm notificationID={this.props.notificationID} userID={this.state.userID} fetchMessages={this.fetchMessages} />

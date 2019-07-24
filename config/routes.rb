@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get '/post_events/event/:category' => 'post_events#show_by_category'
       resources :post_events
       get '/messages_by_post/:id' => 'messages#index'
+      patch '/messages/update_content/:id/:message' => 'messages#update_content'
       resources :messages
     end
   end
