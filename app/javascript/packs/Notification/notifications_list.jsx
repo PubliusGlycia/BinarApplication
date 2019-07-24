@@ -5,7 +5,6 @@ import SearchBar from './search_bar';
 import axios from 'axios'
 import Navbar from "../navbar";
 import ArchiveButton from "./Archive/archive_button"
-
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 
 
@@ -16,6 +15,7 @@ export default class NotificationList extends React.Component {
         isLoading: false,
         state: '',
         admin: false,
+        currentUserId:'',
         notificationsToArchive: []
     };
 
@@ -72,16 +72,16 @@ export default class NotificationList extends React.Component {
     }
 
     checkUser() {
-        axios.get('/user/check')
+        axios.get('/admin/check.json')
             .then(response =>{
-                if (response.status == 202){
+                if (response.data.user_id == 'true'){
+                    console.log(response.data.user_id);
                     this.setState({admin: true})
+                }else{
+                    console.log("user");
+                    this.setState({admin: false, currentUserId: response.data.user_id })
                 }
             })
-            .catch ((error) => {
-                console.log(error.response.status);
-                this.setState({admin: false})
-        })
     }
 
     updateDefectElement = (defect, key, value) => {
@@ -136,7 +136,8 @@ export default class NotificationList extends React.Component {
             <Notification
                 key={defect.id}
                 admin={this.state.admin}
-                NotificationID={defect.id}
+                currentUserId={this.state.currentUserId}
+                notificationID={defect.id}
                 title={defect.title}
                 setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
                 importance={defect.importance}
@@ -160,7 +161,8 @@ export default class NotificationList extends React.Component {
             <Notification
                 key={supply.id}
                 admin={this.state.admin}
-                NotificationID={supply.id}
+                currentUserId={this.state.currentUserId}
+                notificationID={supply.id}
                 title={supply.title}
                 setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}
                 importance={supply.importance}

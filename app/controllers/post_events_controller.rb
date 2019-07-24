@@ -15,10 +15,13 @@ class PostEventsController < ApplicationController
     # rubocop:enable Rails/DynamicFindBy
   end
 
-  def check_user
-    return head 404 unless current_user.admin == true
+  def check_admin
 
-    head 202
+    if current_user.admin
+        @current_user_id = true
+    else
+        @current_user_id = current_user.id
+    end
   end
 
   def show
@@ -47,7 +50,7 @@ class PostEventsController < ApplicationController
 
   # DESTROY
   def destroy
-    return head 404 unless @post_event.user_id == current_user.id
+    return head 404 unless @post_event.user_id == current_user.id || current_user.admin == true
 
     @post_event.destroy
   end
@@ -75,6 +78,6 @@ class PostEventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_event_params
-    params.require(:post_event).permit(:title, :description, :category, :importance)
+    params.require(:post_event).permit(:title, :description, :category, :importance, :user_id)
   end
 end
