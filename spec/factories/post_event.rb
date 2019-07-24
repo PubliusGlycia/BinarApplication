@@ -7,7 +7,7 @@ FactoryBot.define do
         end
 
         trait :description do
-            description { Faker::Movies::StarWars.quote  }
+            description { Faker::Movies::StarWars.quote }
         end
         
         trait :category do

@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Card, Col, ListGroup, Modal, Row} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
+import MessageByNotification from '../Message/message_by_notification'
 import WarrningDiv from './Create form/warrning_div';
 import InputField from '../input_field';
 import AreaInputField from '../area_input_field';
@@ -283,7 +284,10 @@ export default class Notification extends React.Component {
                             </Row>
                         </Modal.Body>
                     <Modal.Footer>
-                        <Col>Komentarze</Col>
+                        <Col>
+                            <p>Komentarze</p>
+                            <MessageByNotification notificationID={this.props.NotificationID} />
+                        </Col>
                     </Modal.Footer>
 
                     {this.state.showPhoto
