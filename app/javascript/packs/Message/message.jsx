@@ -1,5 +1,5 @@
 import React from 'react';
-import { Media, Card } from 'react-bootstrap';
+import { Media, Card, Row, Col, Button } from 'react-bootstrap';
 import defaultProfilePicture from 'images/default_profile_picture.jpg'
 
 export default class Message extends React.Component {
@@ -17,10 +17,17 @@ export default class Message extends React.Component {
                         style={{ outline: '2px solid #9C82D0', MozOutlineRadius: '2px' }}
                         />
                         <Media.Body>
-                            <h6 style={{ font: 'Muli', color: '#EEE' }}>{ this.props.author }</h6>
-                            <div style={{ font: 'Muli', fontSize: '11px', color:'#EEE' }}>
-                                Created: { this.props.created }
-                            </div>
+                            <Row>
+                                <Col sm={10}>
+                                    <h6 style={{ font: 'Muli', color: '#EEE' }}>{ this.props.author }</h6>
+                                    <div style={{ font: 'Muli', fontSize: '11px', color:'#EEE' }}>
+                                        Created: { this.props.created }
+                                    </div>
+                                </Col>
+                                <Col>
+                                    <Button id='button-edit' variant="warning">Edit</Button>
+                                </Col>
+                            </Row>
                             <hr className='mt-1' style={{ background: '#9C82D0' }}/>
                             <div style={{ font: 'Muli', fontSize: '13px', color:'#EEE', wordBreak: 'break-word' }}>
                                 { this.props.content }
