@@ -7,7 +7,7 @@
         null,
         1,
         null,
-        null,
+        1,
         1,
         1,
         null
@@ -82,6 +82,28 @@
         1,
         null
       ],
+      "/home/dbyszewski/Documents/BinarProjects/BinarOffice/BinarApplication/app/controllers/api/v1/messages_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        4,
+        4,
+        null,
+        null,
+        1,
+        0,
+        null,
+        0,
+        null,
+        null,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null
+      ],
       "/home/dbyszewski/Documents/BinarProjects/BinarOffice/BinarApplication/app/controllers/post_events_controller.rb": [
         1,
         1,
@@ -96,11 +118,17 @@
         0,
         0,
         null,
+        0,
+        null,
+        null,
         null,
         1,
+        null,
+        0,
         0,
         null,
         0,
+        null,
         null,
         null,
         1,
@@ -138,6 +166,14 @@
         1,
         0,
         0,
+        null,
+        null,
+        1,
+        2,
+        null,
+        2,
+        null,
+        2,
         null,
         null,
         1,
@@ -154,6 +190,15 @@
         null
       ],
       "/home/dbyszewski/Documents/BinarProjects/BinarOffice/BinarApplication/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/home/dbyszewski/Documents/BinarProjects/BinarOffice/BinarApplication/app/models/message.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
         1,
         null
       ],
@@ -175,16 +220,18 @@
         1,
         null,
         1,
-        24,
         null,
-        24,
+        1,
+        30,
+        null,
+        36,
         null,
         null,
         1,
-        24,
+        30,
         null,
-        12,
-        12,
+        18,
+        18,
         1,
         null,
         null,
@@ -291,6 +338,6 @@
         0
       ]
     },
-    "timestamp": 1563961348
+    "timestamp": 1563962025
   }
 }

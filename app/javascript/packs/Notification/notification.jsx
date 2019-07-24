@@ -2,12 +2,14 @@ import React from 'react';
 import {Button, Card, Col, ListGroup, Modal, Row} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
+import MessageByNotification from '../Message/message_by_notification'
 import WarrningDiv from './Create form/warrning_div';
 import InputField from '../input_field';
 import AreaInputField from '../area_input_field';
 import ButtonInputField from '../button_input_field';
 import Like from './like';
-
+import CheckBox from './Archive/check_box';
+import DeleteAcceptancePopover from "../delete_acceptance_popover"
 export default class Notification extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -27,7 +29,7 @@ export default class Notification extends React.Component {
             isClicked: false,
             descriptionError: "",
             errImportance: "",
-            errTitle: ""
+            errTitle: "",
         }
     }
 
@@ -51,7 +53,6 @@ export default class Notification extends React.Component {
         })
     };
 
-
     handleClick = () => {
         this.setState(isClicked => {
             if(this.props.importance == 'trivial'){
@@ -69,23 +70,13 @@ export default class Notification extends React.Component {
 
     handleClose() {
         this.setState({ show: false, showPhoto: false });
+        this.props.fetchPostEvents();
     }
 
     handleShow() {
         this.fetchPhotoUrls();
         this.setState({ show: true });
     }
-
-    handleDelete = (e) =>{
-        axios.delete('/post_events/'+ this.props.notificationID,
-            {headers: {
-                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-                }}).then(response => {
-            this.handleClose();
-            this.props.fetchPostEvents();
-        });
-
-    };
 
     importanceCheck() {
         if (this.props.importance == 'trivial')
@@ -134,6 +125,14 @@ export default class Notification extends React.Component {
         this.setState({showPhoto: false})
     }
 
+    handleCheckbox = (value,checked) => {
+        if (!checked){
+            this.props.notificationsToArchive(value,true)
+        }else{
+            this.props.notificationsToArchive(value,false)
+        }
+    };
+
     render() {
 
         const edit = this.state.edit;
@@ -146,8 +145,29 @@ export default class Notification extends React.Component {
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
 
+        let DeleteButton;
+
+        if(this.props.currentUserId == this.props.user_id)
+        {
+            DeleteButton = <DeleteAcceptancePopover
+                            notificationID={this.props.notificationID}
+                            handleClose={this.handleClose}/>
+        }else{
+            DeleteButton = <></>
+        }
+
+
+
+
         return (
             <>
+                {this.props.admin
+                        ? <CheckBox
+                        idValue={this.props.notificationID}
+                        checkFunction={this.handleCheckbox}
+                        />
+                        : '' }
+
                 <ListGroup.Item
                   action
                   style={{ background: '#46473A',
@@ -215,12 +235,7 @@ export default class Notification extends React.Component {
                                   style={{textAlign: 'right'}}
                                   >
                                     {button}
-                                    <Button
-                                      variant="danger"
-                                      onClick={this.handleDelete}
-                                      >
-                                        Usuń
-                                    </Button>
+                                    {DeleteButton}
                                     <Button
                                       variant="secondary"
                                       onClick={this.handleClose}
@@ -268,7 +283,10 @@ export default class Notification extends React.Component {
                             </Row>
                         </Modal.Body>
                     <Modal.Footer>
-                        <Col>Komentarze</Col>
+                        <Col>
+                            <p>Komentarze</p>
+                            <MessageByNotification notificationID={this.props.NotificationID} />
+                        </Col>
                     </Modal.Footer>
 
                     {this.state.showPhoto

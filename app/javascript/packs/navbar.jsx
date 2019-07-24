@@ -4,34 +4,10 @@ import {Col, Row} from 'react-bootstrap';
 
 export default class Navbar extends React.Component {
 
-    state = {
-        defects: [],
-        supplies: [],
-        isLoadingDefects: false,
-        isLoadingSupplies: false
-    };
-
-    fetchPostEvents = () => {
-        this.setState({ isLoadingDefects: true, isLoadingSupplies: true });
-        fetch("/post_events/event/defect.json")
-          .then(response => response.json())
-          .then(posts_events => {
-            this.setState({ defects: posts_events, isLoadingDefects: false });
-            });
-        fetch("/post_events/event/supply.json")
-            .then(response => response.json())
-            .then(posts_events => {
-              this.setState({ supplies: posts_events, isLoadingSupplies: false });
-              });
-    };
-
     render() {
 
         return (
-            <nav className="navbar navbar-expand-lg navbar-dark styled">
-                    <style dangerouslySetInnerHTML={{__html: `
-                        .styled { background-color: #4919aa; }
-                    `}} />
+            <nav className="navbar navbar-expand-lg navbar-dark" id='binar-navi'>
                 <span className="navbar-brand my-0 h1" href="#">BinarOffice</span>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>

@@ -9,13 +9,16 @@ class PostEventsController < ApplicationController
 
   def search_filter
     @post_events = PostEvent.where(category: params[:category])
+    @post_events = @post_events.where(archive: false)
+    # rubocop:disable Rails/DynamicFindBy
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
+    # rubocop:enable Rails/DynamicFindBy
   end
 
-  def check_user
-    return head 404 unless current_user.admin == true
+  def check_admin
+    return @current_user_id = true if current_user.admin
 
-    head 202
+    @current_user_id = current_user.id
   end
 
   def show
@@ -44,7 +47,7 @@ class PostEventsController < ApplicationController
 
   # DESTROY
   def destroy
-    return head 404 unless @post_event.user_id == current_user.id
+    return head 404 unless @post_event.user_id == current_user.id || current_user.admin == true
 
     @post_event.destroy
   end
@@ -53,6 +56,14 @@ class PostEventsController < ApplicationController
   def update
     post_event = PostEvent.find(params[:id])
     post_event.update(post_event_params)
+  end
+
+  def archive_events
+    @post_events = PostEvent.where(id: params[:post_event_ids])
+    # rubocop:disable Rails/SkipsModelValidations
+    @post_events.update_all(archive: true)
+    # rubocop:enable Rails/SkipsModelValidations
+    head :ok
   end
 
   private
@@ -64,6 +75,6 @@ class PostEventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_event_params
-    params.require(:post_event).permit(:title, :description, :category, :importance)
+    params.require(:post_event).permit(:title, :description, :category, :importance, :user_id)
   end
 end
