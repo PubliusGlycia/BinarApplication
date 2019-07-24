@@ -10,6 +10,7 @@ import ButtonInputField from '../button_input_field';
 import Like from './like';
 import CheckBox from './Archive/check_box';
 import DeleteAcceptancePopover from "../delete_acceptance_popover"
+
 export default class Notification extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -285,7 +286,7 @@ export default class Notification extends React.Component {
                     <Modal.Footer>
                         <Col>
                             <p>Komentarze</p>
-                            <MessageByNotification notificationID={this.props.NotificationID} />
+                            <MessageByNotification notificationID={this.props.notificationID} />
                         </Col>
                     </Modal.Footer>
 

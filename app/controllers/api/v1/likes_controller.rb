@@ -34,6 +34,5 @@ class Api::V1::LikesController < Api::V1::ApplicationController
 
   def set_like
     @like = @post_event.likes.find(params[:id])
-    it { expect { subject }.to change(Like, :count).by(1) }
   end
 end
