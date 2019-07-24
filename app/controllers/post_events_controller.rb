@@ -3,5 +3,4 @@ class PostEventsController < ApplicationController
   def index
     @post_events = PostEvent.all
   end
-
 end

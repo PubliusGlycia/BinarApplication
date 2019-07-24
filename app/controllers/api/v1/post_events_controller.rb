@@ -43,12 +43,9 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   end
 
   def check_admin
+    return @current_user_id = true if current_user.admin
 
-    if current_user.admin
-      @current_user_id = true
-    else
-      @current_user_id = current_user.id
-    end
+    @current_user_id = current_user.id
   end
 
   def create
