@@ -42,28 +42,19 @@ export default class Like extends React.Component {
     }
 
     render() {
+        let buttonText = `👍 Likes: ${this.state.likesCount}`
+        let buttonVariant = this.state.isLiked ? 'primary' : 'outline-primary';
         return (
             <>
                 <Row>
-                    <p>{this.state.likesCount}</p>
-                </Row>
-                <Row>
-                    {this.state.isLiked
-                      ? <Button
-                          as="input"
-                          size="sm"
-                          type="submit"
-                          value="Unlike"
-                          variant="outline-primary"
-                          onClick={this.handleClick}
-                        />
-                      : <Button
-                          as="input"
-                          size="sm"
-                          type="submit"
-                          value=" Like "
-                          onClick={this.handleClick}
-                    />}
+                    <Button
+                      as="input"
+                      size="sm"
+                      type="submit"
+                      value={buttonText}
+                      variant={buttonVariant}
+                      onClick={this.handleClick}
+                    />
                 </Row>
             </>
         )
