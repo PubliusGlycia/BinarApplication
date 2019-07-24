@@ -44,7 +44,7 @@ export default class Notification extends React.Component {
         data.append('post_event[category]', this.props.category);
         data.append('post_event[importance]', this.props.importance);
 
-        axios.patch("/post_events/"+this.props.notificationID + '.json', data,
+        axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }}).then(()=>{
@@ -88,7 +88,7 @@ export default class Notification extends React.Component {
 
     fetchPhotoUrls() {
         this.setState({ isLoading: true });
-        fetch('/post_events/'+ this.props.notificationID +'.json')
+        fetch('api/v1/post_events/'+ this.props.notificationID +'.json')
             .then(response => response.json())
             .then(posts_events => {
                 this.setState({ photo_urls: posts_events.images_url, isLoading: false});
@@ -102,13 +102,13 @@ export default class Notification extends React.Component {
               style={{ width: '15rem' }}>
                 <Card.Body>
                     <Image
-                      src={ `/ ${photo.url} `}
+                      src={ `api/v1/ ${photo.url} `}
                       value={photo.url}
                       onClick={() => this.showZoomInPhoto(photo.url)}
                       fluid
                     />
                     <Button
-                      href={`/post_events/download/ ${this.props.notificationID} / ${index}`}
+                      href={`api/v1/post_events/download/ ${this.props.notificationID} / ${index}`}
                       target="_blank"
                       >
                         Download
@@ -148,7 +148,7 @@ export default class Notification extends React.Component {
 
         let DeleteButton;
 
-        if(this.props.currentUserId == this.props.user_id)
+        if(this.props.currentUserId === this.props.user_id || this.props.admin)
         {
             DeleteButton = <DeleteAcceptancePopover
                             notificationID={this.props.notificationID}

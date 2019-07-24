@@ -5,7 +5,7 @@ import SearchBar from './search_bar';
 import axios from 'axios'
 import Navbar from "../navbar";
 import ArchiveButton from "./Archive/archive_button"
-import { Col, Container, ListGroup, Row } from 'react-bootstrap';
+import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 
 
 export default class NotificationList extends React.Component {
@@ -22,7 +22,7 @@ export default class NotificationList extends React.Component {
     fetchPostEventsWhenSearch = (phrase) => {
         this.setState({ isLoading: true });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'defect',
                 search_phrase: phrase
@@ -32,7 +32,7 @@ export default class NotificationList extends React.Component {
             this.setState({ defects: posts_events.data, isLoading: false })
         });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'supply',
                 search_phrase: phrase
@@ -46,7 +46,7 @@ export default class NotificationList extends React.Component {
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'defect'
             }
@@ -55,7 +55,7 @@ export default class NotificationList extends React.Component {
             this.setState({ defects: posts_events.data, isLoading: false })
         });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'supply'
             }
@@ -72,14 +72,17 @@ export default class NotificationList extends React.Component {
     }
 
     checkUser() {
-        axios.get('/admin/check.json')
+        axios.get('api/v1/admin/check.json')
             .then(response =>{
-                if (response.data.user_id == 'true'){
-                    console.log(response.data.user_id);
-                    this.setState({admin: true})
+                if (response.data.user_id === true){
+                    this.setState({admin: true});
+                        console.log("admin");
                 }else{
+                    this.setState({admin: false, currentUserId: response.data.user_id });
                     console.log("user");
-                    this.setState({admin: false, currentUserId: response.data.user_id })
+                    console.log(response);
+                    console.log(response.data);
+                    console.log(response.data.user_id);
                 }
             })
     }
@@ -131,8 +134,8 @@ export default class NotificationList extends React.Component {
     };
 
     render() {
-        const defects = this.state.defects.map(defect => {
-            return <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
+        const defects = this.state.defects.map(defect =>
+            <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
             <Notification
                 key={defect.id}
                 admin={this.state.admin}
@@ -154,7 +157,7 @@ export default class NotificationList extends React.Component {
                 notificationsToArchive={this.updateArchiveList}
             />
             </ListGroup.Item>
-        });
+        );
 
         const supplies = this.state.supplies.map(supply =>
             <ListGroup.Item key={supply.id} style={{ background: '#36372D' }}>
