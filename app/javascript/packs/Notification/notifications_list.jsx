@@ -16,6 +16,7 @@ export default class NotificationList extends React.Component {
         isLoading: false,
         state: '',
         admin: false,
+        userId:'',
         notificationsToArchive: []
     };
 
@@ -71,16 +72,14 @@ export default class NotificationList extends React.Component {
     }
 
     checkUser() {
-        axios.get('/user/check')
+        axios.get('/admin/check.json')
             .then(response =>{
-                if (response.status == 202){
+                if (response.data.user_id == true){
                     this.setState({admin: true})
+                }else{
+                    this.setState({admin: false, userId: response.data.user_id })
                 }
             })
-            .catch ((error) =>{
-                console.log(error.response.status);
-                this.setState({admin: false})
-        })
     }
 
     updateDefectElement = (defect, key, value) => {

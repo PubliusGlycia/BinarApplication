@@ -15,10 +15,13 @@ class PostEventsController < ApplicationController
     # rubocop:enable Rails/DynamicFindBy
   end
 
-  def check_user
-    return head 404 unless current_user.admin == true
+  def check_admin
 
-    head 202
+    if current_user.admin
+        @current_user_id = true
+    else
+        @current_user_id = current_user.id
+    end
   end
 
   def show
