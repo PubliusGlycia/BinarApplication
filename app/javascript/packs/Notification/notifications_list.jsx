@@ -43,7 +43,7 @@ export default class NotificationList extends React.Component {
 
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
-        
+
         axios.get('/post_events/event.json', {
             params: {
                 category: 'defect'
@@ -162,7 +162,7 @@ export default class NotificationList extends React.Component {
                         </Col>
 
                     </Row>
-                </Container>  
+                </Container>
             </div>
         )
     }
