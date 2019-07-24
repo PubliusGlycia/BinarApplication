@@ -1,20 +1,20 @@
 FactoryBot.define do
 
     factory :post_event do
-        
+
         trait :title do
-            title { Faker::Lorem.sentence }
+            title { Faker::Lorem.paragraph_by_chars(40, false) }
         end
 
         trait :description do
             description { Faker::Movies::StarWars.quote }
         end
-        
+
         trait :category do
             category { ['defect','supply','others'].sample }
         end
 
-        trait :importance do 
+        trait :importance do
             importance { ['important', 'trivial'].sample }
         end
 
@@ -34,7 +34,7 @@ FactoryBot.define do
 
         factory :valid_post_event,    traits: [:title, :description, :category, :importance, :valid_photo]
         factory :invalid_post_event,    traits: [:title, :description, :category, :importance, :invalid_photo]
-    
+
     end
 
 end

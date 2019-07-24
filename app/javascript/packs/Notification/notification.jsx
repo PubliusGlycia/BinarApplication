@@ -7,13 +7,13 @@ import WarrningDiv from './Create form/warrning_div';
 import InputField from '../input_field';
 import AreaInputField from '../area_input_field';
 import ButtonInputField from '../button_input_field';
+import Like from './like';
 import CheckBox from './Archive/check_box';
 import DeleteAcceptancePopover from "../delete_acceptance_popover"
-
 export default class Notification extends React.Component {
     constructor(props, context) {
         super(props, context);
-    
+
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
@@ -50,8 +50,6 @@ export default class Notification extends React.Component {
             this.handleClose()
         }).catch((error) =>{
             this.setState({errTitle: error.response.data.title, errImportance: error.response.data.importance});
-            console.log(this.state.errTitle);
-            console.log(this.state.errImportance)
         })
     };
 
@@ -74,7 +72,7 @@ export default class Notification extends React.Component {
         this.setState({ show: false, showPhoto: false });
         this.props.fetchPostEvents();
     }
-    
+
     handleShow() {
         this.fetchPhotoUrls();
         this.setState({ show: true });
@@ -180,18 +178,20 @@ export default class Notification extends React.Component {
                   >
                     <Row>
                         <Col
-                          md={11}
+                          md={10}
                           as='h5'
-                          style={{overflow: "hidden"}}
+                          style={{ overflow: "hidden" }}
                           >
                             {this.props.title}
                         </Col>
-
+                        <Col md={1}>
+                            <Like notificationID={ this.props.notificationID }/>
+                        </Col>
                         <Col
                           md={1}
                           as='h1'
                           >
-                            {this.importanceCheck()}
+                            { this.importanceCheck()}
                         </Col>
                     </Row>
                 </ListGroup.Item>

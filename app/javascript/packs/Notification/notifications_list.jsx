@@ -5,7 +5,7 @@ import SearchBar from './search_bar';
 import axios from 'axios'
 import Navbar from "../navbar";
 import ArchiveButton from "./Archive/archive_button"
-import {Col, Container, ListGroup, Row} from 'react-bootstrap';
+import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 
 
 export default class NotificationList extends React.Component {
