@@ -21,6 +21,9 @@ export default class Message extends React.Component {
             this.handleSaveChanges()
             this.setState({ edited: false})
         }
+        else if (this.state.editable == true && this.state.edited && !this.state.validated) {
+            this.setState({ validated: true, edited: false})
+        }
         this.setState({editable: !this.state.editable})
     }
 
