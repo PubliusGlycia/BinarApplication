@@ -102,7 +102,7 @@ export default class Notification extends React.Component {
               style={{ width: '15rem' }}>
                 <Card.Body>
                     <Image
-                      src={ `api/v1/ ${photo.url} `}
+                      src={ `${photo.url} `}
                       value={photo.url}
                       onClick={() => this.showZoomInPhoto(photo.url)}
                       fluid
@@ -139,9 +139,6 @@ export default class Notification extends React.Component {
         const edit = this.state.edit;
         let button;
 
-        if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
-        else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
-
         let impText;
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
@@ -153,6 +150,10 @@ export default class Notification extends React.Component {
             DeleteButton = <DeleteAcceptancePopover
                             notificationID={this.props.notificationID}
                             handleClose={this.handleClose}/>
+
+        if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
+        else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
+
         }else{
             DeleteButton = <></>
         }
@@ -300,7 +301,7 @@ export default class Notification extends React.Component {
                                 Close
                             </Button>
                             <img
-                              src={ `/ ${this.state.photoUrl}`}
+                              src={ `${this.state.photoUrl}`}
                               style={{width: '100%',height: '100%'}}
                             />
                         </div>
