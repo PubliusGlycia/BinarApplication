@@ -261,11 +261,19 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  config.omniauth :google_oauth2,
-    Rails.application.credentials[:google_oauth2][:app_id],
-    Rails.application.credentials[:google_oauth2][:app_secret],
-    redirect_uri:
-      "http://f27be43f.ngrok.io/users/auth/google_oauth2/callback"
+  if Rails.env.production?
+    config.omniauth :google_oauth2,
+      Rails.application.credentials[:production][:google_oauth2][:app_id],
+      Rails.application.credentials[:production][:google_oauth2][:app_secret],
+      redirect_uri:
+        "prouri cos z kier"
+  else
+    config.omniauth :google_oauth2,
+      Rails.application.credentials[:development][:google_oauth2][:app_id],
+      Rails.application.credentials[:development][:google_oauth2][:app_secret],
+      redirect_uri:
+        "http://4b151f66.ngrok.io/users/auth/google_oauth2/callback"
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
