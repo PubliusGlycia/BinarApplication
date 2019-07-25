@@ -1,3 +1,6 @@
-json.partial! @post_event, as: :post_event
-json.extract! @post_event, :description, :category, :created_at
-json.url post_event_url(@post_event, format: :json)
+json.partial! 'api/v1/post_events/post_event', post_event: @post_event
+json.images_url @post_event.images.each do |image|
+  json.key image.key
+  json.filename image.filename
+  json.url rails_blob_path(image, only_path: true)
+end

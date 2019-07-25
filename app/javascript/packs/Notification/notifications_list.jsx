@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Notification from './notification';
 import SearchBar from './search_bar';
 import axios from 'axios'
-import Navbar from "../navbar";
 import ArchiveButton from "./Archive/archive_button"
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 
@@ -13,17 +11,13 @@ export default class NotificationList extends React.Component {
         defects: [],
         supplies: [],
         isLoading: false,
-        state: '',
-        admin: false,
-        currentUserId:'',
-        currentUserEmail:'',
         notificationsToArchive: []
     };
 
     fetchPostEventsWhenSearch = (phrase) => {
         this.setState({ isLoading: true });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'defect',
                 search_phrase: phrase
@@ -33,7 +27,7 @@ export default class NotificationList extends React.Component {
             this.setState({ defects: posts_events.data, isLoading: false })
         });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'supply',
                 search_phrase: phrase
@@ -47,7 +41,7 @@ export default class NotificationList extends React.Component {
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'defect'
             }
@@ -56,7 +50,7 @@ export default class NotificationList extends React.Component {
             this.setState({ defects: posts_events.data, isLoading: false })
         });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'supply'
             }
@@ -68,21 +62,7 @@ export default class NotificationList extends React.Component {
     };
 
     componentDidMount() {
-        this.checkUser();
         this.fetchPostEvents();
-    }
-
-    checkUser() {
-        axios.get('/admin/check.json')
-            .then(response =>{
-                if (response.data.user_id == 'true'){
-                    console.log(response.data.user_id);
-                    this.setState({admin: true})
-                }else{
-                    console.log(response.data);
-                    this.setState({admin: false, currentUserId: response.data.user_id, currentUserEmail: response.data.user_email })
-                };
-            })
     }
 
     updateDefectElement = (defect, key, value) => {
@@ -132,13 +112,13 @@ export default class NotificationList extends React.Component {
     };
 
     render() {
-        const defects = this.state.defects.map(defect => {
-            return <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
+        const defects = this.state.defects.map(defect =>
+            <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
             <Notification
                 key={defect.id}
-                admin={this.state.admin}
-                currentUserId={this.state.currentUserId}
-                currentUserEmail={this.state.currentUserEmail}
+                admin={this.props.admin}
+                currentUserId={this.props.currentUserId}
+                currentUserEmail={this.props.currentUserEmail}
                 notificationID={defect.id}
                 title={defect.title}
                 setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
@@ -156,15 +136,15 @@ export default class NotificationList extends React.Component {
                 notificationsToArchive={this.updateArchiveList}
             />
             </ListGroup.Item>
-        });
+        );
 
         const supplies = this.state.supplies.map(supply =>
             <ListGroup.Item key={supply.id} style={{ background: '#36372D' }}>
             <Notification
                 key={supply.id}
-                admin={this.state.admin}
-                currentUserId={this.state.currentUserId}
-                currentUserEmail={this.state.currentUserEmail}
+                admin={this.props.admin}
+                currentUserId={this.props.currentUserId}
+                currentUserEmail={this.props.currentUserEmail}
                 notificationID={supply.id}
                 title={supply.title}
                 setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}
@@ -185,7 +165,6 @@ export default class NotificationList extends React.Component {
 
         return (
             <div className='body'>
-                <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
                 <Container fluid>
                     <Row>
@@ -228,10 +207,3 @@ export default class NotificationList extends React.Component {
         )
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(
-      < NotificationList />,
-      document.body.appendChild(document.createElement('div')),
-    )
-  });

@@ -17,7 +17,6 @@ export default class Message extends React.Component {
 
     changeEditState = () => {
         if (this.state.editable == true && this.state.edited && this.state.validated) {
-            console.log('zapisano')
             this.handleSaveChanges()
             this.setState({ edited: false})
         }
@@ -79,7 +78,7 @@ export default class Message extends React.Component {
                                     { (this.props.created != this.props.updated) && <> <br/> Edytow.: { this.formatDate(this.props.updated) } </> }
                                     </div>
                                 </Col>
-                                { ((this.props.author == this.props.currentUserEmail) || (this.props.currentUserId == true)) &&
+                                { ((this.props.author === this.props.currentUserEmail) || (this.props.currentUserId === true)) &&
                                 <Col>
                                     { !this.state.editable && <Button className='button-edit w-100' variant="warning" onClick={this.changeEditState}>Edytuj</Button> }
                                     { (this.state.editable && this.state.edited && this.state.validated) && <Button className='button-edit w-100' variant="success" onClick={this.changeEditState}>Zapisz</Button> }
