@@ -151,8 +151,8 @@ export default class Notification extends React.Component {
                             notificationID={this.props.notificationID}
                             handleClose={this.handleClose}/>
 
-            if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
-            else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
+        if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
+        else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
 
         }else{
             DeleteButton = <></>
