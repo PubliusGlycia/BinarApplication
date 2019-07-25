@@ -7,3 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # 10.times { Message.create!(author: Faker::Internet.email, content: Faker::Movies::HarryPotter.quote) }
+
+User.create(email: 'admin@binar.app', password: '123456', admin: true)
