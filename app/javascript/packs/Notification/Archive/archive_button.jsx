@@ -8,7 +8,7 @@ export default class ArchiveButton extends React.Component {
     };
 
     archive = () => {
-        axios.post("/archive",{
+        axios.post("api/v1/archive",{
                 post_event_ids: this.props.notificationsToArchive
             },
             {

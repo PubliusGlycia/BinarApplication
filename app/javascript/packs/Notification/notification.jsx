@@ -7,12 +7,14 @@ import WarrningDiv from './Create form/warrning_div';
 import InputField from '../input_field';
 import AreaInputField from '../area_input_field';
 import ButtonInputField from '../button_input_field';
+import Like from './like';
 import CheckBox from './Archive/check_box';
+import DeleteAcceptancePopover from "../delete_acceptance_popover"
 
 export default class Notification extends React.Component {
     constructor(props, context) {
         super(props, context);
-    
+
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
@@ -28,7 +30,7 @@ export default class Notification extends React.Component {
             isClicked: false,
             descriptionError: "",
             errImportance: "",
-            errTitle: ""
+            errTitle: "",
         }
     }
 
@@ -42,18 +44,15 @@ export default class Notification extends React.Component {
         data.append('post_event[category]', this.props.category);
         data.append('post_event[importance]', this.props.importance);
 
-        axios.patch("/post_events/"+this.props.NotificationID + '.json', data,
+        axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }}).then(()=>{
             this.handleClose()
         }).catch((error) =>{
             this.setState({errTitle: error.response.data.title, errImportance: error.response.data.importance});
-            console.log(this.state.errTitle);
-            console.log(this.state.errImportance)
         })
     };
-
 
     handleClick = () => {
         this.setState(isClicked => {
@@ -72,23 +71,13 @@ export default class Notification extends React.Component {
 
     handleClose() {
         this.setState({ show: false, showPhoto: false });
+        this.props.fetchPostEvents();
     }
-    
+
     handleShow() {
         this.fetchPhotoUrls();
         this.setState({ show: true });
     }
-
-    handleDelete = (e) =>{
-        axios.delete('/post_events/'+ this.props.NotificationID,
-            {headers: {
-                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-                }}).then(response => {
-            this.handleClose();
-            this.props.fetchPostEvents();
-        });
-
-    };
 
     importanceCheck() {
         if (this.props.importance == 'trivial')
@@ -99,7 +88,7 @@ export default class Notification extends React.Component {
 
     fetchPhotoUrls() {
         this.setState({ isLoading: true });
-        fetch('/post_events/'+ this.props.NotificationID +'.json')
+        fetch('api/v1/post_events/'+ this.props.notificationID +'.json')
             .then(response => response.json())
             .then(posts_events => {
                 this.setState({ photo_urls: posts_events.images_url, isLoading: false});
@@ -113,13 +102,13 @@ export default class Notification extends React.Component {
               style={{ width: '15rem' }}>
                 <Card.Body>
                     <Image
-                      src={ `/ ${photo.url} `}
+                      src={ `api/v1/ ${photo.url} `}
                       value={photo.url}
                       onClick={() => this.showZoomInPhoto(photo.url)}
                       fluid
                     />
                     <Button
-                      href={`/post_events/download/ ${this.props.NotificationID} / ${index}`}
+                      href={`api/v1/post_events/download/ ${this.props.notificationID} / ${index}`}
                       target="_blank"
                       >
                         Download
@@ -157,11 +146,25 @@ export default class Notification extends React.Component {
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
 
+        let DeleteButton;
+
+        if(this.props.currentUserId === this.props.user_id || this.props.admin)
+        {
+            DeleteButton = <DeleteAcceptancePopover
+                            notificationID={this.props.notificationID}
+                            handleClose={this.handleClose}/>
+        }else{
+            DeleteButton = <></>
+        }
+
+
+
+
         return (
             <>
                 {this.props.admin
                         ? <CheckBox
-                        idValue={this.props.NotificationID}
+                        idValue={this.props.notificationID}
                         checkFunction={this.handleCheckbox}
                         />
                         : '' }
@@ -176,18 +179,20 @@ export default class Notification extends React.Component {
                   >
                     <Row>
                         <Col
-                          md={11}
+                          md={10}
                           as='h5'
-                          style={{overflow: "hidden"}}
+                          style={{ overflow: "hidden" }}
                           >
                             {this.props.title}
                         </Col>
-
+                        <Col md={1}>
+                            <Like notificationID={ this.props.notificationID }/>
+                        </Col>
                         <Col
                           md={1}
                           as='h1'
                           >
-                            {this.importanceCheck()}
+                            { this.importanceCheck()}
                         </Col>
                     </Row>
                 </ListGroup.Item>
@@ -231,12 +236,7 @@ export default class Notification extends React.Component {
                                   style={{textAlign: 'right'}}
                                   >
                                     {button}
-                                    <Button
-                                      variant="danger"
-                                      onClick={this.handleDelete}
-                                      >
-                                        Usuń
-                                    </Button>
+                                    {DeleteButton}
                                     <Button
                                       variant="secondary"
                                       onClick={this.handleClose}
@@ -286,7 +286,7 @@ export default class Notification extends React.Component {
                     <Modal.Footer>
                         <Col>
                             <p>Komentarze</p>
-                            <MessageByNotification notificationID={this.props.NotificationID} />
+                            <MessageByNotification notificationID={this.props.notificationID} />
                         </Col>
                     </Modal.Footer>
 

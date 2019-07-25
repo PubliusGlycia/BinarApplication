@@ -5,7 +5,6 @@ import SearchBar from './search_bar';
 import axios from 'axios'
 import Navbar from "../navbar";
 import ArchiveButton from "./Archive/archive_button"
-
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 
 
@@ -16,13 +15,14 @@ export default class NotificationList extends React.Component {
         isLoading: false,
         state: '',
         admin: false,
+        currentUserId:'',
         notificationsToArchive: []
     };
 
     fetchPostEventsWhenSearch = (phrase) => {
         this.setState({ isLoading: true });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'defect',
                 search_phrase: phrase
@@ -32,7 +32,7 @@ export default class NotificationList extends React.Component {
             this.setState({ defects: posts_events.data, isLoading: false })
         });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'supply',
                 search_phrase: phrase
@@ -46,7 +46,7 @@ export default class NotificationList extends React.Component {
     fetchPostEvents = () => {
         this.setState({ isLoading: true });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'defect'
             }
@@ -55,7 +55,7 @@ export default class NotificationList extends React.Component {
             this.setState({ defects: posts_events.data, isLoading: false })
         });
 
-        axios.get('/post_events/event.json', {
+        axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'supply'
             }
@@ -72,16 +72,19 @@ export default class NotificationList extends React.Component {
     }
 
     checkUser() {
-        axios.get('/user/check')
+        axios.get('api/v1/admin/check.json')
             .then(response =>{
-                if (response.status == 202){
-                    this.setState({admin: true})
+                if (response.data.user_id === true){
+                    this.setState({admin: true});
+                        console.log("admin");
+                }else{
+                    this.setState({admin: false, currentUserId: response.data.user_id });
+                    console.log("user");
+                    console.log(response);
+                    console.log(response.data);
+                    console.log(response.data.user_id);
                 }
             })
-            .catch ((error) => {
-                console.log(error.response.status);
-                this.setState({admin: false})
-        })
     }
 
     updateDefectElement = (defect, key, value) => {
@@ -131,12 +134,13 @@ export default class NotificationList extends React.Component {
     };
 
     render() {
-        const defects = this.state.defects.map(defect => {
-            return <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
+        const defects = this.state.defects.map(defect =>
+            <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
             <Notification
                 key={defect.id}
                 admin={this.state.admin}
-                NotificationID={defect.id}
+                currentUserId={this.state.currentUserId}
+                notificationID={defect.id}
                 title={defect.title}
                 setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
                 importance={defect.importance}
@@ -153,14 +157,15 @@ export default class NotificationList extends React.Component {
                 notificationsToArchive={this.updateArchiveList}
             />
             </ListGroup.Item>
-        });
+        );
 
         const supplies = this.state.supplies.map(supply =>
             <ListGroup.Item key={supply.id} style={{ background: '#36372D' }}>
             <Notification
                 key={supply.id}
                 admin={this.state.admin}
-                NotificationID={supply.id}
+                currentUserId={this.state.currentUserId}
+                notificationID={supply.id}
                 title={supply.title}
                 setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}
                 importance={supply.importance}

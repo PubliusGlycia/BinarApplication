@@ -6,7 +6,9 @@ class PostEvent < ApplicationRecord
   validates :importance, inclusion: { in: %w[important trivial], message: 'Importance need to be choosen' }
   validate :file_size_have_to_be_less_than_5mb, on: :create
   validate :file_format_jpg_jpeg_png, on: :create
+
   belongs_to :user
+  has_many :likes, dependent: :destroy
 
   has_many :messages, dependent: :destroy
 
