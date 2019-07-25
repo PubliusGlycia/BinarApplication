@@ -139,9 +139,6 @@ export default class Notification extends React.Component {
         const edit = this.state.edit;
         let button;
 
-        if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
-        else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
-
         let impText;
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
@@ -153,6 +150,10 @@ export default class Notification extends React.Component {
             DeleteButton = <DeleteAcceptancePopover
                             notificationID={this.props.notificationID}
                             handleClose={this.handleClose}/>
+
+            if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
+            else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
+
         }else{
             DeleteButton = <></>
         }
