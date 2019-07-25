@@ -286,7 +286,7 @@ export default class Notification extends React.Component {
                     <Modal.Footer>
                         <Col>
                             <p>Komentarze</p>
-                            <MessageByNotification notificationID={this.props.notificationID} />
+                            <MessageByNotification currentUserEmail={ this.props.currentUserEmail } notificationID={this.props.notificationID} />
                         </Col>
                     </Modal.Footer>
 

@@ -113,6 +113,7 @@ export default class NotificationList extends React.Component {
                 key={defect.id}
                 admin={this.props.admin}
                 currentUserId={this.props.currentUserId}
+                currentUserEmail={this.props.currentUserEmail}
                 notificationID={defect.id}
                 title={defect.title}
                 setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
@@ -138,6 +139,7 @@ export default class NotificationList extends React.Component {
                 key={supply.id}
                 admin={this.props.admin}
                 currentUserId={this.props.currentUserId}
+                currentUserEmail={this.props.currentUserEmail}
                 notificationID={supply.id}
                 title={supply.title}
                 setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}

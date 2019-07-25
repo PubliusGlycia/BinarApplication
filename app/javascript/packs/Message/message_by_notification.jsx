@@ -15,17 +15,21 @@ export default class MessageByNotification extends React.Component {
         });
     }
 
-    formatDate = (date) => {
-        return date.substring(0,10) + ' at ' + date.substring(11,16)
-    }
-
     componentDidMount() {
         this.fetchMessages();
     }
 
     render() {
         const messages = this.state.messages.sort((a, b) => a.created_at < b.created_at ).map((message) => 
-            <Message author={message.author} created={this.formatDate(message.created_at)} content={message.content} key={ message.id } />)
+            <Message
+            author={message.author}
+            created={message.created_at}
+            updated={message.updated_at}
+            content={message.content}
+            messageId={ message.id }
+            currentUserId={ this.props.currentUserId }
+            currentUserEmail={ this.props.currentUserEmail }
+            key={ message.id } />)
         return (
             <>
                 <MessageForm notificationID={this.props.notificationID} userID={this.state.userID} fetchMessages={this.fetchMessages} />

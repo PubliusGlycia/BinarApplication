@@ -12,6 +12,13 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
     format.json { render json: @message.errors, status: :unprocessable_entity } unless @message.save
   end
 
+  def update_content
+    message = Message.find(params[:id])
+    new_message = params[:message]
+
+    message.update(content: new_message)
+  end
+
   private
 
   def message_params
