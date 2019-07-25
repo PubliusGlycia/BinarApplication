@@ -2,3 +2,28 @@
   right: 0;
   top: 0;
 }
+
+.image-profile {
+  outline: 2px solid #9C82D0;
+  -moz-outline-radius: 2px;
+}
+
+.header-author {
+  font: Muli;
+  color: #EEE;
+}
+
+.div-dates {
+  font: Muli 11px;
+  color: #EEE;
+}
+
+.divider {
+  background: #9C82D0;
+}
+
+.div-message-content {
+  font: Muli 13px;
+  color: #EEE;
+  word-break: break-word;
+}

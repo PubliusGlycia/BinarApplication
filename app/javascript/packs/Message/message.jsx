@@ -59,22 +59,21 @@ export default class Message extends React.Component {
 
     render() {
         return (
-            <Card className='my-2' style={{ background: '#2B185C' }}>
+            <Card className="my-2" style={{ background: "#2B185C" }}>
                 <Card.Body>
                     <Media>
                         <img
                         width={56}
                         height={56}
-                        className="mr-3"
+                        className="mr-3 image-profile"
                         src={defaultProfilePicture}
                         alt="<profile pic>"
-                        style={{ outline: '2px solid #9C82D0', MozOutlineRadius: '2px' }}
                         />
                         <Media.Body>
                             <Row>
                                 <Col sm={9}>
-                                    <h6 style={{ font: 'Muli', color: '#EEE' }}>{ this.props.author }</h6>
-                                    <div style={{ font: 'Muli', fontSize: '11px', color:'#EEE' }}>
+                                    <h6 className="header-author"> { this.props.author } </h6>
+                                    <div className="div-dates">
                                         Dodano: { this.formatDate(this.props.created) }
                                     
                                     { (this.props.created != this.props.updated) && <> <br/> Edytow.: { this.formatDate(this.props.updated) } </> }
@@ -88,10 +87,10 @@ export default class Message extends React.Component {
                                 </Col> }
                             </Row>
 
-                            <hr className='mt-1' style={{ background: '#9C82D0' }}/>
+                            <hr className='mt-1 divider' />
 
                             { !this.state.editable &&
-                            <div style={{ font: 'Muli', fontSize: '13px', color:'#EEE', wordBreak: 'break-word' }}>
+                            <div className="div-message-content">
                                 { this.state.contentBeforeEdit }
                             </div> }
 
