@@ -9,11 +9,14 @@ export default class Message extends React.Component {
         editable: false,
         edited: false,
         content: '',
-        contentBeforeEdit: ''
+        contentBeforeEdit: '',
+        validated: false,
+        errorDescription: '',
+        maxLength: 200
     };
 
     changeEditState = () => {
-        if (this.state.editable == true && this.state.edited) {
+        if (this.state.editable == true && this.state.edited && this.state.validated) {
             console.log('zapisano')
             this.handleSaveChanges()
             this.setState({ edited: false})
@@ -37,8 +40,18 @@ export default class Message extends React.Component {
         Axios.patch("/api/v1/messages/update_content/" + this.props.messageId + "/" + this.state.content + ".json").then(() => this.setState({ contentBeforeEdit: this.state.content}))
     }
 
+    validateContent = (content) =>{
+        this.setState(state => {
+          return {
+            errorDescription: (content.length <= this.state.maxLength ? '' : 'Komentarz nie może być dłuższy niż ' + this.state.maxLength + ' znaków'),
+            validated: (content.length <= this.state.maxLength ? true : false)
+            }
+        });
+      }
+
     componentDidMount() {
         this.setState({ content: this.props.content, contentBeforeEdit: this.props.content })
+        this.validateContent(this.props.content)
     }
 
     render() {
@@ -67,8 +80,8 @@ export default class Message extends React.Component {
                                 { ((this.props.author == this.props.currentUserEmail) || (this.props.currentUserId == true)) &&
                                 <Col>
                                     { !this.state.editable && <Button className='button-edit w-100' variant="warning" onClick={this.changeEditState}>Edytuj</Button> }
-                                    { (this.state.editable && this.state.edited) && <Button className='button-edit w-100' variant="success" onClick={this.changeEditState}>Zapisz</Button> }
-                                    { (this.state.editable && !this.state.edited) && <Button className='button-edit w-100' variant="danger" onClick={this.changeEditState}>Anuluj</Button> }
+                                    { (this.state.editable && this.state.edited && this.state.validated) && <Button className='button-edit w-100' variant="success" onClick={this.changeEditState}>Zapisz</Button> }
+                                    { ((this.state.editable && !this.state.edited) || !this.state.validated) && <Button className='button-edit w-100' variant="danger" onClick={this.changeEditState}>Anuluj</Button> }
                                 </Col> }
                             </Row>
 
@@ -83,7 +96,7 @@ export default class Message extends React.Component {
                                 <Form>
                                 <Form.Group controlId="exampleForm.ControlTextarea1">
                                     <Form.Control as="textarea" defaultValue={this.state.contentBeforeEdit} 
-                                    onChange={ (e) => { this.setState({content: e.target.value, edited: this.isEdited(e.target.value) }) } } />
+                                    onChange={ (e) => { this.setState({content: e.target.value, edited: this.isEdited(e.target.value) }); this.validateContent(e.target.value) } } />
                                 </Form.Group>
                             </Form> }
 
