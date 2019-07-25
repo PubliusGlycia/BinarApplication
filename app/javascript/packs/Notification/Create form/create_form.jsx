@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Notification from '../notification';
 import {Button, Modal} from 'react-bootstrap';
 import axios from 'axios';
 import WarrningDiv from './warrning_div'
@@ -31,10 +29,10 @@ export default class CreateForm extends React.Component {
       e.preventDefault();
       const data = new FormData();
 
-      data.append('post_event[title]', this.state.title)
-      data.append('post_event[description]', this.state.description)
-      data.append('post_event[category]', this.state.category)
-      data.append('post_event[importance]', this.state.importance)
+      data.append('post_event[title]', this.state.title);
+      data.append('post_event[description]', this.state.description);
+      data.append('post_event[category]', this.state.category);
+      data.append('post_event[importance]', this.state.importance);
 
       if (this.state.images.length == 1)
       {
@@ -45,7 +43,7 @@ export default class CreateForm extends React.Component {
         data.append('image[]', this.state.images[1])
       }
 
-      axios.post("/post_events.json", data,
+      axios.post("api/v1/post_events.json", data,
       {headers: {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       }}).then(()=>{
@@ -56,9 +54,6 @@ export default class CreateForm extends React.Component {
               this.props.fetchPostEvents();
       }).catch((error) =>{
           this.setState({errTitle: error.response.data.title, errCategory: error.response.data.category, errImportance: error.response.data.importance});
-          console.log(this.state.errTitle);
-          console.log(this.state.errCategory);
-          console.log(this.state.errImportance)
       })
     };
 
