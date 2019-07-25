@@ -59,8 +59,8 @@ export default class Message extends React.Component {
 
     render() {
         return (
-            <Card className='my-2' style={{ width: '90%', background: '#2B185C' }}>
-                <Card.Body style={{ maxWidth: '100%'}}>
+            <Card className='my-2' style={{ background: '#2B185C' }}>
+                <Card.Body>
                     <Media>
                         <img
                         width={56}
@@ -98,7 +98,7 @@ export default class Message extends React.Component {
                             { this.state.editable &&
                                 <Form>
                                 <Form.Group controlId="exampleForm.ControlTextarea1">
-                                    <Form.Control as="textarea" defaultValue={this.state.contentBeforeEdit} 
+                                    <Form.Control as="textarea" defaultValue={this.state.contentBeforeEdit} style={ this.state.errorDescription ? { outline: '2px solid #FF0000', MozOutlineRadius: '2px' } : {} }
                                     onChange={ (e) => { this.setState({content: e.target.value, edited: this.isEdited(e.target.value) }); this.validateContent(e.target.value) } } />
                                 </Form.Group>
                             </Form> }
