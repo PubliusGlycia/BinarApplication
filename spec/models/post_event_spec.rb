@@ -20,18 +20,18 @@ RSpec.describe PostEvent, type: :model do
     describe 'images' do
         let(:sample_post) { build(:valid_post_event) }
         let(:bad_sample_post) { build(:invalid_post_event) }
-        
+
         describe ' format of image ' do
             it 'invalid format of image' do
                 bad_sample_post.validate
-                expect(bad_sample_post.errors[:images]).to match_array( "image needs to be png / jpeg / jpg") 
+                expect(bad_sample_post.errors[:images]).to match_array( "image needs to be png / jpeg / jpg")
             end
-            
+
             it 'valid format of image' do
                 sample_post.validate
-                expect(sample_post.errors[:images]).to be_empty  
-            end 
+                expect(sample_post.errors[:images]).to be_empty
+            end
         end
-    end     
-    
+    end
+
 end

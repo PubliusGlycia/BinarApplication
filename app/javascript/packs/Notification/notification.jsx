@@ -2,7 +2,14 @@ import React from 'react';
 import {Button, Card, Col, ListGroup, Modal, Row} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
+import MessageByNotification from '../Message/message_by_notification'
 import WarrningDiv from './Create form/warrning_div';
+import InputField from '../input_field';
+import AreaInputField from '../area_input_field';
+import ButtonInputField from '../button_input_field';
+import Like from './like';
+import CheckBox from './Archive/check_box';
+import DeleteAcceptancePopover from "../delete_acceptance_popover"
 
 export default class Notification extends React.Component {
     constructor(props, context) {
@@ -23,7 +30,7 @@ export default class Notification extends React.Component {
             isClicked: false,
             descriptionError: "",
             errImportance: "",
-            errTitle: ""
+            errTitle: "",
         }
     }
 
@@ -32,23 +39,20 @@ export default class Notification extends React.Component {
         e.preventDefault();
         const data = new FormData();
 
-        data.append('post_event[title]', this.props.title)
-        data.append('post_event[description]', this.props.description)
-        data.append('post_event[category]', this.props.category)
-        data.append('post_event[importance]', this.props.importance)
+        data.append('post_event[title]', this.props.title);
+        data.append('post_event[description]', this.props.description);
+        data.append('post_event[category]', this.props.category);
+        data.append('post_event[importance]', this.props.importance);
 
-        axios.patch("/post_events/"+this.props.NotificationID + '.json', data,
+        axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
         {headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
         }}).then(()=>{
             this.handleClose()
         }).catch((error) =>{
             this.setState({errTitle: error.response.data.title, errImportance: error.response.data.importance});
-            console.log(this.state.errTitle);
-            console.log(this.state.errImportance)
         })
     };
-
 
     handleClick = () => {
         this.setState(isClicked => {
@@ -59,32 +63,21 @@ export default class Notification extends React.Component {
                 return this.props.setImportance('trivial')
             }
         });
-    }
+    };
 
     handleEdit = () => {
         this.setState({ edit: true });
-    }
+    };
 
     handleClose() {
         this.setState({ show: false, showPhoto: false });
+        this.props.fetchPostEvents();
     }
 
     handleShow() {
         this.fetchPhotoUrls();
         this.setState({ show: true });
     }
-
-    handleDelete = (e) =>{
-        axios.delete('/post_events/'+ this.props.NotificationID,
-            {headers: {
-                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-                }}).then(response => {
-            console.log('Deleted post with id: ');
-            this.handleClose();
-            this.props.fetchPostEvents();
-        });
-
-    };
 
     importanceCheck() {
         if (this.props.importance == 'trivial')
@@ -95,7 +88,7 @@ export default class Notification extends React.Component {
 
     fetchPhotoUrls() {
         this.setState({ isLoading: true });
-        fetch('/post_events/'+ this.props.NotificationID +'.json')
+        fetch('api/v1/post_events/'+ this.props.notificationID +'.json')
             .then(response => response.json())
             .then(posts_events => {
                 this.setState({ photo_urls: posts_events.images_url, isLoading: false});
@@ -104,10 +97,22 @@ export default class Notification extends React.Component {
 
     loadImages() {
         return this.state.photo_urls.map((photo, index) =>
-            <Card key={index} style={{ width: '15rem' }}>
+            <Card
+              key={index}
+              style={{ width: '15rem' }}>
                 <Card.Body>
-                    <Image src={ `/ ${photo.url} `} value={photo.url} onClick={() => this.showZoomInPhoto(photo.url)} fluid/>
-                    <Button href={`/post_events/download/ ${this.props.NotificationID} / ${index}`} target="_blank"> Download </Button>
+                    <Image
+                      src={ `api/v1/ ${photo.url} `}
+                      value={photo.url}
+                      onClick={() => this.showZoomInPhoto(photo.url)}
+                      fluid
+                    />
+                    <Button
+                      href={`api/v1/post_events/download/ ${this.props.notificationID} / ${index}`}
+                      target="_blank"
+                      >
+                        Download
+                    </Button>
                 </Card.Body>
             </Card>
         );
@@ -121,6 +126,14 @@ export default class Notification extends React.Component {
         this.setState({showPhoto: false})
     }
 
+    handleCheckbox = (value,checked) => {
+        if (!checked){
+            this.props.notificationsToArchive(value,true)
+        }else{
+            this.props.notificationsToArchive(value,false)
+        }
+    };
+
     render() {
 
         const edit = this.state.edit;
@@ -133,52 +146,101 @@ export default class Notification extends React.Component {
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
 
+        let DeleteButton;
+
+        if(this.props.currentUserId === this.props.user_id || this.props.admin)
+        {
+            DeleteButton = <DeleteAcceptancePopover
+                            notificationID={this.props.notificationID}
+                            handleClose={this.handleClose}/>
+        }else{
+            DeleteButton = <></>
+        }
+
+
+
+
         return (
             <>
-                <ListGroup.Item action  style={{ background: '#46473A' , color: '#fff', borderRadius: '5px' }} onClick={this.handleShow} variant={this.props.isConfirmed ? 'success' : ''}>
+                {this.props.admin
+                        ? <CheckBox
+                        idValue={this.props.notificationID}
+                        checkFunction={this.handleCheckbox}
+                        />
+                        : '' }
+
+                <ListGroup.Item
+                  action
+                  style={{ background: '#46473A',
+                           color: '#fff',
+                           borderRadius: '5px' }}
+                  onClick={this.handleShow}
+                  variant={this.props.isConfirmed ? 'success' : '' }
+                  >
                     <Row>
-                        <Col md={11} as='h5' style={{overflow: "hidden"}}>{this.props.title}</Col>
-                        <Col md={1} as='h1'>{this.importanceCheck()}</Col>
+                        <Col
+                          md={10}
+                          as='h5'
+                          style={{ overflow: "hidden" }}
+                          >
+                            {this.props.title}
+                        </Col>
+                        <Col md={1}>
+                            <Like notificationID={ this.props.notificationID }/>
+                        </Col>
+                        <Col
+                          md={1}
+                          as='h1'
+                          >
+                            { this.importanceCheck()}
+                        </Col>
                     </Row>
                 </ListGroup.Item>
 
-                <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
+                <Modal
+                  size="lg"
+                  show={this.state.show}
+                  onHide={this.handleClose}
+                  >
                     <Modal.Header>
-                        <Modal.Title className='justify-content-between'
-                        style={{overflow: "hidden",
-                                width: '100%',
-                                position: 'relative'
-                                }}>
-
+                        <Modal.Title
+                          className='justify-content-between'
+                          style={{overflow: "hidden",
+                                  width: '100%',
+                                  position: 'relative'
+                          }}>
                             <Row>
                                 <Col md={6} style={{overflow: "hidden"}}>
-                                <WarrningDiv error={this.state.errTitle}>
-                                <InputField type="text" maxLength="40" edit={edit} value={this.props.title}
-                                    onChange={e =>{
-                                      this.props.setTitle(e.target.value)
-                                    }}>
-                                </InputField>
-                                </WarrningDiv>
+                                    <WarrningDiv error={this.state.errTitle}>
+                                        <InputField
+                                          type="text"
+                                          maxLength="40"
+                                          edit={edit}
+                                          value={this.props.title}
+                                          onChange={e =>{ this.props.setTitle(e.target.value)}}
+                                        />
+                                    </WarrningDiv>
                                 </Col>
 
                                 <Col md={1}>
-                                <div>Pilność</div>
-                                <WarrningDiv error={this.state.errImportance}>
-                                    <ButtonInputField edit={edit} onClick={this.handleClick} >{impText}
-                                </ButtonInputField>
-                                </WarrningDiv>
+                                    <div>Pilność</div>
+                                    <WarrningDiv error={this.state.errImportance}>
+                                        <ButtonInputField edit={edit} onClick={this.handleClick} >
+                                            {impText}
+                                        </ButtonInputField>
+                                    </WarrningDiv>
                                 </Col>
 
-                                <Col md={1}>
-
-                                </Col>
-
-                                <Col md={4} style={{textAlign: 'right'}}>
+                                <Col
+                                  md={4}
+                                  style={{textAlign: 'right'}}
+                                  >
                                     {button}
-                                    <Button variant="danger" onClick={this.handleDelete}>
-                                        Usuń
-                                    </Button>
-                                    <Button variant="secondary" onClick={this.handleClose}>
+                                    {DeleteButton}
+                                    <Button
+                                      variant="secondary"
+                                      onClick={this.handleClose}
+                                      >
                                         Zamknij
                                     </Button>
                                 </Col>
@@ -188,74 +250,63 @@ export default class Notification extends React.Component {
                     </Modal.Header>
                         <Modal.Body>
                             <Row>
-                            <Col className='description' style={{overflow: "hidden"}}>
-                                    <AreaInputField edit={edit} style={{width: '100%'}}
-                                    value={this.props.description}
-                                    onChange={e =>{this.props.setDescription(e.target.value)}}>
-                                    </AreaInputField>
-                            </Col>
+                                <Col
+                                  className='description'
+                                  style={{overflow: "hidden"}}
+                                  >
+                                    <AreaInputField
+                                      edit={edit}
+                                      style={{width: '100%'}}
+                                      value={this.props.description}
+                                      onChange={e =>{this.props.setDescription(e.target.value)}}
+                                    />
+                                </Col>
                             </Row>
                             <Row>
                                 <Col className='image'>
-                                  <InputField edit={edit} value={this.props.image} onChange={e =>{
-                                      this.props.setImages(e.target.value)
-                                  }} type="file"></InputField>
+                                    <InputField
+                                      edit={edit}
+                                      value={this.props.image}
+                                      onChange={e => {this.props.setImages(e.target.value)}}
+                                      type="file"
+                                    />
                                 </Col>
                                 {this.state.isLoading
                                     ? "loading image"
-                                    :   <Col>
-                                            <Row>
-                                                {this.loadImages()}
-                                            </Row>
-                                        </Col>}
-
+                                    : <Col><Row>{this.loadImages()}</Row></Col>
+                                }
                             </Row>
                             <Row>
-                                <Col className='date'>{"\n\n"}Dodano {this.props.date.substring(0,10)}
-                                  {this.props.date.substring(11,16)} przez User</Col>
+                                <Col className='date'>
+                                    {"\n\n"}Dodano {this.props.date.substring(0,10) + ', '}
+                                    {this.props.date.substring(11,16)} przez User
+                                </Col>
                             </Row>
                         </Modal.Body>
                     <Modal.Footer>
-                        <Col>Komentarze</Col>
+                        <Col>
+                            <p>Komentarze</p>
+                            <MessageByNotification notificationID={this.props.notificationID} />
+                        </Col>
                     </Modal.Footer>
 
                     {this.state.showPhoto
-                        ? <div className="photoDiv" >
-                            <Button variant="dark" className="float-right" onClick={this.closeZoomInPhoto}>Close</Button>
-                            <img src={ `/ ${this.state.photoUrl}`} style={{width: '100%',height: '100%'}}/>
+                      ? <div className="photoDiv" >
+                            <Button
+                              variant="dark"
+                              className="float-right"
+                              onClick={this.closeZoomInPhoto}
+                              >
+                                Close
+                            </Button>
+                            <img
+                              src={ `/ ${this.state.photoUrl}`}
+                              style={{width: '100%',height: '100%'}}
+                            />
                         </div>
-                        : ''  }
-
+                      : '' }
                 </Modal>
             </>
         )
     }
 }
-
-class InputField extends React.Component {
-    render() {
-      return this.props.edit ? (
-        <input onChange={this.props.onChange} type={this.props.type} value={this.props.value} />
-      ) : <div>{this.props.value}</div>
-    }
-  }
-
-class AreaInputField extends React.Component {
-    render() {
-      const {edit, value, ...rest} = this.props;
-
-      return edit ? (
-        <textarea value={value} {...rest} />
-      ) : <div>{value}</div>
-    }
-  }
-
-class ButtonInputField extends React.Component {
-    render() {
-      const {edit, onClick, value, ...rest} = this.props;
-
-      return edit ? (
-        <Button variant="info" onClick={onClick} value={value} {...rest} />
-      ) : <div>{value}</div>
-    }
-  }

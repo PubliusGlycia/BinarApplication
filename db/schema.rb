@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_24_073531) do
+ActiveRecord::Schema.define(version: 2019_07_17_112431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,21 +49,42 @@ ActiveRecord::Schema.define(version: 2019_07_24_073531) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "post_event_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_event_id"], name: "index_likes_on_post_event_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "post_event_id"
+    t.bigint "user_id"
+    t.index ["post_event_id"], name: "index_messages_on_post_event_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "post_events", force: :cascade do |t|
   create_table "mainpages", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.boolean "archive", default: false
+    t.index ["user_id"], name: "index_post_events_on_user_id"
   end
 
-  create_table "post_events", force: :cascade do |t|
+  create_table "submision", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.string "category"
     t.string "importance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_post_events_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -74,6 +95,7 @@ ActiveRecord::Schema.define(version: 2019_07_24_073531) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "admin"
     t.string "provider"
     t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -81,4 +103,8 @@ ActiveRecord::Schema.define(version: 2019_07_24_073531) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "likes", "post_events"
+  add_foreign_key "likes", "users"
+  add_foreign_key "messages", "post_events"
+  add_foreign_key "messages", "users"
 end
