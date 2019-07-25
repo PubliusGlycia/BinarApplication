@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Notification from './notification';
 import SearchBar from './search_bar';
 import axios from 'axios'
-import Navbar from "../navbar";
 import ArchiveButton from "./Archive/archive_button"
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 
@@ -76,13 +74,8 @@ export default class NotificationList extends React.Component {
             .then(response =>{
                 if (response.data.user_id === true){
                     this.setState({admin: true});
-                        console.log("admin");
                 }else{
                     this.setState({admin: false, currentUserId: response.data.user_id });
-                    console.log("user");
-                    console.log(response);
-                    console.log(response.data);
-                    console.log(response.data.user_id);
                 }
             })
     }
@@ -185,7 +178,6 @@ export default class NotificationList extends React.Component {
 
         return (
             <div className='body'>
-                <Navbar fetchPostEvents={this.fetchPostEvents} admin={true} />
 
                 <Container fluid>
                     <Row>
@@ -228,10 +220,3 @@ export default class NotificationList extends React.Component {
         )
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(
-      < NotificationList />,
-      document.body.appendChild(document.createElement('div')),
-    )
-  });
