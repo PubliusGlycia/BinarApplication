@@ -50,7 +50,9 @@ class Index extends React.Component {
         let eventList,archiveList,settings,record,index;
         let userNavigationBar,adminNavigationBar;
 
-        eventList = <NotificationList />;
+        eventList = <NotificationList
+            admin={this.state.admin}
+            currentUserId={this.state.currentUserId}/>;
         archiveList = <div>Archiwum</div>;
         settings = <div>Ustwienia</div>;
         record = <div>Ewidencja</div>;
