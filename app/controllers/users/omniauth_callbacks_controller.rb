@@ -2,6 +2,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def google_oauth2
         @user = User.from_omniauth(request.env['omniauth.auth'])
 
+        if @user.email === "mail"
+            @user.admin = true;
+        else
+            @user.admin = false;
+        end
+
         if @user.persisted?
             sign_in_and_redirect @user, event: authenticate_user!
             set_flash_message(

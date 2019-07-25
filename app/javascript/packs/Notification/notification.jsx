@@ -157,9 +157,6 @@ export default class Notification extends React.Component {
             DeleteButton = <></>
         }
 
-
-
-
         return (
             <>
                 {this.props.admin
