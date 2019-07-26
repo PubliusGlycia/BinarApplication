@@ -156,8 +156,8 @@ export default class Notification extends React.Component {
                             notificationID={this.props.notificationID}
                             handleClose={this.handleClose}/>
 
-        if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
-        else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
+        if(edit){ button = <Button className="w-100" variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
+        else{ button = <Button className="w-100" variant="success" onClick={this.handleEdit}>Edytuj</Button> }
 
         }
         else DeleteButton = <></>
@@ -223,7 +223,7 @@ export default class Notification extends React.Component {
                                   position: 'relative',
                           }}>
                             <Row>
-                                <Col md={6} style={{overflow: "hidden"}}>
+                                <Col style={{overflow: "hidden"}}>
                                     <WarrningDiv error={this.state.errTitle}>
                                         <InputField
                                           type="text"
@@ -235,78 +235,81 @@ export default class Notification extends React.Component {
                                     </WarrningDiv>
                                 </Col>
 
-                                <Col md={1}>
-                                    <Button
+                                <Col xs={2}>
+                                    <Button className="w-100 h-100"
                                       variant="success"
                                       onClick={this.handleProcess}
                                       >
                                         {procText}
                                     </Button>
                                 </Col>
+                                <Col>
+                                    <Row>
+                                        <Col className='px-1'>
+                                            <WarrningDiv error={this.state.errImportance}>
+                                                <ButtonInputField className="w-100" edit={edit} onClick={this.handleClick} >
+                                                    {impText}
+                                                </ButtonInputField>
+                                            </WarrningDiv>
+                                        </Col>
 
-                                <Col md={1}>
-                                    <WarrningDiv error={this.state.errImportance}>
-                                        <ButtonInputField edit={edit} onClick={this.handleClick} >
-                                            {impText}
-                                        </ButtonInputField>
-                                    </WarrningDiv>
+                                        <Col className='px-1'>
+                                            {button}
+                                        </Col>
+                                        <Col className='px-1'>
+                                            {DeleteButton}
+                                        </Col>
+                                        <Col className='pl-1'>
+                                            <Button className="w-100"
+                                            variant="secondary"
+                                            onClick={this.handleClose}
+                                            >
+                                                Zamknij
+                                            </Button>
+                                        </Col>
+                                    </Row>
                                 </Col>
-
-                                <Col
-                                  md={4}
-                                  style={{textAlign: 'right'}}
-                                  >
-                                    {button}
-                                    {DeleteButton}
-                                    <Button
-                                      variant="secondary"
-                                      onClick={this.handleClose}
-                                      >
-                                        Zamknij
-                                    </Button>
-                                </Col>
-
                             </Row>
                         </Modal.Title>
                     </Modal.Header>
-                        <Modal.Body
-                            style={{ background: '#46473A' }}>
-                            <Row>
-                                <Col
-                                  className='description'
-                                  style={{overflow: "hidden"}}
-                                  >
-                                    <AreaInputField
-                                      edit={edit}
-                                      style={{width: '100%'}}
-                                      value={this.props.description}
-                                      onChange={e =>{this.props.setDescription(e.target.value)}}
-                                    />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className='image'>
-                                    <InputField
-                                      edit={edit}
-                                      value={this.props.image}
-                                      onChange={e => {this.props.setImages(e.target.value)}}
-                                      type="file"
-                                    />
-                                </Col>
-                                {this.state.isLoading
-                                    ? "loading image" : <Col>
-                                    <Row>
-                                        {this.loadImages()}
-                                    </Row></Col>
-                                }
-                            </Row>
-                            <Row>
-                                <Col className='date'>
-                                    {"\n\n"}Dodano {this.props.date.substring(0,10) + ', '}
-                                    {this.props.date.substring(11,16)} przez User
-                                </Col>
-                            </Row>
-                        </Modal.Body>
+                    <Modal.Body
+                        style={{ background: '#46473A' }}>
+                        <Row>
+                            <Col
+                                className='description'
+                                style={{overflow: "hidden"}}
+                                >
+                                <AreaInputField
+                                    edit={edit}
+                                    style={{width: '100%'}}
+                                    value={this.props.description}
+                                    onChange={e =>{this.props.setDescription(e.target.value)}}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className='image'>
+                                {/* <InputField
+                                    edit={edit}
+                                    value={this.props.image}
+                                    onChange={e => {this.props.setImages(e.target.value)}}
+                                    type="file"
+                                /> */}
+                            </Col>
+                            {this.state.isLoading
+                                ? "loading image" : <Col>
+                                <Row>
+                                    {this.loadImages()}
+                                </Row></Col>
+                            }
+                        </Row>
+                        <Row>
+                            <Col className='date'>
+                                {"\n\n"}Dodano {this.props.date.substring(0,10) + ', '}
+                                {this.props.date.substring(11,16)} przez User
+                            </Col>
+                        </Row>
+                    </Modal.Body>
                     <Modal.Footer
                         style={{ background: '#46473A' }}>
                         <Col>
