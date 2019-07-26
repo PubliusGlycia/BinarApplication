@@ -163,11 +163,11 @@ export default class NotificationList extends React.Component {
 
                 <Container fluid>
                     <Row>
-                        <Col sm={8}>
+                        <Col sm={9}>
                             <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch}/>
                         </Col>
 
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <ArchiveButton
                                 notificationsToArchive={this.state.notificationsToArchive}
                                 fetchPostEvents={this.fetchPostEvents}
