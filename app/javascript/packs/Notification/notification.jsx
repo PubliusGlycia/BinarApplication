@@ -212,10 +212,10 @@ export default class Notification extends React.Component {
                   size="lg"
                   show={this.state.show}
                   onHide={this.handleClose}
-                  style={{ color: '#FFFFFF' }}
+                  style={{ color: '#FFFFFF', border: "2px solid #36372D" }}
                   >
                     <Modal.Header
-                        style={{ background: '#9C82D0' }}>
+                        style={{ background: '#46473A' }}>
                         <Modal.Title
                           className='justify-content-between'
                           style={{overflow: "hidden",
@@ -270,7 +270,7 @@ export default class Notification extends React.Component {
                         </Modal.Title>
                     </Modal.Header>
                         <Modal.Body
-                            style={{ background: '#9C82D0' }}>
+                            style={{ background: '#46473A' }}>
                             <Row>
                                 <Col
                                   className='description'
@@ -308,7 +308,7 @@ export default class Notification extends React.Component {
                             </Row>
                         </Modal.Body>
                     <Modal.Footer
-                        style={{ background: '#9C82D0' }}>
+                        style={{ background: '#46473A' }}>
                         <Col>
                             <p>Komentarze</p>
                             <MessageByNotification currentUserEmail={ this.props.currentUserEmail } notificationID={this.props.notificationID} />

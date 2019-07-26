@@ -4,26 +4,29 @@
 }
 
 .image-profile {
-  outline: 2px solid #9C82D0;
+  outline: 2px solid #7936ffc5;
   -moz-outline-radius: 2px;
 }
 
 .header-author {
-  font: Muli;
+  font-family: Muli;
+  font-size: 22px;
   color: #EEE;
 }
 
 .div-dates {
-  font: Muli 11px;
-  color: #EEE;
+  font-family: Muli;
+  font-size: 13px;
+  color: rgb(185, 185, 185);
 }
 
 .divider {
-  background: #9C82D0;
+  background: #7936ffc5;
 }
 
 .div-message-content {
-  font: Muli 13px;
+  font-family: Muli;
+  font-size: 16px;
   color: #EEE;
   word-break: break-word;
 }

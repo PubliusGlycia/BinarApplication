@@ -58,7 +58,7 @@ export default class Message extends React.Component {
 
     render() {
         return (
-            <Card className="my-2" style={{ background: "#2B185C" }}>
+            <Card className="my-2" style={{ background: "#595955", border: "2px solid #7c7d79",borderRadius: "2px" }}>
                 <Card.Body>
                     <Media>
                         <img
