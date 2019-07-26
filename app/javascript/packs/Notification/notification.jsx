@@ -31,6 +31,7 @@ export default class Notification extends React.Component {
             descriptionError: "",
             errImportance: "",
             errTitle: "",
+            process: false,
         }
     }
 
@@ -64,6 +65,10 @@ export default class Notification extends React.Component {
             }
         });
     };
+
+    handleProcess = () => {
+        this.setState({process: !this.state.process})
+    }
 
     handleEdit = () => {
         this.setState({ edit: true });
@@ -138,12 +143,12 @@ export default class Notification extends React.Component {
 
         const edit = this.state.edit;
         let button;
-
         let impText;
+        let DeleteButton;
+        let procText;
+
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
-
-        let DeleteButton;
 
         if(this.props.currentUserId === this.props.user_id || this.props.admin)
         {
@@ -154,8 +159,13 @@ export default class Notification extends React.Component {
         if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
         else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
 
-        }else{
-            DeleteButton = <></>
+        }
+        else DeleteButton = <></>
+
+        if(this.props.currentUserId == this.props.admin)
+        {
+            if(this.props.process == true) procText = "✅";
+            else procText = "Akceptuj zgłoszenie";
         }
 
 
@@ -202,13 +212,15 @@ export default class Notification extends React.Component {
                   size="lg"
                   show={this.state.show}
                   onHide={this.handleClose}
+                  style={{ color: '#FFFFFF' }}
                   >
-                    <Modal.Header>
+                    <Modal.Header
+                        style={{ background: '#9C82D0' }}>
                         <Modal.Title
                           className='justify-content-between'
                           style={{overflow: "hidden",
                                   width: '100%',
-                                  position: 'relative'
+                                  position: 'relative',
                           }}>
                             <Row>
                                 <Col md={6} style={{overflow: "hidden"}}>
@@ -224,7 +236,15 @@ export default class Notification extends React.Component {
                                 </Col>
 
                                 <Col md={1}>
-                                    <div>Pilność</div>
+                                    <Button
+                                      variant="success"
+                                      onClick={this.handleProcess}
+                                      >
+                                        {procText}
+                                    </Button>
+                                </Col>
+
+                                <Col md={1}>
                                     <WarrningDiv error={this.state.errImportance}>
                                         <ButtonInputField edit={edit} onClick={this.handleClick} >
                                             {impText}
@@ -249,7 +269,8 @@ export default class Notification extends React.Component {
                             </Row>
                         </Modal.Title>
                     </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body
+                            style={{ background: '#9C82D0' }}>
                             <Row>
                                 <Col
                                   className='description'
@@ -273,8 +294,10 @@ export default class Notification extends React.Component {
                                     />
                                 </Col>
                                 {this.state.isLoading
-                                    ? "loading image"
-                                    : <Col><Row>{this.loadImages()}</Row></Col>
+                                    ? "loading image" : <Col>
+                                    <Row>
+                                        {this.loadImages()}
+                                    </Row></Col>
                                 }
                             </Row>
                             <Row>
@@ -284,7 +307,8 @@ export default class Notification extends React.Component {
                                 </Col>
                             </Row>
                         </Modal.Body>
-                    <Modal.Footer>
+                    <Modal.Footer
+                        style={{ background: '#9C82D0' }}>
                         <Col>
                             <p>Komentarze</p>
                             <MessageByNotification currentUserEmail={ this.props.currentUserEmail } notificationID={this.props.notificationID} />

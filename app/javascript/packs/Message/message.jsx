@@ -74,7 +74,7 @@ export default class Message extends React.Component {
                                     <h6 className="header-author"> { this.props.author } </h6>
                                     <div className="div-dates">
                                         Dodano: { this.formatDate(this.props.created) }
-                                    
+
                                     { (this.props.created != this.props.updated) && <> <br/> Edytow.: { this.formatDate(this.props.updated) } </> }
                                     </div>
                                 </Col>
