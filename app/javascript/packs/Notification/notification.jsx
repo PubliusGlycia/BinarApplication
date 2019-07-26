@@ -58,6 +58,7 @@ export default class Notification extends React.Component {
     };
 
     handleClick = () => {
+        console.log(this.props.importance)
         this.setState(isClicked => {
             if(this.props.importance == 'trivial'){
                 return this.props.setImportance('important')
@@ -69,11 +70,12 @@ export default class Notification extends React.Component {
     };
 
     handleProcess = () => {
+        console.log(this.props.inProgress)
         this.setState(isClicked => {
             if(this.props.inProgress == true){
-                return {inProgress: false};
+                return this.props.setProgress(false)
             }else{
-                return {inProgress: true};
+                return this.props.setProgress(true)
             }
         })
     }
@@ -172,8 +174,8 @@ export default class Notification extends React.Component {
 
         if(this.props.currentUserId === this.props.user_id)
         {
-            if(this.props.inProgress == true){ procText = `✅`; }
-            else{ procText = "Akceptuj zgłoszenie"; }
+            if(this.props.inProgress == true){ procText = 'success'; }
+            else{ procText = 'outline-success'; }
         }
 
         return (
@@ -242,8 +244,8 @@ export default class Notification extends React.Component {
 
                                 <Col md={1}>
                                     <ButtonInputField
-                                        variant={'success'} edit={edit} onClick={this.handleProcess} >
-                                        {procText}
+                                        variant={procText} edit={edit} onClick={this.handleProcess} >
+                                        {`✅`}
                                     </ButtonInputField>
                                 </Col>
 

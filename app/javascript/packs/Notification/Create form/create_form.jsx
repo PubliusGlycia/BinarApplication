@@ -21,7 +21,7 @@ export default class CreateForm extends React.Component {
         descriptionError: "",
         errCategory: "",
         errImportance: "",
-        errTitle: ""
+        errTitle: "",
       };
     }
 
@@ -33,6 +33,7 @@ export default class CreateForm extends React.Component {
       data.append('post_event[description]', this.state.description);
       data.append('post_event[category]', this.state.category);
       data.append('post_event[importance]', this.state.importance);
+      data.append('post_event[inProgress]', this.state.inProgress);
 
       if (this.state.images.length == 1)
       {
