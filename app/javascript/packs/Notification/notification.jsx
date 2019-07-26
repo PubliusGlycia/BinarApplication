@@ -32,7 +32,6 @@ export default class Notification extends React.Component {
             descriptionError: "",
             errImportance: "",
             errTitle: "",
-            inProgress: false,
         }
     }
 
@@ -155,10 +154,14 @@ export default class Notification extends React.Component {
         let button;
         let impText;
         let DeleteButton;
+        let ProcessButton;
         let procText;
 
         if(this.props.importance == 'important'){ impText = "Pilne"; }
-        else{ impText = "Niepilne"; }
+            else{ impText = "Niepilne"; }
+
+        if(this.props.inProgress == true){ procText = 'success'; }
+            else{ procText = 'outline-success'; }
 
         if(this.props.currentUserId === this.props.user_id || this.props.admin)
         {
@@ -166,16 +169,17 @@ export default class Notification extends React.Component {
                             notificationID={this.props.notificationID}
                             handleClose={this.handleClose}/>
 
-        if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
-        else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
+            if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
+            else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
+
+            if(this.props.currentUserId == this.props.user_id)
+            {
+                ProcessButton =  <Button variant={procText} onClick={this.handleProcess} > ✅ </Button>
+            }
 
         }
-        else DeleteButton = <></>
-
-        if(this.props.currentUserId === this.props.user_id)
-        {
-            if(this.props.inProgress == true){ procText = 'success'; }
-            else{ procText = 'outline-success'; }
+        else{
+            DeleteButton = <></>
         }
 
         return (
@@ -187,8 +191,7 @@ export default class Notification extends React.Component {
                         />
                         : '' }
 
-                <ListGroup.Item
-                  action
+                <div
                   style={{ background: '#46473A',
                            color: '#fff',
                            borderRadius: '5px' }}
@@ -197,11 +200,17 @@ export default class Notification extends React.Component {
                   >
                     <Row>
                         <Col
-                          md={10}
+                          md={9}
                           as='h5'
                           style={{ overflow: "hidden" }}
                           >
                             {this.props.title}
+                        </Col>
+                        <Col
+                          md={1}
+                          as='h3'
+                          >
+                            {ProcessButton}
                         </Col>
                         <Col md={1}>
                             <Like notificationID={ this.props.notificationID }/>
@@ -213,7 +222,7 @@ export default class Notification extends React.Component {
                             { this.importanceCheck() }
                         </Col>
                     </Row>
-                </ListGroup.Item>
+                </div>
 
                 <Modal
                   size="lg"
@@ -243,10 +252,7 @@ export default class Notification extends React.Component {
                                 </Col>
 
                                 <Col md={1}>
-                                    <ButtonInputField
-                                        variant={procText} edit={edit} onClick={this.handleProcess} >
-                                        {`✅`}
-                                    </ButtonInputField>
+                                    {ProcessButton}
                                 </Col>
 
                                 <Col md={1}>
