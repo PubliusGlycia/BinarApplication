@@ -102,24 +102,27 @@ export default class Notification extends React.Component {
 
     loadImages() {
         return this.state.photo_urls.map((photo, index) =>
-            <Card
-              key={index}
-              style={{ width: '15rem' }}>
-                <Card.Body>
-                    <Image
-                      src={ `${photo.url} `}
-                      value={photo.url}
-                      onClick={() => this.showZoomInPhoto(photo.url)}
-                      fluid
-                    />
-                    <Button
-                      href={`api/v1/post_events/download/ ${this.props.notificationID} / ${index}`}
-                      target="_blank"
-                      >
-                        Download
-                    </Button>
-                </Card.Body>
-            </Card>
+                    <>
+                      <Col style={{ maxWidth: "15rem" }}>
+                        <Row>
+                          <Image
+                            src={ `${photo.url} `}
+                            value={photo.url}
+                            onClick={() => this.showZoomInPhoto(photo.url)}
+                            fluid
+                          />
+                        </Row>
+                        <Row className="pt-1">
+                          <Button variant='primary'
+                          className="w-100"
+                            href={`api/v1/post_events/download/ ${this.props.notificationID} / ${index}`}
+                            target="_blank"
+                            >
+                              Pobierz ⬇️
+                          </Button>
+                        </Row>
+                      </Col>
+                    </>
         );
     }
 
@@ -287,23 +290,23 @@ export default class Notification extends React.Component {
                                 />
                             </Col>
                         </Row>
-                        <Row>
-                            <Col className='image'>
-                                {/* <InputField
+                        <Row className="mt-3">
+                            {/* <Col className='image'>
+                                <InputField
                                     edit={edit}
                                     value={this.props.image}
                                     onChange={e => {this.props.setImages(e.target.value)}}
                                     type="file"
-                                /> */}
-                            </Col>
+                                />
+                            </Col> */}
                             {this.state.isLoading
-                                ? "loading image" : <Col>
-                                <Row>
+                                ? "loading image" :
+                                <Col>
                                     {this.loadImages()}
-                                </Row></Col>
+                                </Col>
                             }
                         </Row>
-                        <Row>
+                        <Row className="mt-3">
                             <Col className='date'>
                                 {"\n\n"}Dodano {this.props.date.substring(0,10) + ', '}
                                 {this.props.date.substring(11,16)} przez User
