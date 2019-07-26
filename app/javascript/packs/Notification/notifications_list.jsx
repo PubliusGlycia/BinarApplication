@@ -129,6 +129,8 @@ export default class NotificationList extends React.Component {
                 user_id={defect.user_id}
                 fetchPostEvents={this.fetchPostEvents}
                 notificationsToArchive={this.updateArchiveList}
+                inProgress= {defect.inProgress}
+                setProgress={inProgress => {this.updateDefectElement(defect, 'inProgress', inProgress)}}
             />
             </ListGroup.Item>
         );
@@ -155,6 +157,8 @@ export default class NotificationList extends React.Component {
                 user_id={supply.user_id}
                 fetchPostEvents={this.fetchPostEvents}
                 notificationsToArchive={this.updateArchiveList}
+                inProgress= {supply.inProgress}
+                setProgress={inProgress => {this.updateDefectElement(supply, 'inProgress', inProgress)}}
             />
             </ListGroup.Item>);
 

@@ -20,6 +20,7 @@ export default class Notification extends React.Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.closeZoomInPhoto = this.closeZoomInPhoto.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleProcess = this.handleProcess.bind(this);
 
         this.state = {
             show: false,
@@ -31,7 +32,7 @@ export default class Notification extends React.Component {
             descriptionError: "",
             errImportance: "",
             errTitle: "",
-            process: false,
+            inProgress: false,
         }
     }
 
@@ -44,6 +45,7 @@ export default class Notification extends React.Component {
         data.append('post_event[description]', this.props.description);
         data.append('post_event[category]', this.props.category);
         data.append('post_event[importance]', this.props.importance);
+        data.append('post_event[inProgress]', this.props.inProgress)
 
         axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
         {headers: {
@@ -67,7 +69,13 @@ export default class Notification extends React.Component {
     };
 
     handleProcess = () => {
-        this.setState({process: !this.state.process})
+        this.setState(isClicked => {
+            if(this.props.inProgress == true){
+                return {inProgress: false};
+            }else{
+                return {inProgress: true};
+            }
+        })
     }
 
     handleEdit = () => {
@@ -162,14 +170,11 @@ export default class Notification extends React.Component {
         }
         else DeleteButton = <></>
 
-        if(this.props.currentUserId == this.props.admin)
+        if(this.props.currentUserId === this.props.user_id)
         {
-            if(this.props.process == true) procText = "✅";
-            else procText = "Akceptuj zgłoszenie";
+            if(this.props.inProgress == true){ procText = `✅`; }
+            else{ procText = "Akceptuj zgłoszenie"; }
         }
-
-
-
 
         return (
             <>
@@ -203,7 +208,7 @@ export default class Notification extends React.Component {
                           md={1}
                           as='h1'
                           >
-                            { this.importanceCheck()}
+                            { this.importanceCheck() }
                         </Col>
                     </Row>
                 </ListGroup.Item>
@@ -236,17 +241,16 @@ export default class Notification extends React.Component {
                                 </Col>
 
                                 <Col md={1}>
-                                    <Button
-                                      variant="success"
-                                      onClick={this.handleProcess}
-                                      >
+                                    <ButtonInputField
+                                        variant={'success'} edit={edit} onClick={this.handleProcess} >
                                         {procText}
-                                    </Button>
+                                    </ButtonInputField>
                                 </Col>
 
                                 <Col md={1}>
                                     <WarrningDiv error={this.state.errImportance}>
-                                        <ButtonInputField edit={edit} onClick={this.handleClick} >
+                                        <ButtonInputField
+                                            variant={'info'} edit={edit} onClick={this.handleClick} >
                                             {impText}
                                         </ButtonInputField>
                                     </WarrningDiv>
