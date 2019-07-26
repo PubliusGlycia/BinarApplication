@@ -27,7 +27,7 @@ export default class MessageByNotification extends React.Component {
             updated={message.updated_at}
             content={message.content}
             messageId={ message.id }
-            currentUserId={ this.props.currentUserId }
+            admin={ this.props.admin }
             currentUserEmail={ this.props.currentUserEmail }
             key={ message.id } />)
         return (
