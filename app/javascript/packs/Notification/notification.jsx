@@ -32,6 +32,7 @@ export default class Notification extends React.Component {
             descriptionError: "",
             errImportance: "",
             errTitle: "",
+            inProgress: false
         }
     }
 
@@ -44,7 +45,7 @@ export default class Notification extends React.Component {
         data.append('post_event[description]', this.props.description);
         data.append('post_event[category]', this.props.category);
         data.append('post_event[importance]', this.props.importance);
-        data.append('post_event[inprogress]', this.props.inprogress)
+        data.append('post_event[in_progress]', this.props.inProgress)
 
         axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
         {headers: {
@@ -76,14 +77,17 @@ export default class Notification extends React.Component {
 
     handleProcess = (e) => {
         e.stopPropagation()
-        console.log(this.props.inprogress)
+        const data = new FormData();
+        console.log(this.props.inProgress)
+
         this.setState(isClicked => {
-            if(this.props.inprogress == true){
+            if(this.props.inProgress == true){
                 this.props.setProgress(false)
             }else{
                 this.props.setProgress(true)
             }
         })
+        data.append('post_event[in_progress]', this.props.inProgress)
         axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
             {headers: {
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
@@ -168,13 +172,21 @@ export default class Notification extends React.Component {
         let impText;
         let DeleteButton;
         let ProcessButton;
-        let procText;
+        let procText, active;
 
         if(this.props.importance == 'important'){ impText = "Pilne"; }
             else{ impText = "Niepilne"; }
 
-        if(this.props.inprogress == true){ procText = 'success'; }
-            else{ procText = 'outline-success'; }
+        if(this.props.inProgress == true)
+        {
+            procText = 'success';
+            active = 'solid 2px #00DB1D';
+        }
+        else
+        {
+            procText = 'outline-success';
+            active = '';
+        }
 
         if(this.props.currentUserId === this.props.user_id || this.props.admin)
         {
@@ -207,7 +219,8 @@ export default class Notification extends React.Component {
                 <div
                   style={{ background: '#46473A',
                            color: '#fff',
-                           borderRadius: '5px' }}
+                           borderRadius: '5px',
+                           border: {active}}}
                   onClick={this.handleShow}
                   variant={this.props.isConfirmed ? 'success' : '' }
                   >
