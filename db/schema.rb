@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_17_112431) do
+ActiveRecord::Schema.define(version: 2019_07_24_073531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,12 @@ ActiveRecord::Schema.define(version: 2019_07_17_112431) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "mainpages", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "messages", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -69,8 +75,10 @@ ActiveRecord::Schema.define(version: 2019_07_17_112431) do
   end
 
   create_table "post_events", force: :cascade do |t|
-  create_table "mainpages", force: :cascade do |t|
     t.string "title"
+    t.string "description"
+    t.string "category"
+    t.string "importance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
