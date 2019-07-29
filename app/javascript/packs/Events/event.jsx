@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Col, ListGroup, Modal, Row } from 'react-bootstrap';
+import {Button, Col, ListGroup, Modal, Row} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 import MessageByNotification from '../Message/message_by_notification'
@@ -11,7 +11,7 @@ import Like from './like';
 import CheckBox from './Archive/check_box';
 import DeleteAcceptancePopover from "../delete_acceptance_popover"
 
-export default class Notification extends React.Component {
+export default class Event extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -70,7 +70,7 @@ export default class Notification extends React.Component {
 
   handleProcess = () => {
     this.setState({ process: !this.state.process })
-  }
+  };
 
   handleEdit = () => {
     this.setState({ edit: true });
@@ -159,13 +159,13 @@ export default class Notification extends React.Component {
     if (this.props.currentUserId === this.props.user_id || this.props.admin) {
       DeleteButton = <DeleteAcceptancePopover
         notificationID={this.props.notificationID}
-        handleClose={this.handleClose} />
+        handleClose={this.handleClose} />;
 
       if (edit) { button = <Button className="w-100" variant="secondary" onClick={this.handleSubmit}>Zapisz</Button> }
       else { button = <Button className="button-edit w-100" variant="secondary" onClick={this.handleEdit}>Edytuj</Button> }
 
     }
-    else DeleteButton = <></>
+    else DeleteButton = <></>;
 
     if (this.props.currentUserId == this.props.admin) {
       if (this.props.process == true) procText = "✅";
@@ -179,7 +179,7 @@ export default class Notification extends React.Component {
           idValue={this.props.notificationID}
           checkFunction={this.handleCheckbox}
         />
-      : ''
+      : '';
 
     return (
       <>
