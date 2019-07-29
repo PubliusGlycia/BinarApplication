@@ -7,7 +7,7 @@ export default class ShoppingListButton extends React.Component {
         notificationsToShopping: []
     };
 
-    archive = () => {
+    generatePDF = () => {
         axios.post("api/v1/shopping_list", {
             post_event_ids: this.props.notificationsToShopping
         },
@@ -24,7 +24,7 @@ export default class ShoppingListButton extends React.Component {
 
     render() {
         return (
-            <Button variant="warning" onClick={this.archive}>Generuj PDF</Button>
+            <Button variant="warning" onClick={this.generatePDF}>Generuj PDF</Button>
         )
     }
 }

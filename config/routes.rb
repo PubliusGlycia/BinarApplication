@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get 'post_events/event' => 'post_events#search_filter'
       get 'post_events/download/:id/:image_position' => 'post_events#download'
       post 'archive' => 'post_events#archive_events'
+      post 'shopping_list' => 'post_events#genetate_pdf'
       get 'admin/check' => 'post_events#check_admin'
       resources :post_events do
         resources :likes, :only => [:create, :destroy, :index]

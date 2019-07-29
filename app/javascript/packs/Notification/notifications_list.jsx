@@ -126,6 +126,7 @@ export default class NotificationList extends React.Component {
                     images={defect.images}
                     setImages={images => { this.updateDefectElement(defect, 'images', images) }}
                     user_id={defect.user_id}
+                    user_email={defect.user_email}
                     fetchPostEvents={this.fetchPostEvents}
                     notificationsToArchive={this.updateArchiveList}
                 />
@@ -152,6 +153,7 @@ export default class NotificationList extends React.Component {
                     images={supply.images}
                     setImages={images => { this.updateSupplyElement(supply, 'images', images) }}
                     user_id={supply.user_id}
+                    user_email={supply.user_email}
                     fetchPostEvents={this.fetchPostEvents}
                     notificationsToArchive={this.updateArchiveList}
                 />

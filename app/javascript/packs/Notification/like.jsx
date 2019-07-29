@@ -24,7 +24,7 @@ export default class Like extends React.Component {
     }
 
     handleClick = (e) => {
-            e.stopPropagation()
+        e.stopPropagation()
         if (this.state.isLiked) {
             axios.delete(`/api/v1/post_events/${this.props.notificationID}/likes/${this.state.likeID}`,
             {headers: {

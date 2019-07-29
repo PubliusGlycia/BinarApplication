@@ -6,6 +6,7 @@ export default class ArchiveButton extends React.Component {
     };
 
     handleCheck = (e) =>{
+        e.stopPropagation();
         let checked = !this.state.checked;
         this.setState({checked: checked});
         this.props.checkFunction(e.target.value,this.state.checked)
