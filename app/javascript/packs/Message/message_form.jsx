@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import Axios from 'axios';
 
 
-export default class CreateForm extends React.Component {
+export default class MessageForm extends React.Component {
     constructor(props, context) {
       super(props, context);
   
@@ -29,23 +29,23 @@ export default class CreateForm extends React.Component {
       )
     }
 
-    validateContent = () =>{
+    validateContent = (content) =>{
       
       this.setState(state => {
         return {errorDescription:
-            (state.content.length < this.state.maxLength ? '' : 'Komentarz nie może być dłuższy niż ' + this.state.maxLength + ' znaków')}
+            (content.length <= this.state.maxLength ? '' : 'Komentarz nie może być dłuższy niż ' + this.state.maxLength + ' znaków')}
       });
     }
 
     render() {
       return (
         <>
-          <Form className="w-75">
+          <Form>
               <Form.Group controlId="exampleForm.ControlTextarea" className="mb-0">
-                <Form.Control as="textarea" placeholder="Wpisz komentarz..." rows="2" style={ this.state.errorDescription ? { borderColor: '#f23131'} : {} }
+                <Form.Control className="text-field" as="textarea" placeholder="Wpisz komentarz..." rows="2" style={ this.state.errorDescription ? { borderColor: '#f23131'} : {} }
                 onChange={e =>{
                   this.setState({content: e.target.value},
-                  this.validateContent())
+                  this.validateContent(e.target.value))
                 }}
                 value={this.state.content} />
               </Form.Group>

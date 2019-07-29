@@ -24,17 +24,17 @@ export default class DeleteAcceptancePopover extends React.Component {
 
 
         return (<>
-            <Button variant="danger"
+            <Button variant="secondary" className="button-delete w-100"
                        onClick={()=> this.setState({showPopover: true})}
-                       ref={(button) => { this.target = button; }}>Delete</Button>
+                       ref={(button) => { this.target = button; }}>Usuń</Button>
             <Overlay
             placement="right"
             show={this.state.showPopover}
             target={this.target}
             >
-                <Popover title="Are you sure ? ">
-                    <Button variant="success" onClick={this.handleDelete}>Yes</Button>
-                    <Button variant="danger" onClick={()=> this.setState({showPopover: false})}>No</Button>
+                <Popover title="Na pewno? ">
+                    <Button variant="success" onClick={this.handleDelete}>Tak</Button>
+                    <Button variant="danger" onClick={()=> this.setState({showPopover: false})}>Nie</Button>
                 </Popover>
             </Overlay>
         </>)
