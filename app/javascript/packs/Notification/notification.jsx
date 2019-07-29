@@ -44,7 +44,7 @@ export default class Notification extends React.Component {
         data.append('post_event[description]', this.props.description);
         data.append('post_event[category]', this.props.category);
         data.append('post_event[importance]', this.props.importance);
-        data.append('post_event[inProgress]', this.props.inProgress)
+        data.append('post_event[inprogress]', this.props.inprogress)
 
         axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
         {headers: {
@@ -60,23 +60,36 @@ export default class Notification extends React.Component {
         console.log(this.props.importance)
         this.setState(isClicked => {
             if(this.props.importance == 'trivial'){
-                return this.props.setImportance('important')
+                this.props.setImportance('important')
 
             }else if(this.props.importance == 'important'){
-                return this.props.setImportance('trivial')
+                this.props.setImportance('trivial')
             }
+            axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
+            {headers: {
+                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+            }}).then(()=>{
+                this.handleClose()
+            })
         });
     };
 
-    handleProcess = () => {
-        console.log(this.props.inProgress)
+    handleProcess = (e) => {
+        e.stopPropagation()
+        console.log(this.props.inprogress)
         this.setState(isClicked => {
-            if(this.props.inProgress == true){
-                return this.props.setProgress(false)
+            if(this.props.inprogress == true){
+                this.props.setProgress(false)
             }else{
-                return this.props.setProgress(true)
+                this.props.setProgress(true)
             }
         })
+        axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
+            {headers: {
+                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+            }}).then(()=>{
+                this.handleClose()
+            })
     }
 
     handleEdit = () => {
@@ -160,7 +173,7 @@ export default class Notification extends React.Component {
         if(this.props.importance == 'important'){ impText = "Pilne"; }
             else{ impText = "Niepilne"; }
 
-        if(this.props.inProgress == true){ procText = 'success'; }
+        if(this.props.inprogress == true){ procText = 'success'; }
             else{ procText = 'outline-success'; }
 
         if(this.props.currentUserId === this.props.user_id || this.props.admin)
