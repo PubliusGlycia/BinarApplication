@@ -175,6 +175,7 @@ export default class Notification extends React.Component {
 
     let checkbox = this.props.admin
       ? <CheckBox
+          className='post-event-checkbox'
           idValue={this.props.notificationID}
           checkFunction={this.handleCheckbox}
         />
@@ -194,7 +195,7 @@ export default class Notification extends React.Component {
         >
           <Row>
             <Col md={1}>
-                {checkbox}
+              {checkbox}
             </Col>
             <Col
               md={9}
@@ -209,7 +210,7 @@ export default class Notification extends React.Component {
           </Row>
           <Row>
             <Col
-              md={10}
+              md={{span: 9, offset: 1}}
               className='date'
             >
               {this.props.date.substring(0, 10) + ', ' + this.props.date.substring(11, 16)} przez {this.props.user_email}
