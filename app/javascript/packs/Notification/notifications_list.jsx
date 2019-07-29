@@ -85,18 +85,13 @@ export default class NotificationList extends React.Component {
         if(save){
             this.setState(previousState => ({
                 notificationsToArchive: [...previousState.notificationsToArchive, idToArchive]
-            }), () => {
-                console.log(this.state.notificationsToArchive)
-            })
+            }))
         }else{
             let tmpArray = [...this.state.notificationsToArchive];
             let index = tmpArray.indexOf(idToArchive);
             if (index !== -1) {
                 tmpArray.splice(index, 1);
-                this.setState({notificationsToArchive: tmpArray},
-                    () => {
-                    console.log(this.state.notificationsToArchive)
-                });
+                this.setState({notificationsToArchive: tmpArray});
             }
         }
 
@@ -171,7 +166,15 @@ export default class NotificationList extends React.Component {
                             <ArchiveButton
                                 notificationsToArchive={this.state.notificationsToArchive}
                                 fetchPostEvents={this.fetchPostEvents}
-                                clearArchiveList={this.clearArchiveList}/>
+                                clearArchiveList={this.clearArchiveList}
+                            />
+                        </Col>
+                        <Col sm={3}>
+                            <ShoppingListButton
+                                notificationsToShopping={this.state.notificationsToArchive}
+                                fetchPostEvents={this.fetchPostEvents}
+                            />
+
                         </Col>
                     </Row>
 
