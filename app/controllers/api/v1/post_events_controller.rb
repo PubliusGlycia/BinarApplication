@@ -37,7 +37,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   end
 
   def generate_pdf
-    @post_event = PostEvent.where(id: params[:post_event_ids])
+    @post_event = PostEvent.where(id: params[:post_event_ids], category: 'supply')
   end
 
   def destroy
