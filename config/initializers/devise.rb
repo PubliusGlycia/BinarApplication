@@ -267,12 +267,12 @@ Devise.setup do |config|
       Rails.application.credentials[:production][:google_oauth2][:app_secret],
       redirect_uri:
         "https://kier.binar.app"
-  else
-    config.omniauth :google_oauth2,
-      Rails.application.credentials[:development][:google_oauth2][:app_id],
-      Rails.application.credentials[:development][:google_oauth2][:app_secret],
-      redirect_uri:
-        "http://f846af16.ngrok.io/users/auth/google_oauth2/callback"
+  #else
+  #  config.omniauth :google_oauth2,
+  #    Rails.application.credentials[:development][:google_oauth2][:app_id],
+  #    Rails.application.credentials[:development][:google_oauth2][:app_secret],
+  #    redirect_uri:
+  #      "http://f846af16.ngrok.io/users/auth/google_oauth2/callback"
   end
 
   # ==> Warden configuration
