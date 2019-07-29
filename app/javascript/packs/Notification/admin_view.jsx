@@ -128,10 +128,8 @@ export default class AdminView extends React.Component {
             let index = tmpArray.indexOf(idToArchive);
             if (index !== -1) {
                 tmpArray.splice(index, 1);
-                this.setState({ notificationsToArchive: tmpArray },
-                    () => {
-                        console.log(this.state.notificationsToArchive)
-                    });
+                this.setState({ notificationsToArchive: tmpArray }
+                );
             }
         }
 
@@ -162,6 +160,7 @@ export default class AdminView extends React.Component {
                     images={defect.images}
                     setImages={images => { this.updateDefectElement(defect, 'images', images) }}
                     user_id={defect.user_id}
+                    user_email={defect.user_email}
                     fetchPostEvents={this.fetchPostEvents}
                     notificationsToArchive={this.updateArchiveList}
                 />
@@ -188,6 +187,7 @@ export default class AdminView extends React.Component {
                     images={supply.images}
                     setImages={images => { this.updateSupplyElement(supply, 'images', images) }}
                     user_id={supply.user_id}
+                    user_email={supply.user_email}
                     fetchPostEvents={this.fetchPostEvents}
                     notificationsToArchive={this.updateArchiveList}
                 />
@@ -213,6 +213,7 @@ export default class AdminView extends React.Component {
                     images={other.images}
                     setImages={images => { this.updateOtherElement(others, 'images', images) }}
                     user_id={other.user_id}
+                    user_email={other.user_email}
                     fetchPostEvents={this.fetchPostEvents}
                     notificationsToArchive={this.updateArchiveList}
                 />

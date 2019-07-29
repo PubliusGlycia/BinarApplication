@@ -45,6 +45,10 @@
 }
 
 .date {
+  padding: 0 !important;
+  display: inline-block;
+  text-align: center;
+  vertical-align: bottom;
   font-family: Muli;
   font-size: 14px;
   color: rgb(185, 185, 185);
@@ -54,4 +58,11 @@
   font-family: Muli;
   font-size: 18px;
   text-decoration: underline
+}
+
+.form-check-input {
+  display: block !important;
+  width: 25px;
+  height: 25px;
+  margin: 25px 0 !important;
 }

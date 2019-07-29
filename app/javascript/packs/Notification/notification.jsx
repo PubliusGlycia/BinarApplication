@@ -58,7 +58,7 @@ export default class Notification extends React.Component {
   };
 
   handleClick = () => {
-    this.setState(isClicked => {
+    this.setState(() => {
       if (this.props.importance == 'trivial') {
         return this.props.setImportance('important')
 
@@ -172,15 +172,20 @@ export default class Notification extends React.Component {
       else procText = "Akceptuj zgłoszenie";
     }
 
+<<<<<<< HEAD
+
+    let checkbox = this.props.admin
+      ? <CheckBox
+          className='post-event-checkbox'
+          idValue={this.props.notificationID}
+          checkFunction={this.handleCheckbox}
+        />
+      : ''
+
+=======
+>>>>>>> develop
     return (
       <>
-        {this.props.admin
-          ? <CheckBox
-            idValue={this.props.notificationID}
-            checkFunction={this.handleCheckbox}
-          />
-          : ''}
-
         <ListGroup.Item
           action
           style={{
@@ -192,18 +197,29 @@ export default class Notification extends React.Component {
           variant={this.props.isConfirmed ? 'success' : ''}
         >
           <Row>
+            <Col md={1}>
+              {checkbox}
+            </Col>
             <Col
-              md={10}
+              md={9}
               as='h5'
               style={{ overflow: "hidden" }}
             >
               {this.props.title}
             </Col>
-            <Col md={1}>
+            <Col md={2}>
               <Like notificationID={this.props.notificationID} />
             </Col>
+          </Row>
+          <Row>
             <Col
-              md={1}
+              md={{span: 9, offset: 1}}
+              className='date'
+            >
+              {this.props.date.substring(0, 10) + ', ' + this.props.date.substring(11, 16)} przez {this.props.user_email}
+            </Col>
+            <Col
+              md={2}
               as='h1'
             >
               {this.importanceCheck()}
@@ -292,14 +308,6 @@ export default class Notification extends React.Component {
               </Col>
             </Row>
             <Row className="mt-3">
-              {/* <Col className='image'>
-                                <InputField
-                                    edit={edit}
-                                    value={this.props.image}
-                                    onChange={e => {this.props.setImages(e.target.value)}}
-                                    type="file"
-                                />
-                            </Col> */}
               {this.state.isLoading
                 ? "loading image" :
                 <Col>
@@ -310,8 +318,8 @@ export default class Notification extends React.Component {
             <Row className="mt-3">
               <Col className='date'>
                 {"\n\n"}Dodano {this.props.date.substring(0, 10) + ', '}
-                {this.props.date.substring(11, 16)} przez User
-                            </Col>
+                {this.props.date.substring(11, 16)} przez {this.props.user_email}
+              </Col>
             </Row>
           </Modal.Body>
           <Modal.Footer

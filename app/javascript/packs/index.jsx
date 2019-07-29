@@ -25,7 +25,6 @@ class Index extends React.Component {
             .then(response => {
                 if (response.data.user_id === true) {
                     this.setState({ admin: true });
-                    console.log("admin");
                 } else {
                     this.setState({ admin: false, currentUserId: response.data.user_id, currentUserEmail: response.data.user_email });
                 }
