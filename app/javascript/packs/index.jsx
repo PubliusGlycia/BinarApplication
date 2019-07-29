@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from "react-dom";
 import axios from "axios";
-import NotificationList from "./Notification/notifications_list";
-import ArchiveList from "./Notification/Archive/archive_list";
-import AdminView from "./Notification/admin_view"
-import CreateForm from "./Notification/Create form/create_form";
-import { Col, Row } from "react-bootstrap";
+import NotificationList from "./Events/events_list";
+import ArchiveList from "./Events/Archive/archive_list";
+import AdminView from "./Events/admin_view"
+import CreateForm from "./Events/Create form/create_form";
+import {Col, Row} from "react-bootstrap";
 
 class Index extends React.Component {
 
@@ -61,8 +61,9 @@ class Index extends React.Component {
                 admin={this.state.admin}
                 currentUserId={this.state.currentUserId}
                 currentUserEmail={this.state.currentUserEmail}
-            />
-        archiveList = <div>Archiwum</div>;
+            />;
+        archiveList = <ArchiveList admin={this.state.admin}
+                                   currentUserId={this.state.currentUserId}/>;
         settings = <div>Ustwienia</div>;
         record = <div>Ewidencja</div>;
 
