@@ -172,6 +172,7 @@ export default class Notification extends React.Component {
       else procText = "Akceptuj zgłoszenie";
     }
 
+<<<<<<< HEAD
 
     let checkbox = this.props.admin
       ? <CheckBox
@@ -181,6 +182,8 @@ export default class Notification extends React.Component {
         />
       : ''
 
+=======
+>>>>>>> develop
     return (
       <>
         <ListGroup.Item

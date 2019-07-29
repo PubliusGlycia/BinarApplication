@@ -261,6 +261,20 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
+  if Rails.env.production?
+    config.omniauth :google_oauth2,
+      Rails.application.credentials[:production][:google_oauth2][:app_id],
+      Rails.application.credentials[:production][:google_oauth2][:app_secret],
+      redirect_uri:
+        "https://kier.binar.app"
+  else
+    config.omniauth :google_oauth2,
+      Rails.application.credentials[:development][:google_oauth2][:app_id],
+      Rails.application.credentials[:development][:google_oauth2][:app_secret],
+      redirect_uri:
+        "http://f846af16.ngrok.io/users/auth/google_oauth2/callback"
+  end
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
