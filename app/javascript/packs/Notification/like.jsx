@@ -43,7 +43,7 @@ export default class Like extends React.Component {
     };
 
     render() {
-        let buttonText = `👍 Likes: ${this.state.likesCount}`;
+        let buttonText = `👍 ${this.state.likesCount}`
         let buttonVariant = this.state.isLiked ? 'primary' : 'outline-primary';
 
         return (

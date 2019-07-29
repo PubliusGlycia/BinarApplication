@@ -12,9 +12,10 @@ export default class SearchBar extends React.Component {
                 <Form>
                     <Form.Row >
 
-                        <Col md={10}>
+                        <Col>
                             <Form.Group>
                                 <Form.Control
+                                    className="text-field"
                                     type='string'
                                     placeholder="Wyszukaj..."
                                     onChange={this.handleChange}
