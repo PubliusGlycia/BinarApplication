@@ -42,7 +42,7 @@ export default class MessageForm extends React.Component {
         <>
           <Form>
               <Form.Group controlId="exampleForm.ControlTextarea" className="mb-0">
-                <Form.Control as="textarea" placeholder="Wpisz komentarz..." rows="2" style={ this.state.errorDescription ? { borderColor: '#f23131'} : {} }
+                <Form.Control className="text-field" as="textarea" placeholder="Wpisz komentarz..." rows="2" style={ this.state.errorDescription ? { borderColor: '#f23131'} : {} }
                 onChange={e =>{
                   this.setState({content: e.target.value},
                   this.validateContent(e.target.value))

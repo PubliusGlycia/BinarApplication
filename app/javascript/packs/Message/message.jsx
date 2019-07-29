@@ -58,7 +58,7 @@ export default class Message extends React.Component {
 
     render() {
         return (
-            <Card className="my-2" style={{ background: "#2B185C" }}>
+            <Card className="my-2" style={{ background: "#595955", border: "2px solid #7c7d79",borderRadius: "2px" }}>
                 <Card.Body>
                     <Media>
                         <img
@@ -74,15 +74,15 @@ export default class Message extends React.Component {
                                     <h6 className="header-author"> { this.props.author } </h6>
                                     <div className="div-dates">
                                         Dodano: { this.formatDate(this.props.created) }
-                                    
+
                                     { (this.props.created != this.props.updated) && <> <br/> Edytow.: { this.formatDate(this.props.updated) } </> }
                                     </div>
                                 </Col>
                                 { ((this.props.author === this.props.currentUserEmail) || (this.props.admin === true)) &&
                                 <Col>
-                                    { !this.state.editable && <Button className='button-edit w-100' variant="warning" onClick={this.changeEditState}>Edytuj</Button> }
-                                    { (this.state.editable && this.state.edited && this.state.validated) && <Button className='button-edit w-100' variant="success" onClick={this.changeEditState}>Zapisz</Button> }
-                                    { ((this.state.editable && !this.state.edited) || !this.state.validated) && <Button className='button-edit w-100' variant="danger" onClick={this.changeEditState}>Anuluj</Button> }
+                                    { !this.state.editable && <Button className='button-edit w-100' variant="secondary" onClick={this.changeEditState}>Edytuj</Button> }
+                                    { (this.state.editable && this.state.edited && this.state.validated) && <Button className='button-save w-100' variant="secondary" onClick={this.changeEditState}>Zapisz</Button> }
+                                    { ((this.state.editable && !this.state.edited) || !this.state.validated) && <Button className='button-cancel w-100' variant="secondary" onClick={this.changeEditState}>Anuluj</Button> }
                                 </Col> }
                             </Row>
 
@@ -96,7 +96,7 @@ export default class Message extends React.Component {
                             { this.state.editable &&
                                 <Form>
                                 <Form.Group controlId="exampleForm.ControlTextarea1">
-                                    <Form.Control as="textarea" defaultValue={this.state.contentBeforeEdit} style={ this.state.errorDescription ? { outline: '2px solid #FF0000', MozOutlineRadius: '2px' } : {} }
+                                    <Form.Control className="text-field" as="textarea" defaultValue={this.state.contentBeforeEdit} style={ this.state.errorDescription ? { outline: '2px solid #FF0000', MozOutlineRadius: '2px' } : {} }
                                     onChange={ (e) => { this.setState({content: e.target.value, edited: this.isEdited(e.target.value) }); this.validateContent(e.target.value) } } />
                                 </Form.Group>
                             </Form> }
