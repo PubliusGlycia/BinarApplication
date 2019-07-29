@@ -1,6 +1,6 @@
 import React from "react";
-import {ListGroup} from "react-bootstrap";
-import Notification from "../notification";
+import {Col, ListGroup} from "react-bootstrap";
+import ArchiveNotification from "./archive_notification";
 import axios from "axios"
 
 export default class ArchiveList extends React.Component {
@@ -14,10 +14,15 @@ export default class ArchiveList extends React.Component {
                 this.setState({ archive: archive_params.data })
             });
     }
+
+    componentDidMount() {
+        this.fetchArchiveList();
+    }
+
     render() {
         const archive = this.state.archive.map(archive =>
             <ListGroup.Item key={archive.id} style={{ background: '#36372D' }}>
-                <Notification
+                <ArchiveNotification
                     key={archive.id}
                     admin={this.props.admin}
                     currentUserId={this.props.currentUserId}
@@ -34,6 +39,14 @@ export default class ArchiveList extends React.Component {
                     notificationsToArchive={this.updateArchiveList}
                 />
             </ListGroup.Item>);
-        return nil
+        return (
+            <div className='body'>
+                <Col>
+                    <ListGroup.Item variant='flush' className='col_title'>
+                        <h1 className='text-center'>Archwum</h1>
+                    </ListGroup.Item>
+                    <ListGroup variant="flush" >{archive}</ListGroup>
+                </Col>
+            </div>)
     }
 }

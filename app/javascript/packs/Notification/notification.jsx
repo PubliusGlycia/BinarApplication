@@ -149,7 +149,7 @@ export default class Notification extends React.Component {
         {
             DeleteButton = <DeleteAcceptancePopover
                             notificationID={this.props.notificationID}
-                            handleClose={this.handleClose}/>
+                            handleClose={this.handleClose}/>;
 
         if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
         else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
@@ -157,9 +157,6 @@ export default class Notification extends React.Component {
         }else{
             DeleteButton = <></>
         }
-
-
-
 
         return (
             <>
@@ -187,7 +184,8 @@ export default class Notification extends React.Component {
                             {this.props.title}
                         </Col>
                         <Col md={1}>
-                            <Like notificationID={ this.props.notificationID }/>
+                            <Like notificationID={ this.props.notificationID }
+                                  archiveLike={false}/>
                         </Col>
                         <Col
                           md={1}
@@ -287,7 +285,10 @@ export default class Notification extends React.Component {
                     <Modal.Footer>
                         <Col>
                             <p>Komentarze</p>
-                            <MessageByNotification admin={this.props.admin } currentUserEmail={ this.props.currentUserEmail } notificationID={this.props.notificationID} />
+                            <MessageByNotification admin={this.props.admin }
+                                                   currentUserEmail={ this.props.currentUserEmail }
+                                                   notificationID={this.props.notificationID}
+                                                   archiveComment={false}/>
                         </Col>
                     </Modal.Footer>
 

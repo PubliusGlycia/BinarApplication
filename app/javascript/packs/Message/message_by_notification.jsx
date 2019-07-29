@@ -7,13 +7,13 @@ export default class MessageByNotification extends React.Component {
 
     state = {
         messages: []
-    }
+    };
 
     fetchMessages = () => {
         axios.get("/api/v1/messages_by_post/" + this.props.notificationID + ".json").then((response) => {
             this.setState({ messages: response.data.messages });
         });
-    }
+    };
 
     componentDidMount() {
         this.fetchMessages();
@@ -29,11 +29,29 @@ export default class MessageByNotification extends React.Component {
             messageId={ message.id }
             admin={ this.props.admin }
             currentUserEmail={ this.props.currentUserEmail }
-            key={ message.id } />)
+            key={ message.id }
+            archiveComment={this.props.archiveComment}/>);
+
+        let display;
+
+        if(this.props.archiveComment === false)
+        {
+            display =
+                <>
+                    <MessageForm notificationID={this.props.notificationID}
+                                 userID={this.state.userID}
+                                 fetchMessages={this.fetchMessages} />
+                    { messages }
+                </>
+        }else{
+            display =
+                <>
+                    { messages }
+                </>
+        }
         return (
             <>
-                <MessageForm notificationID={this.props.notificationID} userID={this.state.userID} fetchMessages={this.fetchMessages} />
-                { messages }
+                { display }
             </>
         );
     }
