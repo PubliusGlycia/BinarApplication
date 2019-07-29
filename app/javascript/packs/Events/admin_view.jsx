@@ -5,6 +5,7 @@ import axios from 'axios'
 import ArchiveButton from "./Archive/archive_button"
 import ShoppingListButton from './ShoppingList/shopping_list_button'
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
+import NotificationButton from '../notification_button';
 
 
 export default class AdminView extends React.Component {
@@ -224,23 +225,27 @@ export default class AdminView extends React.Component {
 
                 <Container fluid>
                     <Row>
-                        <Col sm={8}>
+                        <Col sm={6}>
                             <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch} />
                         </Col>
-
-                        <Col sm={2}>
+                        <Col sm={{offset: 1, span:1}}>
                             <ArchiveButton
                                 notificationsToArchive={this.state.notificationsToArchive}
                                 fetchPostEvents={this.fetchPostEvents}
                                 clearArchiveList={this.clearArchiveList}
                             />
                         </Col>
-                        <Col sm={2}>
+
+                        <Col sm={1}>
                             <ShoppingListButton
                                 notificationsToShopping={this.state.notificationsToArchive}
                                 fetchPostEvents={this.fetchPostEvents}
                             />
 
+                        </Col>
+
+                        <Col sm={1}>
+                            <NotificationButton />
                         </Col>
                     </Row>
 

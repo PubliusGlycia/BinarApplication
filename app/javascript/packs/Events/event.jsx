@@ -323,7 +323,11 @@ export default class Event extends React.Component {
             style={{ background: '#46473A' }}>
             <Col>
               <p className="p-comment-header">Komentarze</p>
-              <MessageByNotification admin={this.props.admin } currentUserEmail={this.props.currentUserEmail} notificationID={this.props.notificationID} />
+              <MessageByNotification
+                  admin={this.props.admin }
+                  currentUserEmail={this.props.currentUserEmail}
+                  notificationID={this.props.notificationID}
+                  archiveComment={false}/>
             </Col>
           </Modal.Footer>
 
