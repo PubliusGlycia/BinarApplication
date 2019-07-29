@@ -56,8 +56,8 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_event.save
   end
 
-  def get_archive_list
-    @post_events= PostEvent.where(archive: true).order(created_at: :desc) if current_user.admin
+  def archive_list
+    @post_events = PostEvent.where(archive: true).order(created_at: :desc) if current_user.admin
   end
 
   private
