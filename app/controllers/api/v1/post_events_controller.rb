@@ -36,6 +36,10 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     head :ok
   end
 
+  def generate_pdf
+    @post_event = PostEvent.where(id: params[:post_event_ids])
+  end
+
   def destroy
     return head 404 unless @post_event.user_id == current_user.id || current_user.admin == true
 
