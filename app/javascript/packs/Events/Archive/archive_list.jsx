@@ -1,6 +1,6 @@
 import React from "react";
 import {Col, ListGroup} from "react-bootstrap";
-import ArchiveNotification from "./archive_notification";
+import ArchiveEvent from "./archive_event";
 import axios from "axios"
 
 export default class ArchiveList extends React.Component {
@@ -22,7 +22,7 @@ export default class ArchiveList extends React.Component {
     render() {
         const archive = this.state.archive.map(archive =>
             <ListGroup.Item key={archive.id} style={{ background: '#36372D' }}>
-                <ArchiveNotification
+                <ArchiveEvent
                     key={archive.id}
                     admin={this.props.admin}
                     currentUserId={this.props.currentUserId}
@@ -43,7 +43,7 @@ export default class ArchiveList extends React.Component {
             <div className='body'>
                 <Col>
                     <ListGroup.Item variant='flush' className='col_title'>
-                        <h1 className='text-center'>Archwum</h1>
+                        <h1 className='text-center'>Archiwum</h1>
                     </ListGroup.Item>
                     <ListGroup variant="flush" >{archive}</ListGroup>
                 </Col>
