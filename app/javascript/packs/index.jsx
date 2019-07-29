@@ -4,14 +4,14 @@ import axios from "axios";
 import NotificationList from "./Notification/notifications_list"
 import AdminView from "./Notification/admin_view"
 import CreateForm from "./Notification/Create form/create_form";
-import {Col, Row} from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 
 class Index extends React.Component {
 
-    state ={
+    state = {
         admin: false,
-        viewState:'',
-        currentUserId:'',
+        viewState: '',
+        currentUserId: '',
         currentUserEmail: ''
     };
 
@@ -21,68 +21,68 @@ class Index extends React.Component {
 
     checkUser() {
         axios.get('api/v1/admin/check.json')
-            .then(response =>{
-                if (response.data.user_id === true){
-                    this.setState({admin: true});
+            .then(response => {
+                if (response.data.user_id === true) {
+                    this.setState({ admin: true });
                     console.log("admin");
-                }else{
-                    this.setState({admin: false, currentUserId: response.data.user_id, currentUserEmail: response.data.user_email });
+                } else {
+                    this.setState({ admin: false, currentUserId: response.data.user_id, currentUserEmail: response.data.user_email });
                 }
             })
     }
 
-    changeToEvent = () =>{
+    changeToEvent = () => {
         this.setState({ viewState: 'event' })
     };
 
-    changeToArchive = () =>{
+    changeToArchive = () => {
         this.setState({ viewState: 'archive' })
     };
 
-    changeToSettings = () =>{
+    changeToSettings = () => {
         this.setState({ viewState: 'settings' })
     };
 
-    changeToRecord = () =>{
+    changeToRecord = () => {
         this.setState({ viewState: 'record' })
     };
 
     render() {
 
-        let eventList,archiveList,settings,record,index;
-        let userNavigationBar,adminNavigationBar;
+        let eventList, archiveList, settings, record, index;
+        let userNavigationBar, adminNavigationBar;
 
-        this.state.admin ? eventList =  <AdminView
-                                          admin={this.state.admin}
-                                          currentUserId={this.state.currentUserId}
-                                          currentUserEmail={this.state.currentUserEmail}
-                                        />
-                         : eventList =  <NotificationList
-                                          admin={this.state.admin}
-                                          currentUserId={this.state.currentUserId}
-                                          currentUserEmail={this.state.currentUserEmail}
-                                        />
+        this.state.admin ? eventList = <AdminView
+            admin={this.state.admin}
+            currentUserId={this.state.currentUserId}
+            currentUserEmail={this.state.currentUserEmail}
+        />
+            : eventList = <NotificationList
+                admin={this.state.admin}
+                currentUserId={this.state.currentUserId}
+                currentUserEmail={this.state.currentUserEmail}
+            />
         archiveList = <div>Archiwum</div>;
         settings = <div>Ustwienia</div>;
         record = <div>Ewidencja</div>;
 
         adminNavigationBar = <nav className="navbar navbar-expand-lg navbar-dark" id='binar-navi'>
-                <span className="navbar-brand my-0 h1" href="#">BinarOffice</span>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div className="navbar-nav w-100">
-                        <Row className="w-100">
-                            <Col className="text-center"><CreateForm className="nav-item text-center" fetchPostEvents={this.props.fetchPostEvents}/></Col>
-                            <Col><a className="nav-item nav-link active text-center" onClick={this.changeToEvent} >Zgłoszenia</a></Col>
-                            <Col><a className="nav-item nav-link text-center" onClick={this.changeToArchive}>Archiwum</a></Col>
-                            <Col><a className="nav-item nav-link text-center" onClick={this.changeToRecord}>Ewidencja</a></Col>
-                            <Col><a className="nav-item nav-link text-center" onClick={this.changeToSettings}>Ustawienia</a></Col>
-                        </Row>
-                    </div>
+            <span className="navbar-brand my-0 h1" href="#">BinarOffice</span>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div className="navbar-nav w-100">
+                    <Row className="w-100">
+                        <Col className="text-center"><CreateForm className="nav-item text-center" fetchPostEvents={this.props.fetchPostEvents} /></Col>
+                        <Col><a className="nav-item nav-link active text-center" onClick={this.changeToEvent} >Zgłoszenia</a></Col>
+                        <Col><a className="nav-item nav-link text-center" onClick={this.changeToArchive}>Archiwum</a></Col>
+                        <Col><a className="nav-item nav-link text-center" onClick={this.changeToRecord}>Ewidencja</a></Col>
+                        <Col><a className="nav-item nav-link text-center" onClick={this.changeToSettings}>Ustawienia</a></Col>
+                    </Row>
                 </div>
-            </nav>;
+            </div>
+        </nav>;
 
         userNavigationBar = <nav className="navbar navbar-expand-lg navbar-dark" id='binar-navi'>
             <span className="navbar-brand my-0 h1" href="#">BinarOffice</span>
@@ -92,7 +92,7 @@ class Index extends React.Component {
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div className="navbar-nav w-100">
                     <Row className="w-100">
-                        <Col className="text-center"><CreateForm className="nav-item text-center" fetchPostEvents={this.props.fetchPostEvents}/></Col>
+                        <Col className="text-center"><CreateForm className="nav-item text-center" fetchPostEvents={this.props.fetchPostEvents} /></Col>
                         <Col><a className="nav-item nav-link active text-center" onClick={this.changeToEvent}>Zgłoszenia</a></Col>
                         <Col><a className="nav-item nav-link text-center" onClick={this.changeToSettings}>Ustawienia</a></Col>
                     </Row>
@@ -100,45 +100,44 @@ class Index extends React.Component {
             </div>
         </nav>;
 
-        if(this.state.admin){
-            console.log("test log");
-            switch(this.state.viewState) {
+        if (this.state.admin) {
+            switch (this.state.viewState) {
                 case 'event': return index =
-                        <>
-                            {adminNavigationBar}
-                            {eventList}
-                        </>;
+                    <>
+                        {adminNavigationBar}
+                        {eventList}
+                    </>;
                 case 'archive': return index =
-                        <>
-                            {adminNavigationBar}
-                            {archiveList}
-                        </>;
+                    <>
+                        {adminNavigationBar}
+                        {archiveList}
+                    </>;
                 case 'settings': return index =
-                        <>
-                            {adminNavigationBar}
-                            {settings}
-                        </>;
+                    <>
+                        {adminNavigationBar}
+                        {settings}
+                    </>;
                 case 'record': return index =
-                        <>
-                            {adminNavigationBar}
-                            {record}
-                        </>;
+                    <>
+                        {adminNavigationBar}
+                        {record}
+                    </>;
                 default: return index =
-                        <>
-                            {adminNavigationBar}
-                            {eventList}
-                        </>
+                    <>
+                        {adminNavigationBar}
+                        {eventList}
+                    </>
             }
 
         }
         else {
             switch (this.state.viewState) {
-                case 'event':return index =
+                case 'event': return index =
                     <>
                         {userNavigationBar}
                         {eventList}
                     </>;
-                case 'settings':return index =
+                case 'settings': return index =
                     <>
                         {userNavigationBar}
                         {settings}
