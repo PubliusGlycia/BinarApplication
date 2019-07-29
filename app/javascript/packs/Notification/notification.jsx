@@ -105,12 +105,13 @@ export default class Notification extends React.Component {
   loadImages() {
     return this.state.photo_urls.map((photo, index) =>
       <>
-        <Col style={{ maxWidth: "15rem" }}>
+        <Col style={{ width: "fit-content" }}>
           <Row>
             <Image
               src={`${photo.url} `}
               value={photo.url}
               onClick={() => this.showZoomInPhoto(photo.url)}
+              style={{ objectFit: "contain", height: "10rem" }}
               fluid
             />
           </Row>
@@ -170,9 +171,6 @@ export default class Notification extends React.Component {
       if (this.props.process == true) procText = "✅";
       else procText = "Akceptuj zgłoszenie";
     }
-
-
-
 
     return (
       <>
