@@ -272,7 +272,7 @@ Devise.setup do |config|
       Rails.application.credentials[:development][:google_oauth2][:app_id],
       Rails.application.credentials[:development][:google_oauth2][:app_secret],
       redirect_uri:
-        "http://4b151f66.ngrok.io/users/auth/google_oauth2/callback"
+        "http://f846af16.ngrok.io/users/auth/google_oauth2/callback"
   end
 
   # ==> Warden configuration
