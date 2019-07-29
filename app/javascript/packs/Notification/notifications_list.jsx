@@ -10,13 +10,10 @@ export default class NotificationList extends React.Component {
     state = {
         defects: [],
         supplies: [],
-        isLoading: false,
         notificationsToArchive: []
     };
 
     fetchPostEventsWhenSearch = (phrase) => {
-        this.setState({ isLoading: true });
-
         axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'defect',
@@ -24,7 +21,7 @@ export default class NotificationList extends React.Component {
             }
         })
         .then(posts_events => {
-            this.setState({ defects: posts_events.data, isLoading: false })
+            this.setState({ defects: posts_events.data })
         });
 
         axios.get('api/v1/post_events/event.json', {
@@ -34,20 +31,18 @@ export default class NotificationList extends React.Component {
             }
         })
         .then(posts_events => {
-            this.setState({ supplies: posts_events.data, isLoading: false })
+            this.setState({ supplies: posts_events.data })
         })
     };
 
     fetchPostEvents = () => {
-        this.setState({ isLoading: true });
-
         axios.get('api/v1/post_events/event.json', {
             params: {
                 category: 'defect'
             }
         })
         .then(posts_events => {
-            this.setState({ defects: posts_events.data, isLoading: false })
+            this.setState({ defects: posts_events.data })
         });
 
         axios.get('api/v1/post_events/event.json', {
@@ -56,7 +51,7 @@ export default class NotificationList extends React.Component {
             }
         })
         .then(posts_events => {
-            this.setState({ supplies: posts_events.data, isLoading: false })
+            this.setState({ supplies: posts_events.data })
         })
 
     };
@@ -118,6 +113,7 @@ export default class NotificationList extends React.Component {
                 key={defect.id}
                 admin={this.props.admin}
                 currentUserId={this.props.currentUserId}
+                currentUserEmail={this.props.currentUserEmail}
                 notificationID={defect.id}
                 title={defect.title}
                 setTitle={title => {this.updateDefectElement(defect, 'title', title)}}
@@ -143,6 +139,7 @@ export default class NotificationList extends React.Component {
                 key={supply.id}
                 admin={this.props.admin}
                 currentUserId={this.props.currentUserId}
+                currentUserEmail={this.props.currentUserEmail}
                 notificationID={supply.id}
                 title={supply.title}
                 setTitle={title => {this.updateSupplyElement(supply, 'title', title)}}
@@ -166,11 +163,11 @@ export default class NotificationList extends React.Component {
 
                 <Container fluid>
                     <Row>
-                        <Col sm={8}>
+                        <Col sm={9}>
                             <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch}/>
                         </Col>
 
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <ArchiveButton
                                 notificationsToArchive={this.state.notificationsToArchive}
                                 fetchPostEvents={this.fetchPostEvents}
@@ -185,18 +182,14 @@ export default class NotificationList extends React.Component {
                             <ListGroup.Item variant='flush' className='col_title'>
                                 <h1 className='text-center'>Awarie</h1>
                             </ListGroup.Item>
-                            {this.state.isLoading
-                            ? "loading"
-                            : <ListGroup variant="flush" >{defects}</ListGroup>}
+                            <ListGroup variant="flush" >{defects}</ListGroup>
                         </Col>
 
                         <Col>
                             <ListGroup.Item variant='flush' className='col_title'>
                                 <h1 className='text-center'>Zapotrzebowanie</h1>
                             </ListGroup.Item>
-                            {this.state.isLoading
-                                ? "loading"
-                                : <ListGroup variant="flush" >{supplies}</ListGroup>}
+                            <ListGroup variant="flush" >{supplies}</ListGroup>
                         </Col>
 
                     </Row>

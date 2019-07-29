@@ -10,7 +10,8 @@ class Index extends React.Component {
     state ={
         admin: false,
         viewState:'',
-        currentUserId:''
+        currentUserId:'',
+        currentUserEmail: ''
     };
 
     componentWillMount() {
@@ -24,7 +25,7 @@ class Index extends React.Component {
                     this.setState({admin: true});
                     console.log("admin");
                 }else{
-                    this.setState({admin: false, currentUserId: response.data.user_id });
+                    this.setState({admin: false, currentUserId: response.data.user_id, currentUserEmail: response.data.user_email });
                 }
             })
     }
@@ -52,7 +53,8 @@ class Index extends React.Component {
 
         eventList = <NotificationList
             admin={this.state.admin}
-            currentUserId={this.state.currentUserId}/>;
+            currentUserId={this.state.currentUserId}
+            currentUserEmail={this.state.currentUserEmail}/>;
         archiveList = <div>Archiwum</div>;
         settings = <div>Ustwienia</div>;
         record = <div>Ewidencja</div>;

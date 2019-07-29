@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         resources :likes, :only => [:create, :destroy, :index]
       end
       get '/messages_by_post/:id' => 'messages#index'
+      patch '/messages/update_content/:id/:message' => 'messages#update_content'
       resources :messages
     end
   end
