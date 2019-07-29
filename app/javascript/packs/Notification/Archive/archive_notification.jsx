@@ -74,25 +74,33 @@ export default class ArchiveNotification extends React.Component {
         this.setState({showPhoto: true, photoUrl:url})
     };
 
-    closeZoomInPhoto() {
+    closeZoomInPhoto = () => {
         this.setState({showPhoto: false})
-    }
+    };
 
     render() {
 
         const edit = this.state.edit;
+        let procText;
 
         let impText;
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
 
+        if (this.props.currentUserId == this.props.admin) {
+            if (this.props.process == true) procText = "✅";
+            else procText = "Akceptuj zgłoszenie";
+        }
+
         return (
             <>
                 <ListGroup.Item
                     action
-                    style={{ background: '#46473A',
+                    style={{
+                        background: '#46473A',
                         color: '#fff',
-                        borderRadius: '5px' }}
+                        borderRadius: '5px'
+                    }}
                     onClick={this.handleShow}
                     variant={this.props.isConfirmed ? 'success' : '' }
                 >
@@ -121,8 +129,9 @@ export default class ArchiveNotification extends React.Component {
                     size="lg"
                     show={this.state.show}
                     onHide={this.handleClose}
+                    style={{ color: '#FFFFFF', border: "2px solid #36372D" }}
                 >
-                    <Modal.Header>
+                    <Modal.Header style={{ background: '#46473A' }}>
                         <Modal.Title
                             className='justify-content-between'
                             style={{overflow: "hidden",
@@ -130,7 +139,7 @@ export default class ArchiveNotification extends React.Component {
                                 position: 'relative'
                             }}>
                             <Row>
-                                <Col md={6} style={{overflow: "hidden"}}>
+                                <Col className="title" md={6} style={{overflow: "hidden"}}>
                                     <WarrningDiv error={this.state.errTitle}>
                                         <InputField
                                             type="text"
@@ -143,6 +152,15 @@ export default class ArchiveNotification extends React.Component {
                                 </Col>
 
                                 <Col md={1}>
+                                    <Button className="w-100 h-100"
+                                            variant="success"
+                                            onClick={this.handleProcess}
+                                    >
+                                        {procText}
+                                    </Button>
+                                </Col>
+
+                                <Col md={1}>
                                     <div>Pilność</div>
                                     <WarrningDiv error={this.state.errImportance}>
                                         <ButtonInputField edit={edit} onClick={this.handleClick} >
@@ -150,7 +168,8 @@ export default class ArchiveNotification extends React.Component {
                                         </ButtonInputField>
                                     </WarrningDiv>
                                 </Col>
-                                <Col md={3} />
+
+                                <Col md={2} />
                                 <Col
                                     md={2}
                                     style={{textAlign: 'right'}}
@@ -166,7 +185,7 @@ export default class ArchiveNotification extends React.Component {
                             </Row>
                         </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body style={{ background: '#46473A' }}>
                         <Row>
                             <Col
                                 className='description'
@@ -201,7 +220,7 @@ export default class ArchiveNotification extends React.Component {
                             </Col>
                         </Row>
                     </Modal.Body>
-                    <Modal.Footer>
+                    <Modal.Footer style={{ background: '#46473A' }}>
                         <Col>
                             <p>Komentarze</p>
                             <MessageByNotification admin={this.props.admin }
