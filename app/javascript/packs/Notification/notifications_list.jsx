@@ -130,7 +130,7 @@ export default class NotificationList extends React.Component {
                 fetchPostEvents={this.fetchPostEvents}
                 notificationsToArchive={this.updateArchiveList}
                 inProgress= {defect.inProgress}
-                setProgress={inProgress => {this.updateDefectElement(defect, 'in_progress', inProgress)}}
+                setProgress={inProgress => {this.updateDefectElement(defect, 'inProgress', inProgress)}}
             />
             </ListGroup.Item>
         );

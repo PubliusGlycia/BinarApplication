@@ -32,7 +32,6 @@ export default class Notification extends React.Component {
             descriptionError: "",
             errImportance: "",
             errTitle: "",
-            inProgress: false
         }
     }
 
@@ -79,15 +78,20 @@ export default class Notification extends React.Component {
         e.stopPropagation()
         const data = new FormData();
         console.log(this.props.inProgress)
+        let newInProgress;
 
-        this.setState(isClicked => {
-            if(this.props.inProgress == true){
-                this.props.setProgress(false)
-            }else{
-                this.props.setProgress(true)
-            }
-        })
-        data.append('post_event[in_progress]', this.props.inProgress)
+
+        if(this.props.inProgress == true){
+            newInProgress= false;
+        }else{
+            newInProgress= true;
+
+        }
+
+        this.props.setProgress(newInProgress)
+
+
+        data.append('post_event[in_progress]', newInProgress)
         axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
             {headers: {
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
