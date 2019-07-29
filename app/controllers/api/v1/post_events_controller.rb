@@ -56,6 +56,10 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_event.save
   end
 
+  def get_archive_list
+    @post_events.where(archive: true).order(created_at: :desc) if current_user.admin
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       get 'post_events/event' => 'post_events#search_filter'
+      get 'post_events/archive' => 'post_events#get_archive_list'
       get 'post_events/download/:id/:image_position' => 'post_events#download'
       post 'archive' => 'post_events#archive_events'
       get 'admin/check' => 'post_events#check_admin'
