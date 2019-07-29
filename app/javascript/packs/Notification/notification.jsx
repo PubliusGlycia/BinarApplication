@@ -172,9 +172,6 @@ export default class Notification extends React.Component {
       else procText = "Akceptuj zgłoszenie";
     }
 
-
-
-
     return (
       <>
         {this.props.admin
