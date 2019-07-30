@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import { Button } from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 export default class ShoppingListButton extends React.Component {
     state = {
