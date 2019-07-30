@@ -28,6 +28,10 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   def update
     post_event = PostEvent.find(params[:id])
     post_event.update(post_event_params)
+
+    if (current_user.admin != true)
+      Notification.create(notification_type: 2, post_event_id: @post_event.id, user_id: admin_id)
+    end
   end
 
   def archive_events
@@ -48,7 +52,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     admin_id = User.where(admin: true).first.id
   
     if (current_user.admin != true)
-      notification = Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin_id)
+      Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin_id)
     end
 
     @post_event.destroy
@@ -69,8 +73,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
 
     if (current_user.admin != true)
       admin_id = User.where(admin: true).first.id
-      notification = Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin_id)
-      notification.save
+      Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin_id)
     end
   end
 

@@ -17,7 +17,6 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
 
     if (@message.post_event.user_id != @message.user_id)
       notification = Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: @message.post_event.user_id)
-      byebug
     end
 
     format.json { render json: @message.errors, status: :unprocessable_entity } unless @message.save
