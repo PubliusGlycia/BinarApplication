@@ -46,7 +46,10 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     return head 404 unless @post_event.user_id == current_user.id || current_user.admin == true
 
     admin_id = User.where(admin: true).first.id
-    notification = Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin_id)
+  
+    if (current_user.admin != true)
+      notification = Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin_id)
+    end
 
     @post_event.destroy
   end
