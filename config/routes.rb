@@ -14,9 +14,11 @@ Rails.application.routes.draw do
       post 'archive' => 'post_events#archive_events'
       post 'shopping_list' => 'post_events#generate_pdf'
       get 'admin/check' => 'post_events#check_admin'
+
       resources :post_events do
         resources :likes, :only => [:create, :destroy, :index]
       end
+
       get '/messages_by_post/:id' => 'messages#index'
       patch '/messages/update_content/:id/:message' => 'messages#update_content'
       resources :messages
