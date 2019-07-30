@@ -8,7 +8,7 @@ import ButtonInputField from "../../button_input_field";
 import AreaInputField from "../../area_input_field";
 import MessageByNotification from "../../Message/message_by_notification";
 
-export default class ArchiveNotification extends React.Component {
+export default class ArchiveEvent extends React.Component {
 
     state = {
         show: false,

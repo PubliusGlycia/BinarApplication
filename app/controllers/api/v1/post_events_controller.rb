@@ -11,6 +11,8 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     # rubocop:disable Rails/DynamicFindBy
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
     # rubocop:enable Rails/DynamicFindBy
+    @post_events = @post_events.order(:importance, :created_at)
+
   end
 
   def show
