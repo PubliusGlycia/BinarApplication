@@ -129,8 +129,8 @@ export default class NotificationList extends React.Component {
                 user_id={defect.user_id}
                 fetchPostEvents={this.fetchPostEvents}
                 notificationsToArchive={this.updateArchiveList}
-                inProgress= {defect.inProgress}
-                setProgress={inProgress => {this.updateDefectElement(defect, 'inProgress', inProgress)}}
+                in_progress= {defect.in_progress}
+                setProgress={in_progress => {this.updateDefectElement(defect, 'in_progress', in_progress)}}
             />
             </ListGroup.Item>
         );
@@ -157,8 +157,8 @@ export default class NotificationList extends React.Component {
                 user_id={supply.user_id}
                 fetchPostEvents={this.fetchPostEvents}
                 notificationsToArchive={this.updateArchiveList}
-                inProgress= {supply.inProgress}
-                setProgress={inProgress => {this.updateDefectElement(supply, 'in_progress', inProgress)}}
+                in_progress= {supply.in_progress}
+                setProgress={in_progress => {this.updateDefectElement(supply, 'in_progress', in_progress)}}
             />
             </ListGroup.Item>);
 
@@ -181,7 +181,6 @@ export default class NotificationList extends React.Component {
 
 
                     <Row>
-
                         <Col>
                             <ListGroup.Item variant='flush' className='col_title'>
                                 <h1 className='text-center'>Awarie</h1>

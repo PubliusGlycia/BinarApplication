@@ -22,18 +22,19 @@ export default class CreateForm extends React.Component {
         errCategory: "",
         errImportance: "",
         errTitle: "",
+        in_progress: false
       };
     }
 
     handleSubmit = (e) => {
       e.preventDefault();
       const data = new FormData();
-
+      console.log(this.state.inProgress)
       data.append('post_event[title]', this.state.title);
       data.append('post_event[description]', this.state.description);
       data.append('post_event[category]', this.state.category);
       data.append('post_event[importance]', this.state.importance);
-      data.append('post_event[inProgress]', this.state.inProgress);
+      data.append('post_event[in_progress]', this.state.in_progress);
 
       if (this.state.images.length == 1)
       {

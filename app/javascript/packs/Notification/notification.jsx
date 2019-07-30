@@ -80,16 +80,13 @@ export default class Notification extends React.Component {
         console.log(this.props.inProgress)
         let newInProgress;
 
-
         if(this.props.inProgress == true){
             newInProgress= false;
         }else{
             newInProgress= true;
 
         }
-
         this.props.setProgress(newInProgress)
-
 
         data.append('post_event[in_progress]', newInProgress)
         axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
