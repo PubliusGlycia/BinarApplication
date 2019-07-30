@@ -44,7 +44,7 @@ export default class Notification extends React.Component {
         data.append('post_event[description]', this.props.description);
         data.append('post_event[category]', this.props.category);
         data.append('post_event[importance]', this.props.importance);
-        data.append('post_event[in_progress]', this.props.inProgress)
+        data.append('post_event[in_progress]', this.props.in_progress);
 
         axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
         {headers: {
@@ -77,18 +77,18 @@ export default class Notification extends React.Component {
     handleProcess = (e) => {
         e.stopPropagation()
         const data = new FormData();
-        console.log(this.props.inProgress)
-        let newInProgress;
+        console.log(this.props.in_progress)
+        let newin_progress;
 
-        if(this.props.inProgress == true){
-            newInProgress= false;
+        if(this.props.in_progress == true){
+            newin_progress= false;
         }else{
-            newInProgress= true;
+            newin_progress= true;
 
         }
-        this.props.setProgress(newInProgress)
+        this.props.setProgress(newin_progress)
 
-        data.append('post_event[in_progress]', newInProgress)
+        data.append('post_event[in_progress]', newin_progress)
         axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
             {headers: {
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
@@ -178,10 +178,10 @@ export default class Notification extends React.Component {
         if(this.props.importance == 'important'){ impText = "Pilne"; }
             else{ impText = "Niepilne"; }
 
-        if(this.props.inProgress == true)
+        if(this.props.in_progress == true)
         {
             procText = 'success';
-            active = 'solid 2px #00DB1D';
+            active = 'solid 5px #00DB1D';
         }
         else
         {
@@ -221,7 +221,7 @@ export default class Notification extends React.Component {
                   style={{ background: '#46473A',
                            color: '#fff',
                            borderRadius: '5px',
-                           border: {active}}}
+                           border: active}}
                   onClick={this.handleShow}
                   variant={this.props.isConfirmed ? 'success' : '' }
                   >
