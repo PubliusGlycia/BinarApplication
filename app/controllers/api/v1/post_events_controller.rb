@@ -12,7 +12,6 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
     # rubocop:enable Rails/DynamicFindBy
     @post_events = @post_events.order(:importance, :created_at)
-
   end
 
   def show
@@ -39,7 +38,8 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   end
 
   def generate_pdf
-    @post_event = PostEvent.where(id: params[:post_event_ids], category: 'supply')
+    @post_events = PostEvent.where(id: params[:post_event_ids], category: 'supply')
+    send_data(::GeneratePdf.new(@post_events).render, filename: 'test', type: 'application/pdf', disposition: 'inline')
   end
 
   def destroy

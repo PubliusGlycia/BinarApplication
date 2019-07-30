@@ -4,27 +4,24 @@ import { Button } from 'react-bootstrap';
 
 export default class ShoppingListButton extends React.Component {
     state = {
-        notificationsToShopping: []
+        url: 'api/v1/shopping_list.pdf'
     };
 
     generatePDF = () => {
-        axios.post("api/v1/shopping_list", {
-            post_event_ids: this.props.notificationsToShopping
-        },
-            {
-                headers: {
-                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-                }
+        let url = 'api/v1/shopping_list.pdf?';
+        if (this.props.post_event_ids) {
+            this.props.post_event_ids.foreach(post_event_id => {
+                url = url + `post_event_ids[]=${post_event_id}&`
             })
-            .then(() => {
-                this.setState({ notificationsToShopping: '' });
-                this.props.fetchPostEvents()
-            })
-    };
+        }
+        this.setState({url: url})
+    }
 
     render() {
+
         return (
-            <Button variant="warning" onClick={this.generatePDF}>Generuj PDF</Button>
+            <a className='btn btn-warning' target='_blank' href={this.state.url}>Generuj</a>
+            // <Button variant="warning" onClick={this.generatePDF}>Generuj PDF</Button>
         )
     }
 }
