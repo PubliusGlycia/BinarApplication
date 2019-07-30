@@ -3,7 +3,7 @@ class Api::V1::NotificationsController < Api::V1::ApplicationController
 
   def index_per_user
     @notifications_per_user = Notification.where(user_id: params[:user_id])
-    Notification.select('max(id) as id, notification_type, post_event_id, user_id, count(*)').group(:notification_type, :post_event_id, :user_id)
+    @count = Notification.select('max(id) as id, notification_type, post_event_id, user_id, count(*)').group(:notification_type, :post_event_id, :user_id)
   end
 
   def create

@@ -1,18 +1,24 @@
 import React from 'react';
 import {Button, ListGroup, OverlayTrigger, Popover} from 'react-bootstrap';
 import Notification from "./notification";
+import axios from 'axios';
 
 export default class NotificationButton extends React.Component {
 
     state = {
-        notificationList:['content','content2','content3',
-                          'content4','content5','content6',
-                          'content7','content8','content9','content10'],
+        notificationList:[],
         showPopover:false
     };
 
+    componentDidMount(){
+        this.showNotificationList()
+    }
+
     showNotificationList = () => {
-        //AXIOS GET NOTIFICATIONS
+        axios.get('api/v1/notifications_per_user/4.json')
+            .then(notifications => {
+                this.setState({ notificationList: notifications.data.notifications })
+            });
     };
 
     alertClicked = () => {
@@ -22,7 +28,7 @@ export default class NotificationButton extends React.Component {
     render(){
         const notificationList = this.state.notificationList.map(notification =>
             <ListGroup.Item action onClick={this.alertClicked} style={{ background: '#AC9DC9' }}>
-                <Notification content={notification} />
+                <Notification content={notification.notification_type} />
             </ListGroup.Item>
         );
 
