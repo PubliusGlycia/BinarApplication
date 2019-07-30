@@ -9,9 +9,16 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
   def create
     @message = current_user.messages.build(message_params)
 
-    # admin_id = User.where(admin: true).first.id
-    # byebug
-    # notification = Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: admin_id)
+    admin_id = User.where(admin: true).first.id
+
+    if (admin_id != @message.user_id)
+      notification = Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: admin_id)
+    end
+
+    if (@message.post_event.user_id != @message.user_id)
+      notification = Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: @message.post_event.user_id)
+      byebug
+    end
 
     format.json { render json: @message.errors, status: :unprocessable_entity } unless @message.save
   end
