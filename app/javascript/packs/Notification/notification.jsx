@@ -181,7 +181,7 @@ export default class Notification extends React.Component {
         if(this.props.in_progress == true)
         {
             procText = 'success';
-            active = 'solid 5px #00DB1D';
+            active = 'solid 2px #00DB1D';
         }
         else
         {
@@ -198,7 +198,7 @@ export default class Notification extends React.Component {
             if(edit){ button = <Button variant="success" onClick={this.handleSubmit}>Zapisz</Button> }
             else{ button = <Button variant="success" onClick={this.handleEdit}>Edytuj</Button> }
 
-            if(this.props.currentUserId == this.props.user_id)
+            if(this.props.currentUserId == this.props.admin)
             {
                 ProcessButton =  <Button variant={procText} onClick={this.handleProcess} > ✅ </Button>
             }
