@@ -60,6 +60,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_event.images.attach(params[:image]) if params[:image]
 
     @post_event.save
+    SlackNotifier::CLIENT.ping "💸 Boom! New POST from #{current_user.email}! 💸"
   end
 
   def archive_list
