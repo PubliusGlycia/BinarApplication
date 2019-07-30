@@ -237,11 +237,7 @@ export default class AdminView extends React.Component {
                         </Col>
 
                         <Col sm={1}>
-                            <ShoppingListButton
-                                notificationsToShopping={this.state.notificationsToArchive}
-                                fetchPostEvents={this.fetchPostEvents}
-                            />
-
+                            <ShoppingListButton notificationsToShopping={this.state.notificationsToArchive}/>
                         </Col>
 
                         <Col sm={1}>

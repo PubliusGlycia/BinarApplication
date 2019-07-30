@@ -37,11 +37,6 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     head :ok
   end
 
-  def generate_pdf
-    @post_events = PostEvent.where(id: params[:post_event_ids], category: 'supply')
-    send_data(::GeneratePdf.new(@post_events).render, filename: 'test', type: 'application/pdf', disposition: 'inline')
-  end
-
   def destroy
     return head 404 unless @post_event.user_id == current_user.id || current_user.admin == true
 
