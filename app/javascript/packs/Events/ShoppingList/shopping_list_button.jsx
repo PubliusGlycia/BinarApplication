@@ -2,7 +2,8 @@ import React from 'react';
 
 export default class ShoppingListButton extends React.Component {
     getParams = () => {
-        return this.props.notificationsToShopping.map(id => `post_event_ids[]=${id}`).join('&')
+        if(this.props.notificationsToShopping)
+            return this.props.notificationsToShopping.map(id => `post_event_ids[]=${id}`).join('&')
     }
 
     render() {

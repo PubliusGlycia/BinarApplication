@@ -187,7 +187,7 @@ export default class NotificationList extends React.Component {
                         </Col>
 
                     </Row>
-                </Container>  
+                </Container>
             </div>
         )
     }
