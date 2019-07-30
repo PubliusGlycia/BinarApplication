@@ -68,9 +68,28 @@ export default class Event extends React.Component {
     });
   };
 
-  handleProcess = () => {
-    this.setState({ process: !this.state.process })
-  };
+  handleProcess = (e) => {
+    e.stopPropagation()
+    const data = new FormData();
+    console.log(this.props.in_progress)
+    let newin_progress;
+
+    if(this.props.in_progress == true){
+        newin_progress= false;
+    }else{
+        newin_progress= true;
+
+    }
+    this.props.setProgress(newin_progress)
+
+    data.append('post_event[in_progress]', newin_progress)
+    axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
+        {headers: {
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        }}).then(()=>{
+            this.handleClose()
+        })
+  }
 
   handleEdit = () => {
     this.setState({ edit: true });
@@ -151,10 +170,22 @@ export default class Event extends React.Component {
     let button;
     let impText;
     let DeleteButton;
-    let procText;
+    let ProcessButton;
+    let procText, active;
 
     if (this.props.importance == 'important') { impText = "Pilne"; }
     else { impText = "Niepilne"; }
+
+    if(this.props.in_progress == true)
+    {
+      procText = 'success'
+      active = 'solid 2px #00DB1D';
+    }
+    else
+    {
+      procText = 'outline-success';
+      active = '';
+    }
 
     if (this.props.currentUserId === this.props.user_id || this.props.admin) {
       DeleteButton = <DeleteAcceptancePopover
@@ -164,14 +195,12 @@ export default class Event extends React.Component {
       if (edit) { button = <Button className="w-100" variant="secondary" onClick={this.handleSubmit}>Zapisz</Button> }
       else { button = <Button className="button-edit w-100" variant="secondary" onClick={this.handleEdit}>Edytuj</Button> }
 
+      if(this.props.currentUserId == this.props.user_id)
+      {
+        ProcessButton =  <Button variant={procText} onClick={this.handleProcess} > ✅ </Button>
+      }
     }
     else DeleteButton = <></>;
-
-    if (this.props.currentUserId == this.props.admin) {
-      if (this.props.process == true) procText = "✅";
-      else procText = "Akceptuj zgłoszenie";
-    }
-
 
     let checkbox = this.props.admin
       ? <CheckBox
@@ -183,12 +212,12 @@ export default class Event extends React.Component {
 
     return (
       <>
-        <ListGroup.Item
-          action
+        <div
           style={{
             background: '#46473A',
             color: '#fff',
-            borderRadius: '5px'
+            borderRadius: '5px',
+            border: active
           }}
           onClick={this.handleShow}
           variant={this.props.isConfirmed ? 'success' : ''}
@@ -204,7 +233,13 @@ export default class Event extends React.Component {
             >
               {this.props.title}
             </Col>
-            <Col md={2}>
+            <Col
+              md={1}
+              as='h3'
+            >
+              {ProcessButton}
+            </Col>
+            <Col md={1}>
               <Like notificationID={this.props.notificationID} />
             </Col>
           </Row>
@@ -222,7 +257,7 @@ export default class Event extends React.Component {
               {this.importanceCheck()}
             </Col>
           </Row>
-        </ListGroup.Item>
+        </div>
 
         <Modal
           size="lg"
@@ -253,12 +288,7 @@ export default class Event extends React.Component {
                 </Col>
 
                 <Col xs={1}>
-                  <Button className="w-100 h-100"
-                    variant="success"
-                    onClick={this.handleProcess}
-                  >
-                    {procText}
-                  </Button>
+                  {ProcessButton}
                 </Col>
                 <Col>
                   <Row>
