@@ -11,6 +11,6 @@ jobs:
     - bundle exec rspec spec
     - bundle exec bundle-audit check --update --ignore CVE-2015-9284
     - bundle exec brakeman --quiet
-    - bundle exec rubocop
+    - bundle exec rubocop -c rubocop.yml
 stages:
   - build
