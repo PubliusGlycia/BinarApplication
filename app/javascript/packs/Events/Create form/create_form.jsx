@@ -133,17 +133,17 @@ export default class CreateForm extends React.Component {
                 <div className="form-check form-check-inline">
                   <input className="form-check-input"
                   type="radio" name="inlineRadioOptions2"
-                  id="inlineRadio1" value="trivial"
+                  id="inlineRadio4" value="trivial"
                   onChange={this.handleImportanceChange}/>
-                  <label className="form-check-label" htmlFor="inlineRadio1">Niepilne</label>
+                  <label className="form-check-label" htmlFor="inlineRadio4">Niepilne</label>
                 </div>
 
                 <div className="form-check form-check-inline">
                   <input className="form-check-input"
                   type="radio" name="inlineRadioOptions2"
-                  id="inlineRadio3" value="important"
+                  id="inlineRadio5" value="important"
                   onChange={this.handleImportanceChange}/>
-                  <label className="form-check-label" htmlFor="inlineRadio3">Pilne</label>
+                  <label className="form-check-label" htmlFor="inlineRadio5">Pilne</label>
                 </div>
               </WarrningDiv>
               <h1/>
