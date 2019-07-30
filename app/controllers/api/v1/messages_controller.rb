@@ -12,11 +12,11 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
     admin_id = User.where(admin: true).first.id
 
     if (admin_id != @message.user_id)
-      notification = Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: admin_id)
+      Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: admin_id)
     end
 
     if (@message.post_event.user_id != @message.user_id)
-      notification = Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: @message.post_event.user_id)
+      Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: @message.post_event.user_id)
     end
 
     format.json { render json: @message.errors, status: :unprocessable_entity } unless @message.save
