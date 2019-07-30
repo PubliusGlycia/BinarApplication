@@ -164,6 +164,8 @@ export default class AdminView extends React.Component {
                     user_email={defect.user_email}
                     fetchPostEvents={this.fetchPostEvents}
                     notificationsToArchive={this.updateArchiveList}
+                    in_progress= {defect.in_progress}
+                    setProgress={in_progress => {this.updateDefectElement(defect, 'in_progress', in_progress)}}
                 />
             </ListGroup.Item>
         );
@@ -191,6 +193,8 @@ export default class AdminView extends React.Component {
                     user_email={supply.user_email}
                     fetchPostEvents={this.fetchPostEvents}
                     notificationsToArchive={this.updateArchiveList}
+                    in_progress= {supply.in_progress}
+                    setProgress={in_progress => {this.updateDefectElement(supply, 'in_progress', in_progress)}}
                 />
             </ListGroup.Item>);
 

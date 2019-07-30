@@ -187,6 +187,11 @@ export default class Event extends React.Component {
       active = '';
     }
 
+    if(this.props.admin)
+      {
+        ProcessButton =  <Button variant={procText} onClick={this.handleProcess} > ✅ </Button>
+      }
+
     if (this.props.currentUserId === this.props.user_id || this.props.admin) {
       DeleteButton = <DeleteAcceptancePopover
         notificationID={this.props.notificationID}
@@ -195,10 +200,6 @@ export default class Event extends React.Component {
       if (edit) { button = <Button className="w-100" variant="secondary" onClick={this.handleSubmit}>Zapisz</Button> }
       else { button = <Button className="button-edit w-100" variant="secondary" onClick={this.handleEdit}>Edytuj</Button> }
 
-      if(this.props.currentUserId == this.props.user_id)
-      {
-        ProcessButton =  <Button variant={procText} onClick={this.handleProcess} > ✅ </Button>
-      }
     }
     else DeleteButton = <></>;
 
