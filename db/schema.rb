@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_24_073531) do
+ActiveRecord::Schema.define(version: 2019_07_29_123423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,18 @@ ActiveRecord::Schema.define(version: 2019_07_24_073531) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "notification_type"
+    t.datetime "seen"
+    t.datetime "read"
+    t.integer "post_event_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_event_id"], name: "index_notifications_on_post_event_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "post_events", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -103,7 +115,7 @@ ActiveRecord::Schema.define(version: 2019_07_24_073531) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.boolean "admin"
+    t.boolean "admin", default: false
     t.string "provider"
     t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
