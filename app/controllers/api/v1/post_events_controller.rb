@@ -67,9 +67,11 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
 
     @post_event.save
 
-    admin_id = User.where(admin: true).first.id
-    notification = Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin_id)
-    notification.save
+    if (current_user.admin != true)
+      admin_id = User.where(admin: true).first.id
+      notification = Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin_id)
+      notification.save
+    end
   end
 
   def archive_list
