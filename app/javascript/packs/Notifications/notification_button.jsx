@@ -15,9 +15,13 @@ export default class NotificationButton extends React.Component {
         //AXIOS GET NOTIFICATIONS
     };
 
+    alertClicked = () => {
+        alert('You clicked item on notfification list');
+    };
+
     render(){
         const notificationList = this.state.notificationList.map(notification =>
-            <ListGroup.Item style={{ background: '#AC9DC9' }}>
+            <ListGroup.Item action onClick={this.alertClicked} style={{ background: '#AC9DC9' }}>
                 <Notification content={notification} />
             </ListGroup.Item>
         );
