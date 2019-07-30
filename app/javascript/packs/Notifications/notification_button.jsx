@@ -8,7 +8,7 @@ export default class NotificationButton extends React.Component {
         notificationList:['content','content2','content3',
                           'content4','content5','content6',
                           'content7','content8','content9','content10'],
-        showPopover: false
+        showPopover:false
     };
 
     showNotificationList = () => {
@@ -34,12 +34,12 @@ export default class NotificationButton extends React.Component {
             </Popover>
         );
 
-        const Notifications = () => (
-            <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+        const NotificationPopout = () => (
+            <OverlayTrigger trigger="click" placement="bottom" overlay={popover} rootClose={true}>
                 <Button className="button-notification">🔔</Button>
             </OverlayTrigger>
         );
 
-        return (<Notifications />)
+        return <NotificationPopout />
     }
 }
