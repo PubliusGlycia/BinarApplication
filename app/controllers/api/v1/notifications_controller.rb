@@ -1,4 +1,4 @@
-class Api::V1::PostEventsController < Api::V1::ApplicationController
+class Api::V1::NotificationsController < Api::V1::ApplicationController
   before_action :authenticate_user!
 
   def index
@@ -10,7 +10,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   end
 
   def create
-    @notification = notifications.build(notification_params)
+    @notification = Notification.create(notification_params)
 
     format.json { render json: @notification.errors, status: :unprocessable_entity } unless @notification.save
   end
@@ -18,6 +18,6 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   private
 
   def notification_params
-    params.require(:notification).permit(:type, :post_event_id, :user_id)
+    params.require(:notification).permit(:notification_type, :post_event_id, :user_id)
   end
 end
