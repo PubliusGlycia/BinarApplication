@@ -11,6 +11,8 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     # rubocop:disable Rails/DynamicFindBy
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
     # rubocop:enable Rails/DynamicFindBy
+    @post_events = @post_events.order(:importance, :created_at)
+
   end
 
   def show
@@ -36,6 +38,10 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     head :ok
   end
 
+  def generate_pdf
+    @post_event = PostEvent.where(id: params[:post_event_ids])
+  end
+
   def destroy
     return head 404 unless @post_event.user_id == current_user.id || current_user.admin == true
 
@@ -54,6 +60,10 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_event.images.attach(params[:image]) if params[:image]
 
     @post_event.save
+  end
+
+  def archive_list
+    @post_events = PostEvent.where(archive: true).order(created_at: :desc) if current_user.admin
   end
 
   private

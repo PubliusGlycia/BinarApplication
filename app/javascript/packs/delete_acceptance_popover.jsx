@@ -24,7 +24,7 @@ export default class DeleteAcceptancePopover extends React.Component {
 
 
         return (<>
-            <Button variant="danger"
+            <Button variant="secondary" className="button-delete w-100"
                        onClick={()=> this.setState({showPopover: true})}
                        ref={(button) => { this.target = button; }}>Usuń</Button>
             <Overlay

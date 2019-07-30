@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
   root 'post_events#index'
 
-
-  devise_for :users
+  resources :mainpages
+  devise_for :users, :controllers => {
+      omniauth_callbacks: 'users/omniauth_callbacks'
+  }
 
   namespace 'api' do
     namespace 'v1' do
       get 'post_events/event' => 'post_events#search_filter'
+      get 'post_events/archive' => 'post_events#archive_list'
       get 'post_events/download/:id/:image_position' => 'post_events#download'
       post 'archive' => 'post_events#archive_events'
+      post 'shopping_list' => 'post_events#genetate_pdf'
       get 'admin/check' => 'post_events#check_admin'
       resources :post_events do
         resources :likes, :only => [:create, :destroy, :index]
