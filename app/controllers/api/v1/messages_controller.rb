@@ -13,6 +13,7 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
 
     if (admin_id != @message.user_id)
       Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: admin_id)
+      SlackNotifier::CLIENT.ping "💸 Hey! New comment from #{current_user.email}! 💸"
     end
 
     if (@message.post_event.user_id != @message.user_id)

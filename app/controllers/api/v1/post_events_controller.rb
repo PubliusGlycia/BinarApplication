@@ -30,6 +30,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
       byebug
       admin_id = User.where(admin: true).first.id
       Notification.create(notification_type: 2, post_event_id: @post_event.id, user_id: admin_id)
+      SlackNotifier::CLIENT.ping "💸 Check! #{current_user.email} updated his post! 💸"
     end
 
     post_event = PostEvent.find(params[:id])
@@ -54,6 +55,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     if (current_user.admin != true)
       admin_id = User.where(admin: true).first.id
       Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin_id)
+      SlackNotifier::CLIENT.ping "💸 Ups! #{current_user.email} deleted his post! 💸"
     end
 
     @post_event.destroy
@@ -74,11 +76,11 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_event.images.attach(params[:image]) if params[:image]
 
     @post_event.save
-    SlackNotifier::CLIENT.ping "💸 Boom! New POST from #{current_user.email}! 💸"
 
     if (current_user.admin != true)
       admin_id = User.where(admin: true).first.id
       Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin_id)
+      SlackNotifier::CLIENT.ping "💸 Boom! New POST from #{current_user.email}! 💸"
     end
   end
 
