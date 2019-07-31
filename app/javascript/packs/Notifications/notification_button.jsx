@@ -22,7 +22,16 @@ export default class NotificationButton extends React.Component {
         alert('You clicked item on notfification list');
     };
 
+    componentDidMount(){
+        if (this.props.currentUserId) {
+            this.showNotificationList();
+        }
+    }
     componentDidUpdate(prevProps) {
+        console.log("CHYBA TY: " + prevProps.currentUserId)
+
+        console.log("KURWA:    " + this.props.currentUserId)
+        
         if (this.props.currentUserId !== prevProps.currentUserId) {
             this.showNotificationList();
         }
@@ -42,7 +51,7 @@ export default class NotificationButton extends React.Component {
 
         const popover = (
             <Popover id="popover-basic" style={{ background: '#AC9DC9', maxHeight: 200, overflow: 'auto'}}>
-                <ListGroup variant="flush" >
+                <ListGroup variant="flush" style={{ overflow: "hidden" }} >
                     {notificationList}
                 </ListGroup>
             </Popover>

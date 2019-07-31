@@ -51,7 +51,6 @@ class Index extends React.Component {
 
         let eventList, archiveList, settings, record, index;
         let userNavigationBar, adminNavigationBar;
-        console.log(this.state);
         this.state.admin ? eventList = <AdminView
             admin={this.state.admin}
             currentUserId={this.state.currentUserId}

@@ -66,7 +66,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
       @current_admin = true
       @current_user_id = current_user.id
     end
-    @current_admin = false
+    
     @current_user_id = current_user.id
     @current_user_email = current_user.email
   end
