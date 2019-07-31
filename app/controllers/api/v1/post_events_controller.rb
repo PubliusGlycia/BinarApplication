@@ -12,7 +12,6 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
     # rubocop:enable Rails/DynamicFindBy
     @post_events = @post_events.order(:importance, :created_at)
-
   end
 
   def show
@@ -43,10 +42,6 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_events.update_all(archive: true)
     # rubocop:enable Rails/SkipsModelValidations
     head :ok
-  end
-
-  def generate_pdf
-    @post_event = PostEvent.where(id: params[:post_event_ids])
   end
 
   def destroy
@@ -97,6 +92,6 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_event_params
-    params.require(:post_event).permit(:title, :description, :category, :importance, :user_id)
+    params.require(:post_event).permit(:title, :description, :category, :importance, :in_progress, :user_id)
   end
 end

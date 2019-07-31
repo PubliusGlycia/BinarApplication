@@ -68,9 +68,28 @@ export default class Event extends React.Component {
     });
   };
 
-  handleProcess = () => {
-    this.setState({ process: !this.state.process })
-  };
+  handleProcess = (e) => {
+    e.stopPropagation()
+    const data = new FormData();
+
+    let newin_progress;
+
+    if(this.props.in_progress == true){
+        newin_progress= false;
+    }else{
+        newin_progress= true;
+
+    }
+    this.props.setProgress(newin_progress)
+
+    data.append('post_event[in_progress]', newin_progress)
+    axios.patch("api/v1/post_events/"+this.props.notificationID + '.json', data,
+        {headers: {
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        }}).then(()=>{
+            this.handleClose()
+        })
+  }
 
   handleEdit = () => {
     this.setState({ edit: true });
@@ -151,10 +170,27 @@ export default class Event extends React.Component {
     let button;
     let impText;
     let DeleteButton;
-    let procText;
+    let ProcessButton;
+    let procText, active;
 
     if (this.props.importance == 'important') { impText = "Pilne"; }
     else { impText = "Niepilne"; }
+
+    if(this.props.in_progress == true)
+    {
+      procText = 'success'
+      active = 'solid 2px #00DB1D';
+    }
+    else
+    {
+      procText = 'outline-success';
+      active = '';
+    }
+
+    if(this.props.admin)
+      {
+        ProcessButton =  <Button size="sm" variant={procText} onClick={this.handleProcess} > ✅ </Button>
+      }
 
     if (this.props.currentUserId === this.props.user_id || this.props.admin) {
       DeleteButton = <DeleteAcceptancePopover
@@ -167,12 +203,6 @@ export default class Event extends React.Component {
     }
     else DeleteButton = <></>;
 
-    if (this.props.currentUserId == this.props.admin) {
-      if (this.props.process == true) procText = "✅";
-      else procText = "Akceptuj zgłoszenie";
-    }
-
-
     let checkbox = this.props.admin
       ? <CheckBox
           className='post-event-checkbox'
@@ -183,37 +213,48 @@ export default class Event extends React.Component {
 
     return (
       <>
-        <ListGroup.Item
-          action
+        <div
           style={{
             background: '#46473A',
             color: '#fff',
-            borderRadius: '5px'
+            borderRadius: '5px',
+            border: active,
           }}
           onClick={this.handleShow}
           variant={this.props.isConfirmed ? 'success' : ''}
         >
           <Row>
-            <Col md={1}>
+            <Col md={{span: 1, offset: 1}}
+              className="peCheckButton"
+              >
               {checkbox}
             </Col>
             <Col
-              md={9}
+              md={6}
               as='h5'
               style={{ overflow: "hidden" }}
+              className='titleName'
             >
               {this.props.title}
             </Col>
-            <Col md={2}>
+            <Col
+              md={2}
+              as='h3'
+              className='processButton'
+            >
+              {ProcessButton}
+            </Col>
+            <Col md={2} className='like'>
               <Like notificationID={this.props.notificationID} />
             </Col>
           </Row>
           <Row>
             <Col
-              md={{span: 9, offset: 1}}
+              md={{span: 9, offset: 0}}
               className='date'
+              style={{ overflow: "hidden" }}
             >
-              {this.props.date.substring(0, 10) + ', ' + this.props.date.substring(11, 16)} przez {this.props.user_email}
+              {'\n\n' + this.props.date.substring(0, 10) + ', ' + this.props.date.substring(11, 16)} przez {this.props.user_email}
             </Col>
             <Col
               md={2}
@@ -222,7 +263,7 @@ export default class Event extends React.Component {
               {this.importanceCheck()}
             </Col>
           </Row>
-        </ListGroup.Item>
+        </div>
 
         <Modal
           size="lg"
@@ -240,7 +281,7 @@ export default class Event extends React.Component {
                 position: 'relative',
               }}>
               <Row>
-                <Col className="title" style={{ overflow: "hidden" }}>
+                <Col className="title" style={{ textAlign: "left", overflow: "hidden" }}>
                   <WarrningDiv error={this.state.errTitle}>
                     <InputField
                       type="text"
@@ -253,12 +294,7 @@ export default class Event extends React.Component {
                 </Col>
 
                 <Col xs={1}>
-                  <Button className="w-100 h-100"
-                    variant="success"
-                    onClick={this.handleProcess}
-                  >
-                    {procText}
-                  </Button>
+                  {ProcessButton}
                 </Col>
                 <Col>
                   <Row>
@@ -313,7 +349,7 @@ export default class Event extends React.Component {
               }
             </Row>
             <Row className="mt-3">
-              <Col className='date'>
+              <Col className='indate'>
                 {"\n\n"}Dodano {this.props.date.substring(0, 10) + ', '}
                 {this.props.date.substring(11, 16)} przez {this.props.user_email}
               </Col>
