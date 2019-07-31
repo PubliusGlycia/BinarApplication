@@ -189,7 +189,7 @@ export default class Event extends React.Component {
 
     if(this.props.admin)
       {
-        ProcessButton =  <Button variant={procText} onClick={this.handleProcess} > ✅ </Button>
+        ProcessButton =  <Button size="sm" variant={procText} onClick={this.handleProcess} > ✅ </Button>
       }
 
     if (this.props.currentUserId === this.props.user_id || this.props.admin) {
@@ -219,38 +219,42 @@ export default class Event extends React.Component {
             color: '#fff',
             borderRadius: '5px',
             border: active,
-            justify: 'center'
           }}
           onClick={this.handleShow}
           variant={this.props.isConfirmed ? 'success' : ''}
         >
           <Row>
-            <Col md={1}>
+            <Col md={{span: 1, offset: 1}}
+              className="peCheckButton"
+              >
               {checkbox}
             </Col>
             <Col
-              md={7}
+              md={6}
               as='h5'
               style={{ overflow: "hidden" }}
+              className='titleName'
             >
               {this.props.title}
             </Col>
             <Col
               md={2}
               as='h3'
+              className='processButton'
             >
               {ProcessButton}
             </Col>
-            <Col md={1}>
+            <Col md={2} className='like'>
               <Like notificationID={this.props.notificationID} />
             </Col>
           </Row>
           <Row>
             <Col
-              md={{span: 9, offset: 1}}
+              md={{span: 9, offset: 0}}
               className='date'
+              style={{ overflow: "hidden" }}
             >
-              {this.props.date.substring(0, 10) + ', ' + this.props.date.substring(11, 16)} przez {this.props.user_email}
+              {'\n\n' + this.props.date.substring(0, 10) + ', ' + this.props.date.substring(11, 16)} przez {this.props.user_email}
             </Col>
             <Col
               md={2}
@@ -277,7 +281,7 @@ export default class Event extends React.Component {
                 position: 'relative',
               }}>
               <Row>
-                <Col className="title" style={{ overflow: "hidden" }}>
+                <Col className="title" style={{ textAlign: "left", overflow: "hidden" }}>
                   <WarrningDiv error={this.state.errTitle}>
                     <InputField
                       type="text"
@@ -345,7 +349,7 @@ export default class Event extends React.Component {
               }
             </Row>
             <Row className="mt-3">
-              <Col className='date'>
+              <Col className='indate'>
                 {"\n\n"}Dodano {this.props.date.substring(0, 10) + ', '}
                 {this.props.date.substring(11, 16)} przez {this.props.user_email}
               </Col>
