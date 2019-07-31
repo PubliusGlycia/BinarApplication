@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 export default class ArchiveButton extends React.Component {
@@ -22,6 +23,7 @@ export default class ArchiveButton extends React.Component {
                        marginTop: '25px'}}
                    value={this.props.idValue}
                    checked={this.state.checked}
+                   onClick={e => e.stopPropagation()}
                    onChange={this.handleCheck}/>
         )}
 }

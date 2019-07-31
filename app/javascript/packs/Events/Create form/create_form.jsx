@@ -21,7 +21,8 @@ export default class CreateForm extends React.Component {
         descriptionError: "",
         errCategory: "",
         errImportance: "",
-        errTitle: ""
+        errTitle: "",
+        in_progress: false
       };
     }
 
@@ -33,6 +34,7 @@ export default class CreateForm extends React.Component {
       data.append('post_event[description]', this.state.description);
       data.append('post_event[category]', this.state.category);
       data.append('post_event[importance]', this.state.importance);
+      data.append('post_event[in_progress]', this.state.in_progress);
 
       if (this.state.images.length == 1)
       {
@@ -53,7 +55,7 @@ export default class CreateForm extends React.Component {
           if (this.props.fetchPostEvents)
               this.props.fetchPostEvents();
       }).catch((error) =>{
-          this.setState({errTitle: error.response.data.title, errCategory: error.response.data.category, errImportance: error.response.data.importance});
+          this.setState({errTitle: error.data.title, errCategory: error.data.category, errImportance: error.data.importance});
       })
     };
 
@@ -133,17 +135,17 @@ export default class CreateForm extends React.Component {
                 <div className="form-check form-check-inline">
                   <input className="form-check-input"
                   type="radio" name="inlineRadioOptions2"
-                  id="inlineRadio1" value="trivial"
+                  id="inlineRadio4" value="trivial"
                   onChange={this.handleImportanceChange}/>
-                  <label className="form-check-label" htmlFor="inlineRadio1">Trivial</label>
+                  <label className="form-check-label" htmlFor="inlineRadio4">Niepilne</label>
                 </div>
 
                 <div className="form-check form-check-inline">
                   <input className="form-check-input"
                   type="radio" name="inlineRadioOptions2"
-                  id="inlineRadio3" value="important"
+                  id="inlineRadio5" value="important"
                   onChange={this.handleImportanceChange}/>
-                  <label className="form-check-label" htmlFor="inlineRadio3">Important</label>
+                  <label className="form-check-label" htmlFor="inlineRadio5">Pilne</label>
                 </div>
               </WarrningDiv>
               <h1/>

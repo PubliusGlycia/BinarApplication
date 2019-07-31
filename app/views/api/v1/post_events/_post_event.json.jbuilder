@@ -1,2 +1,2 @@
-json.extract! post_event, :id, :user_id, :title, :description, :category, :importance, :created_at, :updated_at
-json.likes_count post_event.likes.count
+json.extract! post_event, :id, :user_id, :title, :description, :category, :importance, :in_progress, :created_at
+json.user_email post_event.user.email

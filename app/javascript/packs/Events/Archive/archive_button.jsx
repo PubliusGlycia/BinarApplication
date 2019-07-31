@@ -24,6 +24,6 @@ export default class ArchiveButton extends React.Component {
 
     render(){
         return (
-            <Button variant="warning" onClick={this.archive}>Archive </Button>
+            <Button variant="warning" onClick={this.archive}>Archiwizuj</Button>
         )}
 }

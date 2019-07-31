@@ -39,6 +39,7 @@ gem 'jquery-rails'
 gem 'popper_js', '~> 1.9', '>= 1.9.9'
 
 gem 'devise'
+gem 'omniauth-google-oauth2'
 
 # database output
 gem 'hirb'
@@ -81,6 +82,9 @@ gem 'sassc-rails', '>= 2.1.0'
 
 gem 'capistrano-rails'
 gem 'capistrano-rvm'
+
+# Generating PDFs
+gem 'prawn-rails'
 
 group :production do
   gem 'unicorn-rails'

@@ -1,0 +1,76 @@
+// Place all the styles related to the Event controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.photoDiv{
+  position: fixed;
+  width: 80vw;
+  height: 80vh;
+  left: 10vw;
+  top: 10vh;
+}
+
+.image {
+  align-content: left;
+}
+
+.description {
+  word-break: break-word;
+  font-size: 20px;
+}
+
+.title {
+  word-break: break-word;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 28px;
+}
+
+.button-edit {
+  padding: 0;
+  margin: 0;
+  background-color: #9C82D0 !important;
+  border-color: #9C82D0 !important;
+}
+
+.button-delete {
+  padding: 0;
+  margin: 0;
+  background-color: #4919AA !important;
+  border-color: #4919AA !important;
+}
+
+.button-close {
+  background-color: #2B185C !important;
+  border-color: #2B185C !important;
+}
+
+.date {
+  display: inline-block;
+  vertical-align: bottom;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: rgb(185, 185, 185);
+  padding-top: 30px !important;
+  padding-left: 20px !important;
+}
+
+.indate{
+  display: inline-block;
+  vertical-align: bottom;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: rgb(185, 185, 185);
+  padding-left: 15px !important;
+}
+
+.p-comment-header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  text-decoration: underline
+}
+
+.form-check-input {
+  display: block !important;
+  width: 25px;
+  height: 25px;
+  margin: 25px 0 !important;
+}
