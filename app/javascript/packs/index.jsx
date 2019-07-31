@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from "react-dom";
 import axios from "axios";
-import NotificationList from "./Events/events_list";
+import EventList from "./Events/events_list";
 import ArchiveList from "./Events/Archive/archive_list";
 import AdminView from "./Events/admin_view"
 import CreateForm from "./Events/Create form/create_form";
@@ -23,8 +23,8 @@ class Index extends React.Component {
     checkUser() {
         axios.get('api/v1/admin/check.json')
             .then(response => {
-                if (response.data.user_id === true) {
-                    this.setState({ admin: true });
+                if (response.data.admin === true) {
+                    this.setState({ admin: true, currentUserId: response.data.user_id });
                 } else {
                     this.setState({ admin: false, currentUserId: response.data.user_id, currentUserEmail: response.data.user_email });
                 }
@@ -51,13 +51,13 @@ class Index extends React.Component {
 
         let eventList, archiveList, settings, record, index;
         let userNavigationBar, adminNavigationBar;
-
+        console.log(this.state);
         this.state.admin ? eventList = <AdminView
             admin={this.state.admin}
             currentUserId={this.state.currentUserId}
             currentUserEmail={this.state.currentUserEmail}
         />
-            : eventList = <NotificationList
+            : eventList = <EventList
                 admin={this.state.admin}
                 currentUserId={this.state.currentUserId}
                 currentUserEmail={this.state.currentUserEmail}

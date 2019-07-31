@@ -7,17 +7,14 @@ export default class NotificationButton extends React.Component {
 
     state = {
         notificationList:[],
-        showPopover:false
+        showPopover:false,
+        userMail:''
     };
 
-    componentDidMount(){
-        this.showNotificationList()
-    }
-
     showNotificationList = () => {
-        axios.get('api/v1/notifications_per_user/4.json')
+        axios.get('api/v1/notifications_per_user/'+this.props.currentUserId+'.json')
             .then(notifications => {
-                this.setState({ notificationList: notifications.data.notifications })
+                this.setState({ notificationList: notifications.data.notifications, userMail: notifications.data.email })
             });
     };
 
@@ -25,15 +22,26 @@ export default class NotificationButton extends React.Component {
         alert('You clicked item on notfification list');
     };
 
+    componentDidUpdate(prevProps) {
+        if (this.props.currentUserId !== prevProps.currentUserId) {
+            this.showNotificationList();
+        }
+    }
+
     render(){
+
         const notificationList = this.state.notificationList.map(notification =>
-            <ListGroup.Item action onClick={this.alertClicked} style={{ background: '#AC9DC9' }}>
-                <Notification content={notification.notification_type} />
+            <ListGroup.Item action onClick={this.alertClicked} key={notification.id} style={{ background: '#AC9DC9' }}>
+                <Notification
+                    notification_count={notification.count}
+                    notification_type={notification.notification_type}
+                    user_email={this.state.userMail}
+                    post_event_id={notification.post_event_id}/>
             </ListGroup.Item>
         );
 
         const popover = (
-            <Popover id="popover-basic" style={{ background: '#AC9DC9', maxHeight: 150, overflow: 'auto'}}>
+            <Popover id="popover-basic" style={{ background: '#AC9DC9', maxHeight: 200, overflow: 'auto'}}>
                 <ListGroup variant="flush" >
                     {notificationList}
                 </ListGroup>

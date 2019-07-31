@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_123423) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.boolean "admin", default: false
+    t.boolean "admin"
     t.string "provider"
     t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true

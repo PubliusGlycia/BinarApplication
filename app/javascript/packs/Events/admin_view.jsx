@@ -245,7 +245,7 @@ export default class AdminView extends React.Component {
                         </Col>
 
                         <Col sm={1}>
-                            <NotificationButton />
+                            <NotificationButton currentUserId={this.props.currentUserId} />
                         </Col>
                     </Row>
 

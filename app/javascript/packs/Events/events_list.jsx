@@ -107,6 +107,7 @@ export default class NotificationList extends React.Component {
     };
 
     render() {
+
         const defects = this.state.defects.map(defect =>
             <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
                 <Event
@@ -170,7 +171,7 @@ export default class NotificationList extends React.Component {
                         </Col>
 
                         <Col sm={1}>
-                            <NotificationButton />
+                            <NotificationButton currentUserId={this.props.currentUserId} />
                         </Col>
                     </Row>
 

@@ -26,13 +26,14 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
 
   # UPDATE
   def update
-    post_event = PostEvent.find(params[:id])
-    post_event.update(post_event_params)
-
     if (current_user.admin != true)
+      byebug
       admin_id = User.where(admin: true).first.id
       Notification.create(notification_type: 2, post_event_id: @post_event.id, user_id: admin_id)
     end
+
+    post_event = PostEvent.find(params[:id])
+    post_event.update(post_event_params)
   end
 
   def archive_events
@@ -59,8 +60,11 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   end
 
   def check_admin
-    return @current_user_id = true if current_user.admin
-
+    if current_user.admin
+      @current_admin = true
+      @current_user_id = current_user.id
+    end
+    @current_admin = false
     @current_user_id = current_user.id
     @current_user_email = current_user.email
   end
