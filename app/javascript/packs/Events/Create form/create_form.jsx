@@ -21,7 +21,8 @@ export default class CreateForm extends React.Component {
         descriptionError: "",
         errCategory: "",
         errImportance: "",
-        errTitle: ""
+        errTitle: "",
+        in_progress: false
       };
     }
 
@@ -33,6 +34,7 @@ export default class CreateForm extends React.Component {
       data.append('post_event[description]', this.state.description);
       data.append('post_event[category]', this.state.category);
       data.append('post_event[importance]', this.state.importance);
+      data.append('post_event[in_progress]', this.state.in_progress);
 
       if (this.state.images.length == 1)
       {
@@ -53,7 +55,7 @@ export default class CreateForm extends React.Component {
           if (this.props.fetchPostEvents)
               this.props.fetchPostEvents();
       }).catch((error) =>{
-          this.setState({errTitle: error.response.data.title, errCategory: error.response.data.category, errImportance: error.response.data.importance});
+          this.setState({errTitle: error.data.title, errCategory: error.data.category, errImportance: error.data.importance});
       })
     };
 
