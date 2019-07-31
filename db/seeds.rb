@@ -10,21 +10,45 @@
 admin = User.create(email: 'admin@binar.app', password: '123456', admin: true)
 10.times do
   name = Faker::JapaneseMedia::SwordArtOnline.real_name
-  User.create(email: Faker::Internet.email(name: name), password: '123456')
+  User.create(email: Faker::Internet.email(name: name), password: '123456', admin: false)
 end
 
 users = User.where(admin: false)
 
 categories = ['defect', 'supply', 'others']
-importances = ['trival', 'important']
+importances = ['trivial', 'important']
 
-users.each do
-  category = categories.sample
-  if category == 'supply'
-    title = Faker::JapaneseMedia::SwordArtOnline.item
-  elsif category == 'defect'
-    title = Faker::Games::Fallout.quote
-  else
-    title = Faker::Lorem.paragraph_by_chars(number: 25, supplemental: false)
+users.each do |user|
+  5.times do
+    category = categories.sample
+
+    if category == 'supply'
+      title = Faker::JapaneseMedia::SwordArtOnline.item
+    elsif category == 'defect'
+      title = Faker::Book.title
+    else
+      title = Faker::Coffee.blend_name
+    end
+
+    importance = importances.sample
+
+    description = Faker::Lorem.paragraph
+
+    PostEvent.create(title: title, description: description, category: category, importance: importance, user: user)
+  end
+end
+
+post_events = PostEvent.all
+
+users.each do |user|
+  15.times do
+    Like.create(post_event: post_events.sample, user: user)
+  end
+end
+
+post_events.each do |post_event|
+  rand(3..7).times do
+    content = Faker::Hacker.say_something_smart
+    Message.create(content: content, post_event: post_event, user: users.sample)
   end
 end
