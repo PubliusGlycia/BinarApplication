@@ -8,12 +8,11 @@ class PostEventsController < ApplicationController
   def generate_pdf
     if current_user.admin
       @post_events = PostEvent.where(id: params[:post_event_ids], category: 'supply')
-      filename = "Shopping_list_" + Date.current.to_s
+      name = 'Shopping_list_' + Date.current.to_s
 
-      send_data(GeneratePdf.new(@post_events).render, filename: filename, type: 'application/pdf', disposition: 'inline')
+      send_data(GeneratePdf.new(@post_events).render, filename: name, type: 'application/pdf', disposition: 'inline')
     else
       head 404
     end
   end
-
 end
