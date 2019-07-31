@@ -74,6 +74,18 @@ ActiveRecord::Schema.define(version: 2019_07_30_095656) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "notification_type"
+    t.datetime "seen"
+    t.datetime "read"
+    t.integer "post_event_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_event_id"], name: "index_notifications_on_post_event_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "post_events", force: :cascade do |t|
     t.string "title"
     t.string "description"
