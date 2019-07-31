@@ -1,6 +1,7 @@
 import React from 'react';
 import Event from './event';
 import SearchBar from './search_bar';
+import LogoutButton from '../logout_button';
 import axios from 'axios'
 
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
@@ -170,6 +171,9 @@ export default class NotificationList extends React.Component {
                     <Row>
                         <Col sm={9}>
                             <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch} />
+                        </Col>
+                        <Col sm={3}>
+                            <LogoutButton />
                         </Col>
                     </Row>
 
