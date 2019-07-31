@@ -6,6 +6,7 @@ import ArchiveButton from "./Archive/archive_button"
 import ShoppingListButton from './ShoppingList/shopping_list_button'
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 import NotificationButton from '../notification_button';
+import LogoutButton from '../logout_button';
 
 
 export default class AdminView extends React.Component {
@@ -248,6 +249,9 @@ export default class AdminView extends React.Component {
 
                         <Col sm={1}>
                             <NotificationButton />
+                        </Col>
+                        <Col sm={1}>
+                            <LogoutButton />
                         </Col>
                     </Row>
 
