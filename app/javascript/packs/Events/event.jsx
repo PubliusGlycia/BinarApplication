@@ -71,7 +71,7 @@ export default class Event extends React.Component {
   handleProcess = (e) => {
     e.stopPropagation()
     const data = new FormData();
-    console.log(this.props.in_progress)
+
     let newin_progress;
 
     if(this.props.in_progress == true){
