@@ -29,7 +29,7 @@ export default class CreateForm extends React.Component {
     handleSubmit = (e) => {
       e.preventDefault();
       const data = new FormData();
-      console.log(this.state.in_progress)
+
       data.append('post_event[title]', this.state.title);
       data.append('post_event[description]', this.state.description);
       data.append('post_event[category]', this.state.category);
