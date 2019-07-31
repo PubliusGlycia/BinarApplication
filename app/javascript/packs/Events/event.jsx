@@ -218,7 +218,8 @@ export default class Event extends React.Component {
             background: '#46473A',
             color: '#fff',
             borderRadius: '5px',
-            border: active
+            border: active,
+            justify: 'center'
           }}
           onClick={this.handleShow}
           variant={this.props.isConfirmed ? 'success' : ''}
@@ -228,14 +229,14 @@ export default class Event extends React.Component {
               {checkbox}
             </Col>
             <Col
-              md={9}
+              md={7}
               as='h5'
               style={{ overflow: "hidden" }}
             >
               {this.props.title}
             </Col>
             <Col
-              md={1}
+              md={2}
               as='h3'
             >
               {ProcessButton}
