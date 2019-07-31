@@ -27,11 +27,8 @@ export default class NotificationButton extends React.Component {
             this.showNotificationList();
         }
     }
-    componentDidUpdate(prevProps) {
-        console.log("CHYBA TY: " + prevProps.currentUserId)
 
-        console.log("KURWA:    " + this.props.currentUserId)
-        
+    componentDidUpdate(prevProps) {
         if (this.props.currentUserId !== prevProps.currentUserId) {
             this.showNotificationList();
         }
