@@ -8,9 +8,6 @@ class Api::V1::NotificationsController < Api::V1::ApplicationController
 
   def create
     @notification = Notification.create(notification_params)
-
-    NotificationMailer.post_create_mail('adamjedrzejec@gmail.com').deliver
-
     format.json { render json: @notification.errors, status: :unprocessable_entity }
   end
 

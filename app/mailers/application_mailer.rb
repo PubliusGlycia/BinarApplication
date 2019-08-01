@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'binarofficemailer@gmail.com'
+  default from: 'BinarOffice <binaroffice@gmail.com>'
   layout 'mailer'
 end

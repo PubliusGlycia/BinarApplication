@@ -1,23 +1,27 @@
 class NotificationMailer < ApplicationMailer
-  default from: 'binarofficemailer@gmail.com'
  
   def post_create_email(email)
-    mail to: email, subject: '[BO] New post has been created!'
+    @email = email
+    mail to: @email, subject: '[BO] New post has been created!'
   end
 
-  def post_edit_email
-    mail(to: params[:user_email], subject: '[BO] Post has been edited!')
+  def post_edit_email(email)
+    @email = email
+    mail to: @email, subject: '[BO] Post has been edited!'
   end
 
-  def post_delete_email
-    mail(to: params[:user_email], subject: '[BO] Post has been deleted!')
+  def post_delete_email(email)
+    @email = email
+    mail to: @email, subject: '[BO] Post has been deleted!'
   end
 
-  def post_approve_email
-    mail(to: params[:user_email], subject: '[BO] Your post has been approved!')
+  def post_approve_email(email)
+    @email = email
+    mail to: @email, subject: '[BO] Your post has been approved!'
   end
 
-  def comment_new_email
-    mail(to: params[:user_email], subject: '[BO] You have some new comments under your post!')
+  def comment_new_email(email)
+    @email = email
+    mail to: @email, subject: '[BO] You have some new comments under your post!'
   end
 end

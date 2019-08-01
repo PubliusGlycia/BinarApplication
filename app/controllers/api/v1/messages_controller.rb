@@ -9,17 +9,22 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
   def create
     @message = current_user.messages.build(message_params)
 
-    admin_id = User.where(admin: true).first.id
+    admin = User.where(admin: true).first
 
-    if (admin_id != @message.user_id)
-      Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: admin_id)
+    format.json { render json: @message.errors, status: :unprocessable_entity } unless @message.save
+
+    if (admin.id != @message.user_id)
+      Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: admin.id)
+      NotificationMailer.comment_new_email('adamjedrzejec@gmail.com').deliver # email_fix # 'adamjedrzejec@gmail.com' -> admin.email
     end
 
     if (@message.post_event.user_id != @message.user_id)
       Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: @message.post_event.user_id)
-    end
 
-    format.json { render json: @message.errors, status: :unprocessable_entity } unless @message.save
+      post_author = User.where(id: @message.post_event.user_id).first
+
+      NotificationMailer.comment_new_email('adamjedrzejec@gmail.com').deliver # email_fix # 'adamjedrzejec@gmail.com' -> post_author.email
+    end
   end
 
   def update_content

@@ -75,6 +75,9 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
       admin_id = User.where(admin: true).first.id
       Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin_id)
     end
+    admin = User.where(admin: true).first
+    NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver # email_fix # 'adamjedrzejec@gmail.com' -> admin.email
+
   end
 
   def archive_list
