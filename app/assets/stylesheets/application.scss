@@ -33,13 +33,13 @@ body{
   100% {background-color: #36372D;}
 }
 
-p:target {
+.targetDiv:target {
   animation-name: notification_light;
   animation-duration: 750ms;
   background: #36372D !important;
 }
 
-p:target::before {
+.targetDiv:target::before {
   background: #36372D !important;
 }
 

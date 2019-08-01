@@ -41,7 +41,7 @@ export default class AdminView extends React.Component {
 
     render() {
         const defects = this.props.defects.map(defect =>
-            <p id={defect.id} >
+            <div className="targetDiv" id={defect.id} >
                 <ListGroup.Item key={defect.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={defect.id}
@@ -62,17 +62,17 @@ export default class AdminView extends React.Component {
                         setImages={images => { this.updateDefectElement(defect, 'images', images) }}
                         user_id={defect.user_id}
                         user_email={defect.user_email}
-                        fetchPostEvents={this.fetchPostEvents}
+                        fetchPostEvents={this.props.fetchPostEvents}
                         notificationsToArchive={this.updateArchiveList}
                         in_progress= {defect.in_progress}
                         setProgress={in_progress => {this.updateDefectElement(defect, 'in_progress', in_progress)}}
                     />
                 </ListGroup.Item>
-            </p>
+            </div>
         );
 
         const supplies = this.props.supplies.map(supply =>
-            <p id={supply.id} >
+            <div className="targetDiv" id={supply.id} >
                 <ListGroup.Item key={supply.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={supply.id}
@@ -93,16 +93,16 @@ export default class AdminView extends React.Component {
                         setImages={images => { this.updateSupplyElement(supply, 'images', images) }}
                         user_id={supply.user_id}
                         user_email={supply.user_email}
-                        fetchPostEvents={this.fetchPostEvents}
+                        fetchPostEvents={this.props.fetchPostEvents}
                         notificationsToArchive={this.updateArchiveList}
                         in_progress= {supply.in_progress}
                         setProgress={in_progress => {this.updateDefectElement(supply, 'in_progress', in_progress)}}
                     />
                 </ListGroup.Item>
-            </p>);
+            </div>);
 
         const others = this.props.others.map(other =>
-            <p id={other.id} >
+            <div className="targetDiv" id={other.id} >
                 <ListGroup.Item key={other.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={other.id}
@@ -123,13 +123,13 @@ export default class AdminView extends React.Component {
                         setImages={images => { this.updateOtherElement(others, 'images', images) }}
                         user_id={other.user_id}
                         user_email={other.user_email}
-                        fetchPostEvents={this.fetchPostEvents}
+                        fetchPostEvents={this.props.fetchPostEvents}
                         notificationsToArchive={this.updateArchiveList}
                         in_progress= {other.in_progress}
                         setProgress={in_progress => {this.updateDefectElement(other, 'in_progress', in_progress)}}
                     />
                 </ListGroup.Item>
-            </p>);
+            </div>);
 
         return (
             <div className='body'>

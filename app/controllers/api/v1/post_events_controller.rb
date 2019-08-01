@@ -49,10 +49,10 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
 
       @post_event.destroy
 
-    return head 404 unless current_user.admin
+    return unless current_user.admin
       admin = User.where(admin: true).first
       Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin.id)
-      NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
+      #NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
       SlackNotifier::CLIENT.ping "💸 Ups! #{current_user.email} usunął swój post! 💸"
     end
   end
