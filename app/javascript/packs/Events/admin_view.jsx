@@ -5,118 +5,19 @@ import axios from 'axios'
 import ArchiveButton from "./Archive/archive_button"
 import ShoppingListButton from './ShoppingList/shopping_list_button'
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
-import NotificationButton from '../Notifications/notification_button';
+import NotificationButton from "../Notifications/notification_button";
+import LogoutButton from '../logout_button';
+
 
 
 export default class AdminView extends React.Component {
     state = {
-        defects: [],
-        supplies: [],
-        others: [],
         notificationsToArchive: []
     };
 
-    fetchPostEventsWhenSearch = (phrase) => {
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'defect',
-                search_phrase: phrase
-            }
-        })
-            .then(posts_events => {
-                this.setState({ defects: posts_events.data })
-            });
-
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'supply',
-                search_phrase: phrase
-            }
-        })
-            .then(posts_events => {
-                this.setState({ supplies: posts_events.data })
-            });
-
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'others',
-                search_phrase: phrase
-            }
-        })
-            .then(posts_events => {
-                this.setState({ others: posts_events.data })
-            })
-    };
-
-    fetchPostEvents = () => {
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'defect'
-            }
-        })
-            .then(posts_events => {
-                this.setState({ defects: posts_events.data })
-            });
-
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'supply'
-            }
-        })
-            .then(posts_events => {
-                this.setState({ supplies: posts_events.data })
-            });
-
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'others'
-            }
-        })
-            .then(posts_events => {
-                this.setState({ others: posts_events.data })
-            })
-
-    };
-
     componentDidMount() {
-        this.fetchPostEvents();
+        this.props.fetchPostEvents();
     }
-
-    updateDefectElement = (defect, key, value) => {
-        this.setState({
-            defects: this.state.defects.map(index => {
-                if (index.id === defect.id) {
-                    return { ...index, [key]: value }
-                } else {
-                    return index;
-                }
-            })
-        })
-    };
-
-    updateSupplyElement = (supply, key, value) => {
-        this.setState({
-            supplies: this.state.supplies.map(index => {
-                if (index.id === supply.id) {
-                    return { ...index, [key]: value }
-                } else {
-                    return index;
-                }
-            })
-        })
-    };
-
-    updateOtherElement = (other, key, value) => {
-        this.setState({
-            others: this.state.others.map(index => {
-                if (index.id === other.id) {
-                    return { ...index, [key]: value }
-                } else {
-                    return index;
-                }
-            })
-        })
-    };
 
     updateArchiveList = (idToArchive, save) => {
 
@@ -141,7 +42,7 @@ export default class AdminView extends React.Component {
     };
 
     render() {
-        const defects = this.state.defects.map(defect =>
+        const defects = this.props.defects.map(defect =>
             <p id={defect.id} >
                 <ListGroup.Item key={defect.id} style={{background: 'transparent'}}>
                     <Event
@@ -172,7 +73,7 @@ export default class AdminView extends React.Component {
             </p>
         );
 
-        const supplies = this.state.supplies.map(supply =>
+        const supplies = this.props.supplies.map(supply =>
             <p id={supply.id} >
                 <ListGroup.Item key={supply.id} style={{background: 'transparent'}}>
                     <Event
@@ -202,7 +103,7 @@ export default class AdminView extends React.Component {
                 </ListGroup.Item>
             </p>);
 
-        const others = this.state.others.map(other =>
+        const others = this.props.others.map(other =>
             <p id={other.id} >
                 <ListGroup.Item key={other.id} style={{background: 'transparent'}}>
                     <Event
@@ -238,12 +139,12 @@ export default class AdminView extends React.Component {
                 <Container fluid>
                     <Row>
                         <Col sm={6}>
-                            <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch} />
+                            <SearchBar fetchPostEventsWhenSearch={this.props.fetchPostEventsWhenSearch} />
                         </Col>
                         <Col sm={{offset: 1, span:1}}>
                             <ArchiveButton
                                 notificationsToArchive={this.state.notificationsToArchive}
-                                fetchPostEvents={this.fetchPostEvents}
+                                fetchPostEvents={this.props.fetchPostEvents}
                                 clearArchiveList={this.clearArchiveList}
                             />
                         </Col>
@@ -254,6 +155,9 @@ export default class AdminView extends React.Component {
 
                         <Col sm={1}>
                             <NotificationButton currentUserId={this.props.currentUserId} />
+                        </Col>
+                        <Col sm={1}>
+                            <LogoutButton />
                         </Col>
                     </Row>
 

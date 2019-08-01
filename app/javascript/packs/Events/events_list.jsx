@@ -1,8 +1,8 @@
 import React from 'react';
 import Event from './event';
 import SearchBar from './search_bar';
+import LogoutButton from '../logout_button';
 import axios from 'axios'
-
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 import NotificationButton from "../Notifications/notification_button";
 
@@ -14,76 +14,10 @@ export default class NotificationList extends React.Component {
         notificationsToArchive: []
     };
 
-    fetchPostEventsWhenSearch = (phrase) => {
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'defect',
-                search_phrase: phrase
-            }
-        })
-            .then(posts_events => {
-                this.setState({ defects: posts_events.data })
-            });
-
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'supply',
-                search_phrase: phrase
-            }
-        })
-            .then(posts_events => {
-                this.setState({ supplies: posts_events.data })
-            })
-    };
-
-    fetchPostEvents = () => {
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'defect'
-            }
-        })
-            .then(posts_events => {
-                this.setState({ defects: posts_events.data })
-            });
-
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'supply'
-            }
-        })
-            .then(posts_events => {
-                this.setState({ supplies: posts_events.data })
-            })
-
-    };
-
     componentDidMount() {
-        this.fetchPostEvents();
+        this.props.fetchPostEvents();
     }
 
-    updateDefectElement = (defect, key, value) => {
-        this.setState({
-            defects: this.state.defects.map(index => {
-                if (index.id === defect.id) {
-                    return { ...index, [key]: value }
-                } else {
-                    return index;
-                }
-            })
-        })
-    };
-
-    updateSupplyElement = (supply, key, value) => {
-        this.setState({
-            supplies: this.state.supplies.map(index => {
-                if (index.id === supply.id) {
-                    return { ...index, [key]: value }
-                } else {
-                    return index;
-                }
-            })
-        })
-    };
 
     updateArchiveList = (idToArchive, save) => {
 
@@ -108,7 +42,7 @@ export default class NotificationList extends React.Component {
 
     render() {
 
-        const defects = this.state.defects.map(defect =>
+        const defects = this.props.defects.map(defect =>
             <p id={defect.id} >
                 <ListGroup.Item key={defect.id} style={{background: 'transparent'}}>
                     <Event
@@ -138,7 +72,7 @@ export default class NotificationList extends React.Component {
                 </ListGroup.Item>
             </p>
         );
-        const supplies = this.state.supplies.map(supply =>
+        const supplies = this.props.supplies.map(supply =>
             <p id={supply.id}>
                 <ListGroup.Item  key={supply.id} style={{background: 'transparent'}}>
                     <Event
@@ -175,11 +109,14 @@ export default class NotificationList extends React.Component {
                 <Container fluid>
                     <Row>
                         <Col sm={9}>
-                            <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch} />
+                            <SearchBar fetchPostEventsWhenSearch={this.props.fetchPostEventsWhenSearch} />
                         </Col>
 
                         <Col sm={1}>
                             <NotificationButton currentUserId={this.props.currentUserId} />
+                        </Col>
+                        <Col sm={2}>
+                            <LogoutButton />
                         </Col>
                     </Row>
 
