@@ -3,7 +3,6 @@ import Event from './event';
 import SearchBar from './search_bar';
 import LogoutButton from '../logout_button';
 import axios from 'axios'
-
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 import NotificationButton from "../Notifications/notification_button";
 
@@ -174,7 +173,7 @@ export default class NotificationList extends React.Component {
                         <Col sm={9}>
                             <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch} />
                         </Col>
-                        
+
                         <Col sm={1}>
                             <NotificationButton currentUserId={this.props.currentUserId} />
                         </Col>

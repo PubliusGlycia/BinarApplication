@@ -5,7 +5,7 @@ import axios from 'axios'
 import ArchiveButton from "./Archive/archive_button"
 import ShoppingListButton from './ShoppingList/shopping_list_button'
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
-import NotificationButton from '../notification_button';
+import NotificationButton from "../Notifications/notification_button";
 import LogoutButton from '../logout_button';
 
 
