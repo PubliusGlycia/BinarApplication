@@ -37,12 +37,10 @@ p:target {
   animation-name: notification_light;
   animation-duration: 750ms;
   background: #36372D !important;
-  cursor: pointer !important;
 }
 
 p:target::before {
   background: #36372D !important;
-  cursor: pointer !important;
 }
 
 .col_title{
