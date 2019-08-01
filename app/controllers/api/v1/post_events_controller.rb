@@ -47,13 +47,13 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   def destroy
     if @post_event.user_id == current_user.id || current_user.admin == true
 
-      @post_event.destroy
-
-    return unless current_user.admin
-      admin = User.where(admin: true).first
-      Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin.id)
-      #NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
-      SlackNotifier::CLIENT.ping "💸 Ups! #{current_user.email} usunął swój post! 💸"
+    if @post_event.destroy
+      return unless current_user.admin
+        admin = User.where(admin: true).first
+        Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin.id)
+        #NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
+        SlackNotifier::CLIENT.ping "💸 Ups! #{current_user.email} usunął swój post! 💸"
+      end
     end
   end
 
