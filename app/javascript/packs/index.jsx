@@ -47,6 +47,16 @@ class Index extends React.Component {
         this.setState({ viewState: 'record' })
     };
 
+    handleClick = (e) => {
+        e.preventDefault();
+        if (localStorage.getItem('pop-upWindows') !== 'true') {
+            alert('Aby wyświetlić oba okna ewidencji należy zezwolić w swojej przeglądarce na wyskakujące okna.');
+            localStorage.setItem('pop-upWindows', 'true');
+        }
+        window.open('https://docs.google.com/spreadsheets/d/1PyMQd9ta-tJFfRU6DT1Re9y1M-d4VSPgPMf4KENxwTU/edit?usp=sharing');
+        window.open('https://taurus.binarapps.com/equipment');
+    };
+
     render() {
 
         let eventList, archiveList, settings, record, index;
@@ -77,7 +87,7 @@ class Index extends React.Component {
                         <Col className="text-center"><CreateForm className="nav-item text-center" fetchPostEvents={this.props.fetchPostEvents} /></Col>
                         <Col><a className="nav-item nav-link active text-center" onClick={this.changeToEvent} >Zgłoszenia</a></Col>
                         <Col><a className="nav-item nav-link text-center" onClick={this.changeToArchive}>Archiwum</a></Col>
-                        <Col><a className="nav-item nav-link text-center" onClick={this.changeToRecord}>Ewidencja</a></Col>
+                        <Col><a className="nav-item nav-link text-center" onClick={this.handleClick}>Ewidencja</a></Col>
                         <Col><a className="nav-item nav-link text-center" onClick={this.changeToSettings}>Ustawienia</a></Col>
                     </Row>
                 </div>
