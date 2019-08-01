@@ -20,4 +20,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def failure
     redirect_to root_path, alert: 'Gmail login failed'
   end
+
+  def sign_out
+    user = User.find(params[:id])
+    signout user
+  end
+
 end
