@@ -43,61 +43,65 @@ export default class NotificationList extends React.Component {
     render() {
 
         const defects = this.props.defects.map(defect =>
-            <ListGroup.Item key={defect.id} style={{ background: '#36372D', cursor: 'pointer' }}>
-                <Event
-                    key={defect.id}
-                    admin={this.props.admin}
-                    currentUserId={this.props.currentUserId}
-                    currentUserEmail={this.props.currentUserEmail}
-                    notificationID={defect.id}
-                    title={defect.title}
-                    setTitle={title => { this.props.updateDefectElement(defect, 'title', title) }}
-                    importance={defect.importance}
-                    setImportance={importance => { this.props.updateDefectElement(defect, 'importance', importance) }}
-                    isConfirmed={defect.isConfirmed}
-                    description={defect.description}
-                    setDescription={description => { this.props.updateDefectElement(defect, 'description', description) }}
-                    date={defect.created_at}
-                    category={defect.category}
-                    images={defect.images}
-                    setImages={images => { this.props.updateDefectElement(defect, 'images', images) }}
-                    user_id={defect.user_id}
-                    user_email={defect.user_email}
-                    fetchPostEvents={this.props.fetchPostEvents}
-                    notificationsToArchive={this.updateArchiveList}
-                    in_progress= {defect.in_progress}
-                    setProgress={in_progress => {this.props.updateDefectElement(defect, 'in_progress', in_progress)}}
-                />
-            </ListGroup.Item>
+            <p id={defect.id} >
+                <ListGroup.Item key={defect.id} style={{background: 'transparent'}}>
+                    <Event
+                        key={defect.id}
+                        admin={this.props.admin}
+                        currentUserId={this.props.currentUserId}
+                        currentUserEmail={this.props.currentUserEmail}
+                        notificationID={defect.id}
+                        title={defect.title}
+                        setTitle={title => { this.updateDefectElement(defect, 'title', title) }}
+                        importance={defect.importance}
+                        setImportance={importance => { this.updateDefectElement(defect, 'importance', importance) }}
+                        isConfirmed={defect.isConfirmed}
+                        description={defect.description}
+                        setDescription={description => { this.updateDefectElement(defect, 'description', description) }}
+                        date={defect.created_at}
+                        category={defect.category}
+                        images={defect.images}
+                        setImages={images => { this.updateDefectElement(defect, 'images', images) }}
+                        user_id={defect.user_id}
+                        user_email={defect.user_email}
+                        fetchPostEvents={this.fetchPostEvents}
+                        notificationsToArchive={this.updateArchiveList}
+                        in_progress= {defect.in_progress}
+                        setProgress={in_progress => {this.updateDefectElement(defect, 'in_progress', in_progress)}}
+                    />
+                </ListGroup.Item>
+            </p>
         );
-
         const supplies = this.props.supplies.map(supply =>
-            <ListGroup.Item key={supply.id} style={{ background: '#36372D', cursor: 'pointer' }}>
-                <Event
-                    key={supply.id}
-                    admin={this.props.admin}
-                    currentUserId={this.props.currentUserId}
-                    currentUserEmail={this.props.currentUserEmail}
-                    notificationID={supply.id}
-                    title={supply.title}
-                    setTitle={title => { this.props.updateSupplyElement(supply, 'title', title) }}
-                    importance={supply.importance}
-                    setImportance={importance => { this.props.updateSupplyElement(supply, 'importance', importance) }}
-                    isConfirmed={supply.isConfirmed}
-                    description={supply.description}
-                    setDescription={description => { this.props.updateSupplyElement(supply, 'description', description) }}
-                    date={supply.created_at}
-                    category={supply.category}
-                    images={supply.images}
-                    setImages={images => { this.props.updateSupplyElement(supply, 'images', images) }}
-                    user_id={supply.user_id}
-                    user_email={supply.user_email}
-                    fetchPostEvents={this.props.fetchPostEvents}
-                    notificationsToArchive={this.updateArchiveList}
-                    in_progress= {supply.in_progress}
-                    setProgress={in_progress => {this.props.updateSupplyElement(supply, 'in_progress', in_progress)}}
-                />
-            </ListGroup.Item>);
+            <p id={supply.id}>
+                <ListGroup.Item  key={supply.id} style={{background: 'transparent'}}>
+                    <Event
+                        key={supply.id}
+                        admin={this.props.admin}
+                        currentUserId={this.props.currentUserId}
+                        currentUserEmail={this.props.currentUserEmail}
+                        notificationID={supply.id}
+                        title={supply.title}
+                        setTitle={title => { this.updateSupplyElement(supply, 'title', title) }}
+                        importance={supply.importance}
+                        setImportance={importance => { this.updateSupplyElement(supply, 'importance', importance) }}
+                        isConfirmed={supply.isConfirmed}
+                        description={supply.description}
+                        setDescription={description => { this.updateSupplyElement(supply, 'description', description) }}
+                        date={supply.created_at}
+                        category={supply.category}
+                        images={supply.images}
+                        setImages={images => { this.updateSupplyElement(supply, 'images', images) }}
+                        user_id={supply.user_id}
+                        user_email={supply.user_email}
+                        fetchPostEvents={this.fetchPostEvents}
+                        notificationsToArchive={this.updateArchiveList}
+                        in_progress= {supply.in_progress}
+                        setProgress={in_progress => {this.updateDefectElement(supply, 'in_progress', in_progress)}}
+                    />
+                </ListGroup.Item>
+            </p>
+            );
 
         return (
             <div className='body'>
