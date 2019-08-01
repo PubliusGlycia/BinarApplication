@@ -79,12 +79,18 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+# Gem for sending slack notification
+gem 'slack-notifier'
+
 # Gem for Bootstrap
 gem 'bootstrap', '~> 4.3.1'
 gem 'sassc-rails', '>= 2.1.0'
 
 gem 'capistrano-rails'
 gem 'capistrano-rvm'
+
+# Generating PDFs
+gem 'prawn-rails'
 
 group :production do
   gem 'unicorn-rails'

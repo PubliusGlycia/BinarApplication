@@ -1,5 +1,4 @@
 class NotificationMailer < ApplicationMailer
- 
   def post_create_email(email)
     @email = email
     mail to: @email, subject: '[BO] New post has been created!'

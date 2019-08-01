@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'post_events#index'
+  get 'shopping_list' => 'post_events#generate_pdf'
 
-  resources :mainpages
   devise_for :users, :controllers => {
       omniauth_callbacks: 'users/omniauth_callbacks'
   }
@@ -12,11 +12,12 @@ Rails.application.routes.draw do
       get 'post_events/archive' => 'post_events#archive_list'
       get 'post_events/download/:id/:image_position' => 'post_events#download'
       post 'archive' => 'post_events#archive_events'
-      post 'shopping_list' => 'post_events#genetate_pdf'
       get 'admin/check' => 'post_events#check_admin'
+
       resources :post_events do
         resources :likes, :only => [:create, :destroy, :index]
       end
+
       get '/messages_by_post/:id' => 'messages#index'
       patch '/messages/update_content/:id/:message' => 'messages#update_content'
       resources :messages
