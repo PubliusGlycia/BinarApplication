@@ -6,7 +6,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   end
 
   def search_filter
-    @post_events = PostEvent.where(category: params[:category])
+    @post_events = PostEvent.where(category: params[:category]).includes(:user)
     @post_events = @post_events.where(archive: false)
     # rubocop:disable Rails/DynamicFindBy
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
@@ -25,8 +25,14 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
 
   # UPDATE
   def update
-    post_event = PostEvent.find(params[:id])
-    post_event.update(post_event_params)
+    @post_event = PostEvent.find(params[:id])
+    if @post_event.update(post_event_params)
+      if (current_user.admin != true)
+        admin_id = User.where(admin: true).first.id
+        Notification.create(notification_type: 2, post_event_id: @post_event.id, user_id: admin_id)
+        SlackNotifier::CLIENT.ping "💸 Check! #{current_user.email} zaktualizował swój post! 💸"
+      end
+    end
   end
 
   def archive_events
@@ -38,13 +44,25 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   end
 
   def destroy
-    return head 404 unless @post_event.user_id == current_user.id || current_user.admin == true
+    if @post_event.user_id == current_user.id || current_user.admin == true
 
-    @post_event.destroy
+      @post_event.destroy
+
+      if (current_user.admin != true)
+        admin_id = User.where(admin: true).first.id
+        Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin_id)
+        SlackNotifier::CLIENT.ping "💸 Ups! #{current_user.email} usunął swój post! 💸"
+      end
+    else
+      return head 404
+    end
   end
 
   def check_admin
-    return @current_user_id = true if current_user.admin
+    if current_user.admin
+      @current_admin = true
+      @current_user_id = current_user.id
+    end
 
     @current_user_id = current_user.id
     @current_user_email = current_user.email
@@ -54,7 +72,15 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_event = current_user.post_event.build(post_event_params)
     @post_event.images.attach(params[:image]) if params[:image]
 
-    @post_event.save
+    if @post_event.save
+      if (current_user.admin != true)
+        admin_id = User.where(admin: true).first.id
+        Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin_id)
+        SlackNotifier::CLIENT.ping "💸 Boom! Nowy POST od #{current_user.email}! 💸"
+      end
+    else
+      render json: @post_event.errors, status: :unprocessable_entity
+    end
   end
 
   def archive_list
