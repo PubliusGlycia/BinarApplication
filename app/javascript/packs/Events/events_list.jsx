@@ -4,6 +4,7 @@ import SearchBar from './search_bar';
 import axios from 'axios'
 
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
+import NotificationButton from "../Notifications/notification_button";
 
 
 export default class NotificationList extends React.Component {
@@ -106,8 +107,9 @@ export default class NotificationList extends React.Component {
     };
 
     render() {
+
         const defects = this.state.defects.map(defect =>
-            <ListGroup.Item key={defect.id} style={{ background: '#36372D' }}>
+            <ListGroup.Item key={defect.id} style={{ background: '#36372D', cursor: 'pointer' }}>
                 <Event
                     key={defect.id}
                     admin={this.props.admin}
@@ -136,7 +138,7 @@ export default class NotificationList extends React.Component {
         );
 
         const supplies = this.state.supplies.map(supply =>
-            <ListGroup.Item key={supply.id} style={{ background: '#36372D' }}>
+            <ListGroup.Item key={supply.id} style={{ background: '#36372D', cursor: 'pointer' }}>
                 <Event
                     key={supply.id}
                     admin={this.props.admin}
@@ -170,6 +172,10 @@ export default class NotificationList extends React.Component {
                     <Row>
                         <Col sm={9}>
                             <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch} />
+                        </Col>
+
+                        <Col sm={1}>
+                            <NotificationButton currentUserId={this.props.currentUserId} />
                         </Col>
                     </Row>
 

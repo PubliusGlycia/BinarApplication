@@ -23,6 +23,10 @@
   height: 100vh;
 }
 
+body{
+  overflow: hidden;
+}
+
 .col_title{
   background: #4919AA;
   color: #FFFFFF;
@@ -30,7 +34,7 @@
 }
 
 .text-field {
-  background: #f0f0f0 !important;
+  background: #36372D !important;
 }
 
 .button-notification {

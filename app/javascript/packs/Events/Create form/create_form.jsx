@@ -55,7 +55,9 @@ export default class CreateForm extends React.Component {
           if (this.props.fetchPostEvents)
               this.props.fetchPostEvents();
       }).catch((error) =>{
-          this.setState({errTitle: error.data.title, errCategory: error.data.category, errImportance: error.data.importance});
+          this.setState({errTitle: error.response.data.title,
+                              errCategory: error.response.data.category,
+                              errImportance: error.response.data.importance});
       })
     };
 

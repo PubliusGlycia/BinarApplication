@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       get '/messages_by_post/:id' => 'messages#index'
       patch '/messages/update_content/:id/:message' => 'messages#update_content'
       resources :messages
+      get '/notifications_per_user/:user_id' => 'notifications#index_per_user'
+      resources :notifications, :only => [:create]
     end
   end
 
