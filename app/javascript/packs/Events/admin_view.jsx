@@ -5,7 +5,9 @@ import axios from 'axios'
 import ArchiveButton from "./Archive/archive_button"
 import ShoppingListButton from './ShoppingList/shopping_list_button'
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
-import NotificationButton from '../Notifications/notification_button';
+import NotificationButton from "../Notifications/notification_button";
+import LogoutButton from '../logout_button';
+
 
 
 export default class AdminView extends React.Component {
@@ -248,6 +250,9 @@ export default class AdminView extends React.Component {
 
                         <Col sm={1}>
                             <NotificationButton currentUserId={this.props.currentUserId} />
+                        </Col>
+                        <Col sm={1}>
+                            <LogoutButton />
                         </Col>
                     </Row>
 
