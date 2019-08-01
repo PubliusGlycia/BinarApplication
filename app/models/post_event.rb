@@ -12,7 +12,7 @@ class PostEvent < ApplicationRecord
 
   has_many :messages, dependent: :destroy
 
-  has_many :notifications, dependent: :destroy
+  has_many :notifications, dependent: :nullify
 
   has_many_attached :images
 
