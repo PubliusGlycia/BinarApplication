@@ -4,6 +4,8 @@ import axios from "axios";
 
 export default class DeleteAcceptancePopover extends React.Component {
 
+    button = React.createRef();
+
     state= {
         showPopover:false
     };
@@ -28,9 +30,9 @@ export default class DeleteAcceptancePopover extends React.Component {
                        onClick={()=> this.setState({showPopover: true})}
                        ref={(button) => { this.target = button; }}>Usuń</Button>
             <Overlay
-            placement="right"
-            show={this.state.showPopover}
-            target={this.target}
+                placement="right"
+                show={this.state.showPopover}
+                target={this.target}
             >
                 <Popover title="Na pewno? ">
                     <Button variant="success" onClick={this.handleDelete}>Tak</Button>
