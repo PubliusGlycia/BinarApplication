@@ -1,13 +1,11 @@
 import React from 'react';
 import Event from './event';
 import SearchBar from './search_bar';
-import axios from 'axios'
 import ArchiveButton from "./Archive/archive_button"
 import ShoppingListButton from './ShoppingList/shopping_list_button'
 import {Col, Container, ListGroup, Row} from 'react-bootstrap';
 import NotificationButton from "../Notifications/notification_button";
 import LogoutButton from '../logout_button';
-
 
 
 export default class AdminView extends React.Component {
@@ -44,7 +42,7 @@ export default class AdminView extends React.Component {
     render() {
         const defects = this.props.defects.map(defect =>
             <p id={defect.id} >
-                <ListGroup.Item key={defect.id} style={{background: 'transparent'}}>
+                <ListGroup.Item key={defect.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={defect.id}
                         admin={this.props.admin}
@@ -75,7 +73,7 @@ export default class AdminView extends React.Component {
 
         const supplies = this.props.supplies.map(supply =>
             <p id={supply.id} >
-                <ListGroup.Item key={supply.id} style={{background: 'transparent'}}>
+                <ListGroup.Item key={supply.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={supply.id}
                         admin={this.props.admin}
@@ -105,7 +103,7 @@ export default class AdminView extends React.Component {
 
         const others = this.props.others.map(other =>
             <p id={other.id} >
-                <ListGroup.Item key={other.id} style={{background: 'transparent'}}>
+                <ListGroup.Item key={other.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={other.id}
                         admin={this.props.admin}
