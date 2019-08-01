@@ -6,7 +6,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   end
 
   def search_filter
-    @post_events = PostEvent.where(category: params[:category])
+    @post_events = PostEvent.where(category: params[:category]).includes(:user)
     @post_events = @post_events.where(archive: false)
     # rubocop:disable Rails/DynamicFindBy
     @post_events = @post_events.find_by_title(params[:search_phrase]) if params[:search_phrase]
@@ -61,7 +61,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
       @current_admin = true
       @current_user_id = current_user.id
     end
-    
+
     @current_user_id = current_user.id
     @current_user_email = current_user.email
   end
