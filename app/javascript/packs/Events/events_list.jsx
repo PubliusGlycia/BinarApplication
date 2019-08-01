@@ -14,76 +14,10 @@ export default class NotificationList extends React.Component {
         notificationsToArchive: []
     };
 
-    fetchPostEventsWhenSearch = (phrase) => {
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'defect',
-                search_phrase: phrase
-            }
-        })
-            .then(posts_events => {
-                this.setState({ defects: posts_events.data })
-            });
-
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'supply',
-                search_phrase: phrase
-            }
-        })
-            .then(posts_events => {
-                this.setState({ supplies: posts_events.data })
-            })
-    };
-
-    fetchPostEvents = () => {
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'defect'
-            }
-        })
-            .then(posts_events => {
-                this.setState({ defects: posts_events.data })
-            });
-
-        axios.get('api/v1/post_events/event.json', {
-            params: {
-                category: 'supply'
-            }
-        })
-            .then(posts_events => {
-                this.setState({ supplies: posts_events.data })
-            })
-
-    };
-
     componentDidMount() {
-        this.fetchPostEvents();
+        this.props.fetchPostEvents();
     }
 
-    updateDefectElement = (defect, key, value) => {
-        this.setState({
-            defects: this.state.defects.map(index => {
-                if (index.id === defect.id) {
-                    return { ...index, [key]: value }
-                } else {
-                    return index;
-                }
-            })
-        })
-    };
-
-    updateSupplyElement = (supply, key, value) => {
-        this.setState({
-            supplies: this.state.supplies.map(index => {
-                if (index.id === supply.id) {
-                    return { ...index, [key]: value }
-                } else {
-                    return index;
-                }
-            })
-        })
-    };
 
     updateArchiveList = (idToArchive, save) => {
 
@@ -108,7 +42,7 @@ export default class NotificationList extends React.Component {
 
     render() {
 
-        const defects = this.state.defects.map(defect =>
+        const defects = this.props.defects.map(defect =>
             <ListGroup.Item key={defect.id} style={{ background: '#36372D', cursor: 'pointer' }}>
                 <Event
                     key={defect.id}
@@ -117,27 +51,27 @@ export default class NotificationList extends React.Component {
                     currentUserEmail={this.props.currentUserEmail}
                     notificationID={defect.id}
                     title={defect.title}
-                    setTitle={title => { this.updateDefectElement(defect, 'title', title) }}
+                    setTitle={title => { this.props.updateDefectElement(defect, 'title', title) }}
                     importance={defect.importance}
-                    setImportance={importance => { this.updateDefectElement(defect, 'importance', importance) }}
+                    setImportance={importance => { this.props.updateDefectElement(defect, 'importance', importance) }}
                     isConfirmed={defect.isConfirmed}
                     description={defect.description}
-                    setDescription={description => { this.updateDefectElement(defect, 'description', description) }}
+                    setDescription={description => { this.props.updateDefectElement(defect, 'description', description) }}
                     date={defect.created_at}
                     category={defect.category}
                     images={defect.images}
-                    setImages={images => { this.updateDefectElement(defect, 'images', images) }}
+                    setImages={images => { this.props.updateDefectElement(defect, 'images', images) }}
                     user_id={defect.user_id}
                     user_email={defect.user_email}
-                    fetchPostEvents={this.fetchPostEvents}
+                    fetchPostEvents={this.props.fetchPostEvents}
                     notificationsToArchive={this.updateArchiveList}
                     in_progress= {defect.in_progress}
-                    setProgress={in_progress => {this.updateDefectElement(defect, 'in_progress', in_progress)}}
+                    setProgress={in_progress => {this.props.updateDefectElement(defect, 'in_progress', in_progress)}}
                 />
             </ListGroup.Item>
         );
 
-        const supplies = this.state.supplies.map(supply =>
+        const supplies = this.props.supplies.map(supply =>
             <ListGroup.Item key={supply.id} style={{ background: '#36372D', cursor: 'pointer' }}>
                 <Event
                     key={supply.id}
@@ -146,22 +80,22 @@ export default class NotificationList extends React.Component {
                     currentUserEmail={this.props.currentUserEmail}
                     notificationID={supply.id}
                     title={supply.title}
-                    setTitle={title => { this.updateSupplyElement(supply, 'title', title) }}
+                    setTitle={title => { this.props.updateSupplyElement(supply, 'title', title) }}
                     importance={supply.importance}
-                    setImportance={importance => { this.updateSupplyElement(supply, 'importance', importance) }}
+                    setImportance={importance => { this.props.updateSupplyElement(supply, 'importance', importance) }}
                     isConfirmed={supply.isConfirmed}
                     description={supply.description}
-                    setDescription={description => { this.updateSupplyElement(supply, 'description', description) }}
+                    setDescription={description => { this.props.updateSupplyElement(supply, 'description', description) }}
                     date={supply.created_at}
                     category={supply.category}
                     images={supply.images}
-                    setImages={images => { this.updateSupplyElement(supply, 'images', images) }}
+                    setImages={images => { this.props.updateSupplyElement(supply, 'images', images) }}
                     user_id={supply.user_id}
                     user_email={supply.user_email}
-                    fetchPostEvents={this.fetchPostEvents}
+                    fetchPostEvents={this.props.fetchPostEvents}
                     notificationsToArchive={this.updateArchiveList}
                     in_progress= {supply.in_progress}
-                    setProgress={in_progress => {this.updateDefectElement(supply, 'in_progress', in_progress)}}
+                    setProgress={in_progress => {this.props.updateSupplyElement(supply, 'in_progress', in_progress)}}
                 />
             </ListGroup.Item>);
 
@@ -171,7 +105,7 @@ export default class NotificationList extends React.Component {
                 <Container fluid>
                     <Row>
                         <Col sm={9}>
-                            <SearchBar fetchPostEventsWhenSearch={this.fetchPostEventsWhenSearch} />
+                            <SearchBar fetchPostEventsWhenSearch={this.props.fetchPostEventsWhenSearch} />
                         </Col>
 
                         <Col sm={1}>
