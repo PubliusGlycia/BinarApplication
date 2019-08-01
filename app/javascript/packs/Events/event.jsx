@@ -178,12 +178,12 @@ export default class Event extends React.Component {
 
     if(this.props.in_progress == true)
     {
-      procText = 'success'
-      active = 'solid 2px #00DB1D';
+      procText = 'primary'
+      active = 'solid 2px #9C82D0';
     }
     else
     {
-      procText = 'outline-success';
+      procText = 'outline-primary';
       active = '';
     }
 
