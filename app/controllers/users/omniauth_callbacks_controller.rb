@@ -25,5 +25,4 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = User.find(params[:id])
     signout user
   end
-
 end

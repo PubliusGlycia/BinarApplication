@@ -14,7 +14,10 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
     if @message.save
       if admin.id != @message.user_id
         Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: admin.id)
-        NotificationMailer.comment_new_email('adamjedrzejec@gmail.com').deliver # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
+
+        # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
+        NotificationMailer.comment_new_email('adamjedrzejec@gmail.com').deliver
+
         SlackNotifier::CLIENT.ping "💸 Hey! Nowy komentarz od #{current_user.email}! 💸"
       end
 
@@ -23,7 +26,9 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
                             post_event_id: @message.post_event_id,
                             user_id: @message.post_event.user_id)
         post_author = User.where(id: @message.post_event.user_id).first
-        NotificationMailer.comment_new_email('adamjedrzejec@gmail.com').deliver # [fix] email_fix # 'adamjedrzejec@gmail.com' -> post_author.email
+
+        # [fix] email_fix # 'adamjedrzejec@gmail.com' -> post_author.email
+        NotificationMailer.comment_new_email('adamjedrzejec@gmail.com').deliver
       end
     else
       render json: @message.errors, status: :unprocessable_entity
