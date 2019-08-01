@@ -109,9 +109,8 @@ export default class NotificationList extends React.Component {
     render() {
 
         const defects = this.state.defects.map(defect =>
-            <a id={defect.id}>
-            <ListGroup.Item key={defect.id} className='list_element'>
-
+            <p id={defect.id} >
+                <ListGroup.Item key={defect.id} style={{background: 'transparent'}}>
                     <Event
                         key={defect.id}
                         admin={this.props.admin}
@@ -136,14 +135,12 @@ export default class NotificationList extends React.Component {
                         in_progress= {defect.in_progress}
                         setProgress={in_progress => {this.updateDefectElement(defect, 'in_progress', in_progress)}}
                     />
-
-            </ListGroup.Item>
-            </a>
+                </ListGroup.Item>
+            </p>
         );
-
         const supplies = this.state.supplies.map(supply =>
-            <a  id={supply.id}>
-            <ListGroup.Item key={supply.id} className='list_element'>
+            <p id={supply.id}>
+                <ListGroup.Item  key={supply.id} style={{background: 'transparent'}}>
                     <Event
                         key={supply.id}
                         admin={this.props.admin}
@@ -168,9 +165,9 @@ export default class NotificationList extends React.Component {
                         in_progress= {supply.in_progress}
                         setProgress={in_progress => {this.updateDefectElement(supply, 'in_progress', in_progress)}}
                     />
-
-            </ListGroup.Item>
-            </a>);
+                </ListGroup.Item>
+            </p>
+            );
 
         return (
             <div className='body'>

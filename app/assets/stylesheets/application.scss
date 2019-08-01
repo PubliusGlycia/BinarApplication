@@ -20,21 +20,28 @@
 
 .body{
   background: #36372d;
-  height: 100vh;
+  height: 95vh;
 }
 
 body{
   overflow: hidden;
 }
 
+@keyframes notification_light {
+  0%   {background-color: #36372D;}
+  50%  {background-color: #7e7e7e;}
+  100% {background-color: #36372D;}
+}
 
-.list_element{
+p:target {
+  animation-name: notification_light;
+  animation-duration: 750ms;
   background: #36372D !important;
   cursor: pointer !important;
 }
 
-.list_element:hover{
-  background: #FFFFFF !important;
+p:target::before {
+  background: #36372D !important;
   cursor: pointer !important;
 }
 
