@@ -10,7 +10,7 @@ class Api::V1::NotificationsController < Api::V1::ApplicationController
   def create
     @notification = Notification.create(notification_params)
 
-    format.json { render json: @notification.errors, status: :unprocessable_entity }
+    render json: @notification.errors, status: :unprocessable_entity unless @notification.save
   end
 
   private
