@@ -20,11 +20,11 @@ export default class MainPage extends React.Component {
                 BinarOffice
             </div>
             <div>
-                <Link to="/users/auth/google_oauth2">
+                <a href="/users/auth/google_oauth2">
                     <Button className="button-edit w-100" variant="secondary">
                     Log in with Gmail
                     </Button>
-                </Link>
+                </a>
             </div>
             <div>
                 <img src={mem} />
