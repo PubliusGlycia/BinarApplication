@@ -27,7 +27,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
   def update
     @post_event = PostEvent.find(params[:id])
     if @post_event.update(post_event_params)
-      if (current_user.admin != true)
+      if current_user.admin != true
         admin_id = User.where(admin: true).first.id
         Notification.create(notification_type: 2, post_event_id: @post_event.id, user_id: admin_id)
         SlackNotifier::CLIENT.ping "💸 Check! #{current_user.email} zaktualizował swój post! 💸"
@@ -48,13 +48,10 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
 
       @post_event.destroy
 
-      if (current_user.admin != true)
-        admin_id = User.where(admin: true).first.id
-        Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin_id)
-        SlackNotifier::CLIENT.ping "💸 Ups! #{current_user.email} usunął swój post! 💸"
-      end
-    else
-      return head 404
+    return head 404 unless current_user.admin
+      admin_id = User.where(admin: true).first.id
+      Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin_id)
+      SlackNotifier::CLIENT.ping "💸 Ups! #{current_user.email} usunął swój post! 💸"
     end
   end
 
@@ -73,18 +70,14 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_event.images.attach(params[:image]) if params[:image]
 
     if @post_event.save
-      if (current_user.admin != true)
-        admin_id = User.where(admin: true).first.id
-        Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin_id)
-        SlackNotifier::CLIENT.ping "💸 Boom! Nowy POST od #{current_user.email}! 💸"
-      end
+    return unless current_user.admin
+
+      admin_id = User.where(admin: true).first.id
+      Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin_id)
+      SlackNotifier::CLIENT.ping "💸 Boom! Nowy POST od #{current_user.email}! 💸"
     else
       render json: @post_event.errors, status: :unprocessable_entity
     end
-  end
-
-  def archive_list
-    @post_events = PostEvent.where(archive: true).order(created_at: :desc) if current_user.admin
   end
 
   def archive_list

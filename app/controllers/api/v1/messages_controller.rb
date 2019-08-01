@@ -12,12 +12,15 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
     admin_id = User.where(admin: true).first.id
 
     if @message.save
-      if (admin_id != @message.user_id)
+      if admin_id != @message.user_id
         Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: admin_id)
         SlackNotifier::CLIENT.ping "💸 Hey! Nowy komentarz od #{current_user.email}! 💸"
       end
-      if (@message.post_event.user_id != @message.user_id)
-        Notification.create(notification_type: 5, post_event_id: @message.post_event_id, user_id: @message.post_event.user_id)
+
+      if @message.post_event.user_id != @message.user_id
+        Notification.create(notification_type: 5,
+                            post_event_id: @message.post_event_id,
+                            user_id: @message.post_event.user_id)
       end
     else
       render json: @message.errors, status: :unprocessable_entity
