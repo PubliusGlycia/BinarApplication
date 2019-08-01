@@ -6,7 +6,8 @@ export default class LogoutButton extends React.Component {
 
     render() {
         const LogButton = () => (
-            <a href="/users/sign_out">
+            <a  data-method='delete'
+                href="/users/sign_out">
                 <Button className="button-edit w-100" variant="secondary">Wyloguj się</Button>
             </a>
         );

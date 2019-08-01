@@ -23,7 +23,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def sign_out
     user = User.find(params[:id])
-    signout uset
+    signout user
   end
 
 end
