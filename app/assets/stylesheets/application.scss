@@ -27,6 +27,17 @@ body{
   overflow: hidden;
 }
 
+
+.list_element{
+  background: #36372D !important;
+  cursor: pointer !important;
+}
+
+.list_element:hover{
+  background: #FFFFFF !important;
+  cursor: pointer !important;
+}
+
 .col_title{
   background: #4919AA;
   color: #FFFFFF;
