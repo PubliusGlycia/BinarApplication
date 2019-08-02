@@ -10,6 +10,7 @@ import ButtonInputField from '../button_input_field';
 import Like from './like';
 import CheckBox from './Archive/check_box';
 import DeleteAcceptancePopover from "../delete_acceptance_popover"
+import flame from "images/flame.png"
 
 export default class Event extends React.Component {
   constructor(props, context) {
@@ -107,9 +108,9 @@ export default class Event extends React.Component {
 
   importanceCheck() {
     if (this.props.importance == 'trivial')
-      return '!';
+      return;
     else if (this.props.importance == 'important')
-      return '!!!'
+      return <img src={ flame }/>
   }
 
   fetchPhotoUrls() {
