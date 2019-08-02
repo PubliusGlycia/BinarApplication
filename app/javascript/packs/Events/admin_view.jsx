@@ -3,7 +3,7 @@ import Event from './event';
 import SearchBar from './search_bar';
 import ArchiveButton from "./Archive/archive_button"
 import ShoppingListButton from './ShoppingList/shopping_list_button'
-import {Col, Container, ListGroup, Row} from 'react-bootstrap';
+import {Col, Container, ListGroup, Row, Navbar} from 'react-bootstrap';
 import NotificationButton from "../Notifications/notification_button";
 import LogoutButton from '../logout_button';
 
@@ -135,29 +135,32 @@ export default class AdminView extends React.Component {
             <div className='body'>
 
                 <Container fluid>
-                    <Row>
-                        <Col sm={6}>
+                    <Navbar style={{ backgroundColor: '#4919aa', marginLeft: '-15px', marginRight: '-15px' }}>
+                        <Col sm={8}>
                             <SearchBar fetchPostEventsWhenSearch={this.props.fetchPostEventsWhenSearch} />
                         </Col>
-                        <Col sm={{offset: 1, span:1}}>
-                            <ArchiveButton
-                                notificationsToArchive={this.state.notificationsToArchive}
-                                fetchPostEvents={this.props.fetchPostEvents}
-                                clearArchiveList={this.clearArchiveList}
-                            />
-                        </Col>
+                        <Col sm={4}>
+                            <Row>
+                                <Col className='button-group' xs={3}>
+                                    <ArchiveButton
+                                        notificationsToArchive={this.state.notificationsToArchive}
+                                        fetchPostEvents={this.props.fetchPostEvents}
+                                        clearArchiveList={this.clearArchiveList}
+                                    />
+                                </Col>
 
-                        <Col sm={1}>
-                            <ShoppingListButton notificationsToShopping={this.state.notificationsToArchive}/>
+                                <Col className='button-group' xs={3}>
+                                    <ShoppingListButton notificationsToShopping={this.state.notificationsToArchive}/>
+                                </Col>
+                                <Col className='button-group' xs={3} style={{ textAlign: 'center' }}>
+                                    <NotificationButton currentUserId={this.props.currentUserId} />
+                                </Col>
+                                <Col className='button-group' xs={3}>
+                                    <LogoutButton />
+                                </Col>
+                            </Row>
                         </Col>
-
-                        <Col sm={1}>
-                            <NotificationButton currentUserId={this.props.currentUserId} />
-                        </Col>
-                        <Col sm={1}>
-                            <LogoutButton />
-                        </Col>
-                    </Row>
+                    </Navbar>
 
                     <Row>
                         <Col>
