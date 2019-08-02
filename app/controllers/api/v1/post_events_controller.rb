@@ -83,9 +83,9 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
         NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver_later
 
         SlackNotifier::CLIENT.ping "💸 Boom! Nowy POST od #{current_user.email}! 💸"
-      else
-        render json: @post_event.errors, status: :unprocessable_entity
       end
+    else
+      render json: @post_event.errors, status: :unprocessable_entity
     end
   end
 
