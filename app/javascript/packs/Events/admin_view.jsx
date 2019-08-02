@@ -139,23 +139,26 @@ export default class AdminView extends React.Component {
                         <Col sm={8}>
                             <SearchBar fetchPostEventsWhenSearch={this.props.fetchPostEventsWhenSearch} />
                         </Col>
-                        <Col sm={1}>
-                            <ArchiveButton
-                                notificationsToArchive={this.state.notificationsToArchive}
-                                fetchPostEvents={this.props.fetchPostEvents}
-                                clearArchiveList={this.clearArchiveList}
-                            />
-                        </Col>
+                        <Col sm={4}>
+                            <Row>
+                            <Col xs={3}>
+                                <ArchiveButton
+                                    notificationsToArchive={this.state.notificationsToArchive}
+                                    fetchPostEvents={this.props.fetchPostEvents}
+                                    clearArchiveList={this.clearArchiveList}
+                                />
+                            </Col>
 
-                        <Col sm={1}>
-                            <ShoppingListButton notificationsToShopping={this.state.notificationsToArchive}/>
-                        </Col>
+                            <Col xs={4}>
+                                <ShoppingListButton notificationsToShopping={this.state.notificationsToArchive}/>
+                            </Col>
 
-                        <Col sm={1} style={{ textAlign: 'center' }}>
-                            <NotificationButton currentUserId={this.props.currentUserId} />
-                        </Col>
-                        <Col sm={1}>
-                            <LogoutButton />
+                            <Col xs={2} style={{ textAlign: 'center' }}>
+                                <NotificationButton currentUserId={this.props.currentUserId} />
+                            </Col>
+                            <Col xs={3}>
+                                <LogoutButton />
+                            </Col></Row>
                         </Col>
                     </Navbar>
 
