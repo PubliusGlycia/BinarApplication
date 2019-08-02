@@ -31,7 +31,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
       Notification.create(notification_type: 2, post_event_id: @post_event.id, user_id: admin.id)
 
       # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
-      NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver
+      NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver_later
 
       SlackNotifier::CLIENT.ping "💸 Check! #{current_user.email} zaktualizował swój post! 💸"
     )
@@ -49,10 +49,10 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
     @post_event.user_id == current_user.id || current_user.admin == true && (
       @post_event.destroy && (current_user.admin == false) && (
         admin = User.where(admin: true).first
-        Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin.id)
+        #Notification.create(notification_type: 3, post_event_id: @post_event.id, user_id: admin.id)
 
         # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
-        NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver
+        NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver_later
 
         SlackNotifier::CLIENT.ping "💸 Ups! #{current_user.email} usunął swój post! 💸"
       )
@@ -79,7 +79,7 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
       Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin.id)
 
       # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
-      NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver
+      NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver_later
 
       SlackNotifier::CLIENT.ping "💸 Boom! Nowy POST od #{current_user.email}! 💸"
     else
