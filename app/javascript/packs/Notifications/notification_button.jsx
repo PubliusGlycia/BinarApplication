@@ -14,7 +14,7 @@ export default class NotificationButton extends React.Component {
     showNotificationList = () => {
         axios.get('api/v1/notifications_per_user/'+this.props.currentUserId+'.json')
             .then(notifications => {
-                this.setState({ notificationList: notifications.data.notifications, userMail: notifications.data.email })
+                this.setState({ notificationList: notifications.data.notifications })
             });
     };
 
@@ -38,11 +38,11 @@ export default class NotificationButton extends React.Component {
 
         const notificationList = this.state.notificationList.map(notification =>
             <ListGroup.Item action key={notification.id} style={{ background: '#AC9DC9' }}>
-                <a href={`#${notification.post_event_id}`} style={{color: '#000'}}>
+                <a href={`#${notification.post_event_id}`} className="hyperlink" >
                 <Notification
                     notification_count={notification.count}
                     notification_type={notification.notification_type}
-                    user_email={this.state.userMail}
+                    user_email={notification.user_email}
                     post_event_id={notification.post_event_id}/>
                 </a>
             </ListGroup.Item>

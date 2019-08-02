@@ -170,7 +170,7 @@ class Index extends React.Component {
 
     render() {
 
-        let eventList, archiveList, settings, record, index;
+        let eventList, archiveList, settings, record, index, footer;
         let userNavigationBar, adminNavigationBar;
         this.state.admin ? eventList = <AdminView
             admin={this.state.admin}
@@ -239,32 +239,43 @@ class Index extends React.Component {
             </div>
         </nav>;
 
+        footer = <footer className="footer">
+            <p className="footer-paragraph">
+                Damian Byszewski, Maciej Gutenplan, Adam Jędrzejec, Wojciech Oset - letnie praktyki BinarApps 2019
+            </p>
+        </footer>
+
         if (this.state.admin) {
             switch (this.state.viewState) {
                 case 'event': return index =
                     <>
                         {adminNavigationBar}
                         {eventList}
+                        {footer}
                     </>;
                 case 'archive': return index =
                     <>
                         {adminNavigationBar}
                         {archiveList}
+                        {footer}
                     </>;
                 case 'settings': return index =
                     <>
                         {adminNavigationBar}
                         {settings}
+                        {footer}
                     </>;
                 case 'record': return index =
                     <>
                         {adminNavigationBar}
                         {record}
+                        {footer}
                     </>;
                 default: return index =
                     <>
                         {adminNavigationBar}
                         {eventList}
+                        {footer}
                     </>
             }
 
@@ -275,21 +286,22 @@ class Index extends React.Component {
                     <>
                         {userNavigationBar}
                         {eventList}
+                        {footer}
                     </>;
                 case 'settings': return index =
                     <>
                         {userNavigationBar}
                         {settings}
+                        {footer}
                     </>;
                 default: return index =
                     <>
                         {userNavigationBar}
                         {eventList}
+                        {footer}
                     </>
             }
         }
-
-        return (<>{index}</>)
     }
 
 }
