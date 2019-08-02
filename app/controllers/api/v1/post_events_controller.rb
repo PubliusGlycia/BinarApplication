@@ -74,16 +74,18 @@ class Api::V1::PostEventsController < Api::V1::ApplicationController
 
     @post_event.images.attach(params[:image]) if params[:image]
 
-    if @post_event.save && (current_user.admin == false)
-      admin = User.where(admin: true).first
-      Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin.id)
+    if @post_event.save
+      if current_user.admin == false
+        admin = User.where(admin: true).first
+        Notification.create(notification_type: 1, post_event_id: @post_event.id, user_id: admin.id)
 
-      # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
-      NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver_later
+        # [fix] email_fix # 'adamjedrzejec@gmail.com' -> admin.email
+        NotificationMailer.post_create_email('adamjedrzejec@gmail.com').deliver_later
 
-      SlackNotifier::CLIENT.ping "💸 Boom! Nowy POST od #{current_user.email}! 💸"
-    else
-      render json: @post_event.errors, status: :unprocessable_entity
+        SlackNotifier::CLIENT.ping "💸 Boom! Nowy POST od #{current_user.email}! 💸"
+      else
+        render json: @post_event.errors, status: :unprocessable_entity
+      end
     end
   end
 
