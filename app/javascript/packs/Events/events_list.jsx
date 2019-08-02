@@ -2,7 +2,7 @@ import React from 'react';
 import Event from './event';
 import SearchBar from './search_bar';
 import LogoutButton from '../logout_button';
-import {Col, Container, ListGroup, Row} from 'react-bootstrap';
+import {Col, Container, ListGroup, Row, Navbar} from 'react-bootstrap';
 import NotificationButton from "../Notifications/notification_button";
 
 
@@ -106,18 +106,18 @@ export default class NotificationList extends React.Component {
             <div className='body'>
 
                 <Container fluid>
-                    <Row>
+                    <Navbar style={{ backgroundColor: '#4919aa', marginLeft: '-15px', marginRight: '-15px' }}>
                         <Col sm={9}>
                             <SearchBar fetchPostEventsWhenSearch={this.props.fetchPostEventsWhenSearch} />
                         </Col>
 
-                        <Col sm={1}>
+                        <Col sm={1} style={{ textAlign: 'center' }}>
                             <NotificationButton currentUserId={this.props.currentUserId} />
                         </Col>
                         <Col sm={2}>
                             <LogoutButton />
                         </Col>
-                    </Row>
+                    </Navbar>
 
 
                     <Row>

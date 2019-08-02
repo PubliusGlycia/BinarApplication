@@ -49,8 +49,8 @@ export default class NotificationButton extends React.Component {
         );
 
         const popover = (
-            <Popover id="popover-basic" style={{ background: 'primary', maxHeight: 200, overflow: 'auto'}}>
-                <ListGroup variant="flush" style={{ overflow: "hidden" }} >
+            <Popover id="popover-basic" style={{ background: 'primary', maxHeight: 200, overflow: 'auto', background: '#AC9DC9'}}>
+                <ListGroup variant="flush" style={{ overflow: "hidden", background: '#AC9DC9' }} >
                     {notificationList}
                 </ListGroup>
             </Popover>
