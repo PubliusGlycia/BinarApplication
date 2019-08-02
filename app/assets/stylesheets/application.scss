@@ -51,11 +51,16 @@ p:target::before {
 
 .text-field {
   background: #36372D !important;
+  margin-top: 0 !important;
+  position: absolute !important;
+  top: 50% !important;
+  -ms-transform: translateY(-50%) !important;
+  transform: translateY(-50%) !important;
 }
 
 .button-notification {
   background-color: #0074d9 !important;
   border-color: #0074d9 !important;
-  padding: 15px !important;
+  padding: auto !important;
   font-size: 20px !important;
 }

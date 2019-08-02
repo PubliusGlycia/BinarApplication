@@ -2,7 +2,7 @@ import React from 'react';
 import Event from './event';
 import SearchBar from './search_bar';
 import LogoutButton from '../logout_button';
-import {Col, Container, ListGroup, Row} from 'react-bootstrap';
+import {Col, Container, ListGroup, Row, Navbar} from 'react-bootstrap';
 import NotificationButton from "../Notifications/notification_button";
 
 
@@ -42,7 +42,7 @@ export default class NotificationList extends React.Component {
     render() {
 
         const defects = this.props.defects.map(defect =>
-            <p id={defect.id} >
+            <div id={defect.id} >
                 <ListGroup.Item key={defect.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={defect.id}
@@ -69,10 +69,10 @@ export default class NotificationList extends React.Component {
                         setProgress={in_progress => {this.updateDefectElement(defect, 'in_progress', in_progress)}}
                     />
                 </ListGroup.Item>
-            </p>
+            </div>
         );
         const supplies = this.props.supplies.map(supply =>
-            <p id={supply.id}>
+            <div id={supply.id}>
                 <ListGroup.Item  key={supply.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={supply.id}
@@ -99,25 +99,25 @@ export default class NotificationList extends React.Component {
                         setProgress={in_progress => {this.updateDefectElement(supply, 'in_progress', in_progress)}}
                     />
                 </ListGroup.Item>
-            </p>
+            </div>
             );
 
         return (
             <div className='body'>
 
                 <Container fluid>
-                    <Row>
+                    <Navbar style={{ backgroundColor: '#4919aa', marginLeft: '-15px', marginRight: '-15px' }}>
                         <Col sm={9}>
                             <SearchBar fetchPostEventsWhenSearch={this.props.fetchPostEventsWhenSearch} />
                         </Col>
 
-                        <Col sm={1}>
+                        <Col sm={1} style={{ textAlign: 'center' }}>
                             <NotificationButton currentUserId={this.props.currentUserId} />
                         </Col>
                         <Col sm={2}>
                             <LogoutButton />
                         </Col>
-                    </Row>
+                    </Navbar>
 
 
                     <Row>

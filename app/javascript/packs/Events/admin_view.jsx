@@ -3,7 +3,7 @@ import Event from './event';
 import SearchBar from './search_bar';
 import ArchiveButton from "./Archive/archive_button"
 import ShoppingListButton from './ShoppingList/shopping_list_button'
-import {Col, Container, ListGroup, Row} from 'react-bootstrap';
+import {Col, Container, ListGroup, Row, Navbar} from 'react-bootstrap';
 import NotificationButton from "../Notifications/notification_button";
 import LogoutButton from '../logout_button';
 
@@ -41,7 +41,7 @@ export default class AdminView extends React.Component {
 
     render() {
         const defects = this.props.defects.map(defect =>
-            <p id={defect.id} >
+            <div id={defect.id} >
                 <ListGroup.Item key={defect.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={defect.id}
@@ -68,11 +68,11 @@ export default class AdminView extends React.Component {
                         setProgress={in_progress => {this.updateDefectElement(defect, 'in_progress', in_progress)}}
                     />
                 </ListGroup.Item>
-            </p>
+            </div>
         );
 
         const supplies = this.props.supplies.map(supply =>
-            <p id={supply.id} >
+            <div id={supply.id} >
                 <ListGroup.Item key={supply.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={supply.id}
@@ -99,10 +99,10 @@ export default class AdminView extends React.Component {
                         setProgress={in_progress => {this.updateDefectElement(supply, 'in_progress', in_progress)}}
                     />
                 </ListGroup.Item>
-            </p>);
+            </div>);
 
         const others = this.props.others.map(other =>
-            <p id={other.id} >
+            <div id={other.id} >
                 <ListGroup.Item key={other.id} style={{background: 'transparent',cursor: 'pointer'}}>
                     <Event
                         key={other.id}
@@ -129,17 +129,17 @@ export default class AdminView extends React.Component {
                         setProgress={in_progress => {this.updateDefectElement(other, 'in_progress', in_progress)}}
                     />
                 </ListGroup.Item>
-            </p>);
+            </div>);
 
         return (
             <div className='body'>
 
                 <Container fluid>
-                    <Row>
-                        <Col sm={6}>
+                    <Navbar style={{ backgroundColor: '#4919aa', marginLeft: '-15px', marginRight: '-15px' }}>
+                        <Col sm={8}>
                             <SearchBar fetchPostEventsWhenSearch={this.props.fetchPostEventsWhenSearch} />
                         </Col>
-                        <Col sm={{offset: 1, span:1}}>
+                        <Col sm={1}>
                             <ArchiveButton
                                 notificationsToArchive={this.state.notificationsToArchive}
                                 fetchPostEvents={this.props.fetchPostEvents}
@@ -151,13 +151,13 @@ export default class AdminView extends React.Component {
                             <ShoppingListButton notificationsToShopping={this.state.notificationsToArchive}/>
                         </Col>
 
-                        <Col sm={1}>
+                        <Col sm={1} style={{ textAlign: 'center' }}>
                             <NotificationButton currentUserId={this.props.currentUserId} />
                         </Col>
                         <Col sm={1}>
                             <LogoutButton />
                         </Col>
-                    </Row>
+                    </Navbar>
 
                     <Row>
                         <Col>
