@@ -15,7 +15,7 @@ export default class SearchBar extends React.Component {
                         <Col>
                             <Form.Group>
                                 <Form.Control
-                                    className="text-field"
+                                    className="text-field search-bar"
                                     type='string'
                                     placeholder="Wyszukaj..."
                                     onChange={this.handleChange}
