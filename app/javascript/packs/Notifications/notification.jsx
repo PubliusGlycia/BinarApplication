@@ -12,7 +12,7 @@ export default class Notification extends React.Component {
             case '4': return output = <i>Oficer biura zatwierdził twoje zgłoszenie [{this.props.notification_count}]</i>;
             case '5': return output = <i>Użytkownik: {this.props.user_email} skomentował post [{this.props.notification_count}]</i>;
             default:
-                return 'Brak powiadomienia';
+                return <i>Brak powiadomienia</i>;
         }
 
         return (<>{output}</>)
