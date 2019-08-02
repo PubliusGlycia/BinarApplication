@@ -266,7 +266,7 @@ Devise.setup do |config|
       Rails.application.credentials[:production][:google_oauth2][:app_id],
       Rails.application.credentials[:production][:google_oauth2][:app_secret],
       redirect_uri:
-        "https://kier.binar.app"
+        "https://kier.binar.app/users/auth/google_oauth2/callback"
   # else
   #   config.omniauth :google_oauth2,
   #     Rails.application.credentials[:development][:google_oauth2][:app_id],
