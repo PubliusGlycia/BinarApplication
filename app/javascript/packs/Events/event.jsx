@@ -10,7 +10,7 @@ import ButtonInputField from '../button_input_field';
 import Like from './like';
 import CheckBox from './Archive/check_box';
 import DeleteAcceptancePopover from "../delete_acceptance_popover"
-import flame from "images/flame.png"
+import flame from "images/flame3.png"
 
 export default class Event extends React.Component {
   constructor(props, context) {
