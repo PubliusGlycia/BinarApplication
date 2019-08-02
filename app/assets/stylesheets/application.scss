@@ -64,3 +64,8 @@ p:target::before {
   padding: auto !important;
   font-size: 20px !important;
 }
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+}

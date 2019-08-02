@@ -141,24 +141,24 @@ export default class AdminView extends React.Component {
                         </Col>
                         <Col sm={4}>
                             <Row>
-                            <Col xs={3}>
-                                <ArchiveButton
-                                    notificationsToArchive={this.state.notificationsToArchive}
-                                    fetchPostEvents={this.props.fetchPostEvents}
-                                    clearArchiveList={this.clearArchiveList}
-                                />
-                            </Col>
+                                <Col className='button-group' xs={3}>
+                                    <ArchiveButton
+                                        notificationsToArchive={this.state.notificationsToArchive}
+                                        fetchPostEvents={this.props.fetchPostEvents}
+                                        clearArchiveList={this.clearArchiveList}
+                                    />
+                                </Col>
 
-                            <Col xs={4}>
-                                <ShoppingListButton notificationsToShopping={this.state.notificationsToArchive}/>
-                            </Col>
-
-                            <Col xs={2} style={{ textAlign: 'center' }}>
-                                <NotificationButton currentUserId={this.props.currentUserId} />
-                            </Col>
-                            <Col xs={3}>
-                                <LogoutButton />
-                            </Col></Row>
+                                <Col className='button-group' xs={3}>
+                                    <ShoppingListButton notificationsToShopping={this.state.notificationsToArchive}/>
+                                </Col>
+                                <Col className='button-group' xs={3} style={{ textAlign: 'center' }}>
+                                    <NotificationButton currentUserId={this.props.currentUserId} />
+                                </Col>
+                                <Col className='button-group' xs={3}>
+                                    <LogoutButton />
+                                </Col>
+                            </Row>
                         </Col>
                     </Navbar>
 

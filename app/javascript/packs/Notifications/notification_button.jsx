@@ -38,7 +38,7 @@ export default class NotificationButton extends React.Component {
 
         const notificationList = this.state.notificationList.map(notification =>
             <ListGroup.Item action key={notification.id} style={{ background: '#AC9DC9' }}>
-                <a href={`#${notification.post_event_id}`} >
+                <a href={`#${notification.post_event_id}`} style={{color: '#000'}}>
                 <Notification
                     notification_count={notification.count}
                     notification_type={notification.notification_type}
@@ -49,8 +49,8 @@ export default class NotificationButton extends React.Component {
         );
 
         const popover = (
-            <Popover id="popover-basic" style={{ background: 'primary', maxHeight: 200, overflow: 'auto'}}>
-                <ListGroup variant="flush" style={{ overflow: "hidden" }} >
+            <Popover id="popover-basic" style={{ background: 'primary', maxHeight: 200, overflow: 'auto', background: '#AC9DC9'}}>
+                <ListGroup variant="flush" style={{ overflow: "hidden", background: '#AC9DC9' }} >
                     {notificationList}
                 </ListGroup>
             </Popover>
