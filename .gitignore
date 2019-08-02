@@ -36,3 +36,5 @@
 yarn-debug.log*
 .yarn-integrity
 /storage
+# Ignore application configuration
+/config/application.yml

@@ -81,16 +81,10 @@ export default class ArchiveEvent extends React.Component {
     render() {
 
         const edit = this.state.edit;
-        let procText;
 
         let impText;
         if(this.props.importance == 'important'){ impText = "Pilne"; }
         else{ impText = "Niepilne"; }
-
-        if (this.props.currentUserId == this.props.admin) {
-            if (this.props.process == true) procText = "✅";
-            else procText = "Akceptuj zgłoszenie";
-        }
 
         return (
             <>
@@ -149,15 +143,6 @@ export default class ArchiveEvent extends React.Component {
                                             onChange={e =>{ this.props.setTitle(e.target.value)}}
                                         />
                                     </WarrningDiv>
-                                </Col>
-
-                                <Col md={1}>
-                                    <Button className="w-100 h-100"
-                                            variant="success"
-                                            onClick={this.handleProcess}
-                                    >
-                                        {procText}
-                                    </Button>
                                 </Col>
 
                                 <Col md={1}>

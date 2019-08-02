@@ -8,7 +8,7 @@ export default class ShoppingListButton extends React.Component {
 
     render() {
         return (
-            <a className='btn btn-warning' target='_blank' href={`shopping_list.pdf?${this.getParams()}`}>Generuj PDF</a>
+            <a className='btn btn-primary' target='_blank' href={`shopping_list.pdf?${this.getParams()}`}>Generuj PDF</a>
         )
     }
 }

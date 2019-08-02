@@ -41,6 +41,9 @@ gem 'popper_js', '~> 1.9', '>= 1.9.9'
 gem 'devise'
 gem 'omniauth-google-oauth2'
 
+# environment variables
+gem 'figaro'
+
 # database output
 gem 'hirb'
 
