@@ -10,6 +10,8 @@ import ButtonInputField from '../button_input_field';
 import Like from './like';
 import CheckBox from './Archive/check_box';
 import DeleteAcceptancePopover from "../delete_acceptance_popover"
+import flame from "images/flame3.png"
+
 
 export default class Event extends React.Component {
   constructor(props, context) {
@@ -107,9 +109,9 @@ export default class Event extends React.Component {
 
   importanceCheck() {
     if (this.props.importance == 'trivial')
-      return '!';
+      return;
     else if (this.props.importance == 'important')
-      return '!!!'
+      return <img src={ flame }/>
   }
 
   fetchPhotoUrls() {
@@ -178,12 +180,12 @@ export default class Event extends React.Component {
 
     if(this.props.in_progress == true)
     {
-      procText = 'success'
-      active = 'solid 2px #00DB1D';
+      procText = 'primary'
+      active = 'solid 2px #9C82D0';
     }
     else
     {
-      procText = 'outline-success';
+      procText = 'outline-primary';
       active = '';
     }
 

@@ -20,11 +20,43 @@
 
 .body{
   background: #36372d;
-  height: 100vh;
+  height: 91vh;
+}
+
+.footer{
+  height: 4vh;
+  background: #4919AA;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.footer-paragraph {
+  color: #FFF;
+}
+
+.hyperlink{
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
 }
 
 body{
   overflow: hidden;
+}
+
+@keyframes notification_light {
+  0%   {background-color: #36372D;}
+  50%  {background-color: #7e7e7e;}
+  100% {background-color: #36372D;}
+}
+
+.targetDiv:target {
+  animation-name: notification_light;
+  animation-duration: 750ms;
+  background: #36372D !important;
+}
+
+.targetDiv:target::before {
+  background: #36372D !important;
 }
 
 .col_title{
@@ -38,8 +70,8 @@ body{
 }
 
 .button-notification {
-  background-color: #2B185C !important;
-  border-color: #2B185C !important;
+  background-color: #0074d9 !important;
+  border-color: #0074d9 !important;
   padding: 15px !important;
   font-size: 20px !important;
 }
