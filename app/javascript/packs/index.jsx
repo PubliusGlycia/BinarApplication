@@ -135,7 +135,7 @@ class Index extends React.Component {
         axios.get('api/v1/admin/check.json')
             .then(response => {
                 if (response.data.admin === true) {
-                    this.setState({ admin: true, currentUserId: response.data.user_id });
+                    this.setState({ admin: true, currentUserId: response.data.user_id, currentUserEmail: response.data.user_email });
                 } else {
                     this.setState({ admin: false, currentUserId: response.data.user_id, currentUserEmail: response.data.user_email });
                 }
@@ -215,7 +215,7 @@ class Index extends React.Component {
                         <Col><a className="nav-item nav-link active text-center" onClick={this.changeToEvent} >Zgłoszenia</a></Col>
                         <Col><a className="nav-item nav-link text-center" onClick={this.changeToArchive}>Archiwum</a></Col>
                         <Col><a className="nav-item nav-link text-center" onClick={this.handleClick}>Ewidencja</a></Col>
-                        <Col><a className="nav-item nav-link text-center" onClick={this.changeToSettings}>Ustawienia</a></Col>
+                        <Col><a className="nav-item nav-link text-center">Witaj, {this.state.currentUserEmail}</a></Col>
                     </Row>
                 </div>
             </div>
@@ -233,7 +233,7 @@ class Index extends React.Component {
                             <CreateForm className="nav-item text-center" fetchPostEvents={this.fetchPostEvents} />
                         </Col>
                         <Col><a className="nav-item nav-link active text-center" onClick={this.changeToEvent}>Zgłoszenia</a></Col>
-                        <Col><a className="nav-item nav-link text-center" onClick={this.changeToSettings}>Ustawienia</a></Col>
+                        <Col><a className="nav-item nav-link text-center">Witaj, {this.state.currentUserEmail}</a></Col>
                     </Row>
                 </div>
             </div>
