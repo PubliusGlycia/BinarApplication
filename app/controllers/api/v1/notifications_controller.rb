@@ -5,7 +5,7 @@ class Api::V1::NotificationsController < Api::V1::ApplicationController
     @count = Notification.select('max(id) as id, notification_type, post_event_id, user_id, count(*)').
       group(:notification_type, :post_event_id, :user_id)
     @notification_data = @count.where(user_id: params[:user_id])
-    @user_email = User.where(id: params[:user_id]).first.email
+    #@post_title = PostEvent.find(params[:post_event_id]).title
   end
 
   def create
